@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/17 18:43:39 by deordone         ###   ########.fr        #
+#    Updated: 2024/06/17 18:47:02 by deordone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,12 +108,12 @@ banner:
 	@printf "           ) ) \n"
 	@printf "          / / \n"
 	@printf "         ( ( \n"
-	@printf "%b" "$(CYAN)Name:           $(RED)$(NAME)\n$(RESET)"
-	@printf "%b" "$(CYAN)Author:         $(RED)Droied4\n$(RESET)"
-	@printf "%b" "$(CYAN)Author:         $(RED)San-tito\n$(RESET)"
-	@printf "%b" "$(CYAN)CC:             $(RED)$(CC)\n$(RESET)"
-	@printf "%b" "$(CYAN)Flags:          $(RED)$(CFLAGS)\n$(RESET)"
-	@printf "%b" "$(RESET)"
+	@printf "%b" "$(BLUE)Name:           $(CYAN)$(NAME)\n$(RESET)"
+	@printf "%b" "$(BLUE)Author:         $(CYAN)Droied4\n$(RESET)"
+	@printf "%b" "$(BLUE)Author:         $(CYAN)San-tito\n$(RESET)"
+	@printf "%b" "$(BLUE)CC:             $(CYAN)$(CC)\n$(RESET)"
+	@printf "%b" "$(BLUE)Flags:          $(CYAN)$(CFLAGS)\n$(RESET)"
+	@printf "%b" "\n$(RESET)"
 
 -include $(DEPS) $(DEPS_MAIN)
 
