@@ -6,6 +6,13 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/17 15:43:28 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:07:15 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef CUB3D_H
+# define CUB3D_H
+
+# include "MLX42/MLX42.h"
+
+#endif
