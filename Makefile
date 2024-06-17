@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/17 18:47:02 by deordone         ###   ########.fr        #
+#    Updated: 2024/06/18 00:20:05 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME        = cub3D
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
 DFLAGS      = -MMD -MF $(@:.o=.d)
+AUTHORS		= Droied4 && San-tito
 UNAME 		= $(shell uname)
 
 ifeq ($(UNAME), Darwin)
@@ -87,30 +88,17 @@ all: banner $(NAME)
 
 banner:
 	@printf "%b" "$(PURPLE)\n"
-	@printf "          ___ \n"
-	@printf "        .\"---\". \n"
-	@printf "        :     : \n"
-	@printf "         --.-- \n"
-	@printf "          | | \n"
-	@printf "          | | \n"
-	@printf "          | | \n"
-	@printf "       _.-\\_/-._ \n"
-	@printf "    _ / |     |  \\ _ \n"
-	@printf "   / /   '---'    \\ \\ \n"
-	@printf "  /  '-----------'   \\ \n"
-	@printf " / .-\"\"-.       .-\"\"-.\\ \n"
-	@printf " ( i-..-i       i-..-i ) \n"
-	@printf " |'|    |-------|    |'| \n"
-	@printf " \\ '-..-'  .=.  '-..-' / \n"
-	@printf "  '--------|=|-------' \n"
-	@printf "          | | \n"
-	@printf "          \\ \\ \n"
-	@printf "           ) ) \n"
-	@printf "          / / \n"
-	@printf "         ( ( \n"
+	@echo
+	@echo " ▄▄▄▄▄▄▄ ▄▄   ▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄  "
+	@echo "█       █  █ █  █  ▄    █       █      █ "
+	@echo "█       █  █ █  █ █▄█   █▄▄▄    █  ▄    █"
+	@echo "█     ▄▄█  █▄█  █       █▄▄▄█   █ █ █   █"
+	@echo "█    █  █       █  ▄   ██▄▄▄    █ █▄█   █"
+	@echo "█    █▄▄█       █ █▄█   █▄▄▄█   █       █"
+	@echo "█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄█ "
+	@echo
 	@printf "%b" "$(BLUE)Name:           $(CYAN)$(NAME)\n$(RESET)"
-	@printf "%b" "$(BLUE)Author:         $(CYAN)Droied4\n$(RESET)"
-	@printf "%b" "$(BLUE)Author:         $(CYAN)San-tito\n$(RESET)"
+	@printf "%b" "$(BLUE)Authors:        $(CYAN)$(AUTHORS)\n$(RESET)"
 	@printf "%b" "$(BLUE)CC:             $(CYAN)$(CC)\n$(RESET)"
 	@printf "%b" "$(BLUE)Flags:          $(CYAN)$(CFLAGS)\n$(RESET)"
 	@printf "%b" "\n$(RESET)"
