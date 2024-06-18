@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/18 02:23:02 by sguzman          ###   ########.fr        #
+#    Updated: 2024/06/18 12:49:49 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ AUTHORS		= Droied4 && San-tito
 UNAME 		= $(shell uname)
 
 ifeq ($(UNAME), Darwin)
-	MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
-endif
-ifeq ($(UNAME), Linux)
-	MLXFLAGS = -ldl -lglfw -pthread -lm
+    MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
+else ifeq ($(UNAME), Linux)
+    MLXFLAGS = -ldl -lglfw -pthread -lm
+else
+    $(error Unsupported platform: $(UNAME))
 endif
 
 ifneq ($(SANITIZER),)
-CFLAGS += -fsanitize=$(SANITIZER)
+    CFLAGS += -fsanitize=$(SANITIZER)
 endif
 
 ################################################################################
@@ -41,7 +42,6 @@ OBJS_PATH    = ./build
 INCLUDE_PATH = ./include
 MLX_PATH     = ./libs/MLX42
 MLX          = $(MLX_PATH)/libmlx42.a
-HEADER       = $(INCLUDE_PATH)/cub3D.h
 
 SRCS         = # Add source files
 MAIN         = cub3D.c
@@ -131,11 +131,11 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 
 clean: banner
 	@rm -rf $(OBJS_PATH)
-	@printf "%-53b%b" "$(CYAN)clean:" "$(GREEN)[✓]$(RESET)\n"
+	@printf "%-53b%b" "$(CYAN)$(@):" "$(GREEN)[✓]$(RESET)\n"
 
 fclean: banner clean
 	@rm -rf $(NAME)
-	@printf "%-53b%b" "$(CYAN)fclean:" "$(GREEN)[✓]$(RESET)\n"
+	@printf "%-53b%b" "$(CYAN)$(@):" "$(GREEN)[✓]$(RESET)\n"
 
 re: fclean all
 
