@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/18 00:30:39 by droied           ###   ########.fr        #
+#    Updated: 2024/06/18 02:23:02 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,12 +68,12 @@ PURPLE = \033[0;35m
 CYAN   = \033[0;36m
 RESET  = \033[m
 
-define compile_and_report
-    printf "%b%-46b" "$(YELLOW)compiling " "$(RED)$(@F)$(RESET)"; \
-    $(1) ; \
+define compile
+    printf "%b%-46b" "$(BLUE)compiling " "$(CYAN)$(@F)$(RESET)"; \
+    $(1) > /dev/null 2>&1; \
     RESULT=$$?; \
     if [ $$RESULT -ne 0 ]; then \
-        printf "%b\n" "$(RED)[✖]$(RESET)"; \
+        printf "%b\n" "$(RED)[✗]$(RESET)"; \
     else  \
         printf "%b\n" "$(GREEN)[✓]$(RESET)"; \
     fi; \
@@ -89,7 +89,6 @@ all: banner $(NAME)
 banner:
 	@printf "%b" "$(GREEN)\n"
 	@echo
-	@echo ""
 	@echo "⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ "
 	@echo "⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ "
 	@echo "⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀ "
@@ -105,43 +104,38 @@ banner:
 	@echo "⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀ "
 	@echo "⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀ "
 	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉"
-	@printf "%b" "$(PURPLE)\n"
-	@echo " ▄▄▄▄▄▄▄ ▄▄   ▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄  "
-	@echo "█       █  █ █  █  ▄    █       █      █ "
-	@echo "█       █  █ █  █ █▄█   █▄▄▄    █  ▄    █"
-	@echo "█     ▄▄█  █▄█  █       █▄▄▄█   █ █ █   █"
-	@echo "█    █  █       █  ▄   ██▄▄▄    █ █▄█   █"
-	@echo "█    █▄▄█       █ █▄█   █▄▄▄█   █       █"
-	@echo "█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄█ "
+	@echo "░▒█▀▀▄░█░▒█░█▀▀▄░█▀▀█░█▀▄"
+	@echo "░▒█░░░░█░▒█░█▀▀▄░░▒▀▄░█░█"
+	@echo "░▒█▄▄▀░░▀▀▀░▀▀▀▀░█▄▄█░▀▀░"
 	@echo
-	@printf "%b" "$(BLUE)Name:           $(CYAN)$(NAME)\n$(RESET)"
-	@printf "%b" "$(BLUE)Authors:        $(CYAN)$(AUTHORS)\n$(RESET)"
-	@printf "%b" "$(BLUE)CC:             $(CYAN)$(CC)\n$(RESET)"
-	@printf "%b" "$(BLUE)Flags:          $(CYAN)$(CFLAGS)\n$(RESET)"
+	@printf "%b" "$(YELLOW)Name:           $(CYAN)$(NAME)\n$(RESET)"
+	@printf "%b" "$(YELLOW)Authors:        $(CYAN)$(AUTHORS)\n$(RESET)"
+	@printf "%b" "$(YELLOW)CC:             $(CYAN)$(CC)\n$(RESET)"
+	@printf "%b" "$(YELLOW)Flags:          $(CYAN)$(CFLAGS)\n$(RESET)"
 	@printf "%b" "\n$(RESET)"
 
 -include $(DEPS) $(DEPS_MAIN)
 
 $(MLX_PATH)/Makefile:
-	@$(call compile_and_report,cd $(MLX_PATH) && cmake -B .)
+	@$(call compile,cmake -B $(MLX_PATH) $(MLX_PATH))
 
 $(MLX): $(MLX_PATH)/Makefile
-	@$(call compile_and_report,make -C $(MLX_PATH))
+	@$(call compile,make -C $(MLX_PATH))
 
 $(NAME): $(OBJS) $(OBJS_MAIN) $(MLX) 
-	@$(call compile_and_report,$(CC) $(CFLAGS) $(MLXFLAGS) -I $(INCLUDE_PATH) -o $@ $^)
+	@$(call compile,$(CC) $(CFLAGS) $(MLXFLAGS) -I $(INCLUDE_PATH) -o $@ $^)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@mkdir -p $(dir $@)
-	@$(call compile_and_report,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH) -I $(MLX_PATH)/include)
+	@$(call compile,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH) -I $(MLX_PATH)/include)
 
 clean: banner
 	@rm -rf $(OBJS_PATH)
-	@printf "%-53b%b" "$(GREEN)clean:" "$(GREEN)[✓]$(RESET)\n"
+	@printf "%-53b%b" "$(CYAN)clean:" "$(GREEN)[✓]$(RESET)\n"
 
 fclean: banner clean
 	@rm -rf $(NAME)
-	@printf "%-53b%b" "$(GREEN)fclean:" "$(GREEN)[✓]$(RESET)\n"
+	@printf "%-53b%b" "$(CYAN)fclean:" "$(GREEN)[✓]$(RESET)\n"
 
 re: fclean all
 
