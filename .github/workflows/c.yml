@@ -13,6 +13,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+
+    - name: Linux requirements
+      run: sudo apt-get install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
     
     - name: Update submodules
       run: git submodule update --init --recursive
