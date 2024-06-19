@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/19 22:12:27 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/20 00:11:08 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	rendering_setup(t_game game)
 	mlx_set_setting(MLX_MAXIMIZED, 1);
 	game.mlx = mlx_init(WIDTH, HEIGHT, PROGRAM, 1);
 	if (game.mlx == 0)
-		sys_error();
+		libx_error();
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	if (game.img == 0 || (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0))
-		sys_error();
+		libx_error();
 	mlx_loop_hook(game.mlx, ft_hook, game.mlx);
 	mlx_loop(game.mlx);
 }

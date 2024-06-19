@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/19 22:08:39 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/20 00:12:04 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@
 # include "ft_printf.h"
 # include "map.h"
 # include "player.h"
+# include <errno.h>
+# include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 
 /*____________________________*/
 
