@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/20 00:11:08 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/20 01:14:46 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,23 @@ void	ft_hook(void *param)
 		printf("RIGHT\n");
 }
 
-void	rendering_setup(t_game game)
+void	rendering_setup(t_core core)
 {
 	mlx_set_setting(MLX_MAXIMIZED, 1);
-	game.mlx = mlx_init(WIDTH, HEIGHT, PROGRAM, 1);
-	if (game.mlx == 0)
+	core.mlx = mlx_init(WIDTH, HEIGHT, PROGRAM, 1);
+	if (core.mlx == 0)
 		libx_error();
-	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
-	if (game.img == 0 || (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0))
+	core.img = mlx_new_image(core.mlx, WIDTH, HEIGHT);
+	if (core.img == 0 || (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0))
 		libx_error();
-	mlx_loop_hook(game.mlx, ft_hook, game.mlx);
-	mlx_loop(game.mlx);
+	core.scene.tex = mlx_load_png(PT_WOLF);
+	if (!core.scene.tex)	
+		libx_error();
+	core.img = mlx_texture_to_image(core.mlx, core.scene.tex);
+	if (!core.img)
+		libx_error();
+	if (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0)
+		libx_error();
+	mlx_loop_hook(core.mlx, ft_hook, core.mlx);
+	mlx_loop(core.mlx);
 }

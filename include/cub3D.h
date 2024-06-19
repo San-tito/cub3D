@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/20 00:12:04 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/20 01:10:04 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,25 @@
 
 /*____________________________*/
 
-typedef struct s_game
+typedef struct s_scene
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
 	t_player	player;
 	t_map		map;
 	/* textures[4] textures for the four walls (N, S, E, W) */
+	mlx_texture_t	*tex;
 	/* Floor color */
 	/* Ceiling color */
-}				t_game;
+}				t_scene;
+
+typedef struct s_core
+{
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_scene			scene;
+}				t_core;
 
 /*WINDOW*/
-
+# define PT_WOLF "./assets/wolf.png"
 # define WIDTH 1280
 # define HEIGHT 720
 
@@ -70,6 +76,6 @@ typedef struct s_game
 
 # define PI 3.141592657
 
-void			rendering_setup(t_game game);
+void			rendering_setup(t_core core);
 
 #endif /* CUB3D_H */

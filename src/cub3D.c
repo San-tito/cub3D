@@ -6,23 +6,23 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/19 22:15:35 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/20 00:40:26 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	terminate(t_game game)
+void	terminate(t_core core)
 {
-	mlx_terminate(game.mlx);
+	mlx_terminate(core.mlx);
 }
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	t_core	core;
 
-	game.map = load_map(argc, argv);
-	rendering_setup(game);
-	terminate(game);
+	core.scene.map = load_map(argc, argv);
+	rendering_setup(core);
+	terminate(core);
 	return (EXIT_SUCCESS);
 }
