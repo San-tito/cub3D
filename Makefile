@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/19 19:11:31 by sguzman          ###   ########.fr        #
+#    Updated: 2024/06/19 19:45:06 by droied           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME        = cub3D
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DFLAGS      = -MMD -MF $(@:.o=.d)
 AUTHORS		= Droied4 && San-tito
 UNAME 		= $(shell uname)
@@ -43,7 +43,7 @@ INCLUDE_PATH = ./include
 MLX_PATH     = ./libs/MLX42
 MLX          = $(MLX_PATH)/libmlx42.a
 
-SRCS         = # Add source files
+SRCS         = map.c # Add source files
 MAIN         = cub3D.c
 
 ################################################################################
@@ -70,7 +70,7 @@ RESET  = \033[m
 
 define compile
     printf "%b%-46b" "$(BLUE)compiling " "$(CYAN)$(@F)$(RESET)"; \
-    $(1) > /dev/null 2>&1; \
+    $(1) > /dev/null; \
     RESULT=$$?; \
     if [ $$RESULT -ne 0 ]; then \
         printf "%b\n" "$(RED)[✗]$(RESET)"; \

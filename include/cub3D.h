@@ -6,14 +6,28 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/19 19:09:18 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/19 19:56:56 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+/************PROGRAM***********/
+
 # define PROGRAM "cub3D"
+
+/*____________________________*/
+
+/***********INCLUDES***********/
+
+# include "MLX42/MLX42.h"
+# include "color.h"
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+
+/*____________________________*/
 
 /***********PLAYER*************/
 
@@ -23,9 +37,9 @@
 /*WEAPON*/
 # define STARTAMMO 8
 
-/******************************/
+/*____________________________*/
 
-/***********MAP****************/
+/************MAP***************/
 
 # define NORTH 0
 # define EAST 1
@@ -51,11 +65,13 @@
 # define VANG270 270
 # define VANG360 360
 
-/******************************/
+/*____________________________*/
 
 # define PI 3.141592657
 
-# include "MLX42/MLX42.h"
-# include <math.h>
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void	ft_hook(void *param);
+
+int			check_map(int ac, char **av);
 
 #endif

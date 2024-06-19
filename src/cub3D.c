@@ -6,42 +6,21 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/19 19:09:29 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/19 20:05:22 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#define WIDTH 1280
-#define HEIGHT 720
-
-static mlx_image_t	*image;
-
-// -----------------------------------------------------------------------------
 
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	ft_randomize(void *param)
+static void	ft_error(void)
 {
-	(void)param;
-	for (uint32_t i = 0; i < image->width; ++i)
-	{
-		for (uint32_t y = 0; y < image->height; ++y)
-		{
-			uint32_t color = ft_pixel(rand() % 0xFF, // R
-										rand() % 0xFF, // G
-										rand() % 0xFF, // B
-										rand() % 0xFF  // A
-			);
-			mlx_put_pixel(image, i, y, color);
-		}
-	}
+	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
 }
 
 void	ft_hook(void *param)
@@ -52,40 +31,30 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
+		printf("UP\n");
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
+		printf("DOWN\n");
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
+		printf("LEFT\n");
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
+		printf("RIGHT\n");
 }
 
 // -----------------------------------------------------------------------------
 
-int32_t	main(void)
+int32_t	main(int ac, char **av)
 {
-	mlx_t	*mlx;
+	mlx_image_t	*img;
+	mlx_t		*mlx;
 
-	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-	{
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (!(image = mlx_new_image(mlx, 128, 128)))
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	mlx_loop_hook(mlx, ft_randomize, mlx);
+	check_map(ac, av);
+	mlx_set_setting(MLX_MAXIMIZED, 1);
+	mlx = mlx_init(WIDTH, HEIGHT, PROGRAM, 1);
+	if (mlx == 0)
+		ft_error();
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (img == 0 || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+		ft_error();
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
