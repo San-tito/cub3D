@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/19 19:45:06 by droied           ###   ########.fr        #
+#    Updated: 2024/06/19 20:31:14 by droied           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,10 +131,12 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 
 clean: banner
 	@rm -rf $(OBJS_PATH)
+	@$(call compile,make clean -C $(MLX_PATH))
 	@printf "%-53b%b" "$(CYAN)$(@):" "$(GREEN)[✓]$(RESET)\n"
 
 fclean: banner clean
 	@rm -rf $(NAME)
+	@$(call compile,make clean -C $(MLX_PATH))
 	@printf "%-53b%b" "$(CYAN)$(@):" "$(GREEN)[✓]$(RESET)\n"
 
 re: fclean all
