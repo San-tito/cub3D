@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/18 14:57:15 by deordone         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:09:29 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WIDTH 512
-#define HEIGHT 512
+#define WIDTH 1280
+#define HEIGHT 720
 
 static mlx_image_t	*image;
 
