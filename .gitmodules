@@ -1,9 +1,6 @@
 [submodule "libs/MLX42"]
 	path = libs/MLX42
 	url = https://github.com/codam-coding-college/MLX42.git
-[submodule "libs/ft_printf"]
-	path = libs/ft_printf
-	url = https://github.com/San-tito/ft_printf.git
 [submodule "libs/libftprintf"]
 	path = libs/libftprintf
 	url = https://github.com/San-tito/ft_printf.git
