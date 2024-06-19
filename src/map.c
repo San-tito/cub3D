@@ -6,51 +6,28 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/06/19 20:13:53 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/19 22:18:33 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	check_file_extension(const char *filename, const char *expected)
 {
-	size_t	i;
+	const char	*ext = ft_strrchr(filename, '.');
 
-	i = -1;
-	while (s1[++i] != '\0' && s2[i] != '\0' && n > i)
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	}
-	if (i != n)
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	return (0);
+	if (ext == 0 || ft_strncmp(ext, expected, ft_strlen(ext)) != 0
+		|| ext[ft_strlen(expected)] != 0)
+		fatal_error("file must have a %s extension: %s", expected, filename);
 }
 
-static size_t	ft_strlen(const char *s)
+t_map	load_map(int argc, char **argv)
 {
-	size_t	i;
+	t_map	map;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int check_map(int ac, char **av)
-{
-	int l_mapath;
-
-	if (ac != 2)
-	{
-		printf(RED "cub3D: Invalid Number Of Arguments\n" RESET);
-		exit(1);
-	}
-	l_mapath = ft_strlen(av[1]) - 4;
-	if (ft_strncmp(&av[1][l_mapath], ".cub", 4) != 0)
-	{
-		printf(RED "cub3D: invalid map\n" RESET);
-		exit(1);
-	}
-	return (0);
+	if (argc != 2)
+		fatal_error("usage: %s <map_file>", *argv);
+	check_file_extension(*(argv + 1), ".cub");
+	map = (t_map){};
+	return (map);
 }

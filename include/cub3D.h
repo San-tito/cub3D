@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/19 21:13:54 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/19 22:08:39 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # include "MLX42/MLX42.h"
 # include "color.h"
+# include "error.h"
 # include "ft_printf.h"
 # include "map.h"
 # include "player.h"
@@ -32,12 +33,16 @@
 
 /*____________________________*/
 
-/************MAP***************/
-
-# define NORTH 0
-# define EAST 1
-# define SOUTH 2
-# define WEST 3
+typedef struct s_game
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_player	player;
+	t_map		map;
+	/* textures[4] textures for the four walls (N, S, E, W) */
+	/* Floor color */
+	/* Ceiling color */
+}				t_game;
 
 /*WINDOW*/
 
@@ -62,9 +67,6 @@
 
 # define PI 3.141592657
 
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-void	ft_hook(void *param);
-
-int		check_map(int ac, char **av);
+void			rendering_setup(t_game game);
 
 #endif /* CUB3D_H */
