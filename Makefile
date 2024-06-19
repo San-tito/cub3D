@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/19 20:31:14 by droied           ###   ########.fr        #
+#    Updated: 2024/06/19 21:08:39 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,10 @@ OBJS_PATH    = ./build
 INCLUDE_PATH = ./include
 MLX_PATH     = ./libs/MLX42
 MLX          = $(MLX_PATH)/libmlx42.a
+LIBFTPRINTF_PATH = ./libs/libftprintf
+LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = map.c # Add source files
+SRCS         = player.c map.c
 MAIN         = cub3D.c
 
 ################################################################################
