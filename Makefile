@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/18 12:49:49 by sguzman          ###   ########.fr        #
+#    Updated: 2024/06/19 19:11:31 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ UNAME 		= $(shell uname)
 ifeq ($(UNAME), Darwin)
     MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(UNAME), Linux)
-    MLXFLAGS = -ldl -lglfw -pthread -lm
+    MLXFLAGS = -ldl -lglfw -lm
 else
     $(error Unsupported platform: $(UNAME))
 endif
@@ -123,7 +123,7 @@ $(MLX): $(MLX_PATH)/Makefile
 	@$(call compile,make -C $(MLX_PATH))
 
 $(NAME): $(OBJS) $(OBJS_MAIN) $(MLX) 
-	@$(call compile,$(CC) $(CFLAGS) $(MLXFLAGS) -I $(INCLUDE_PATH) -o $@ $^)
+	@$(call compile,$(CC) $(CFLAGS) -I $(INCLUDE_PATH) $^ $(MLXFLAGS) -o $@)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@mkdir -p $(dir $@)
