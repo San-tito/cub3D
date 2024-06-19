@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/20 01:43:37 by droied           ###   ########.fr        #
+#    Updated: 2024/06/20 01:44:12 by droied           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,8 @@ all: banner $(NAME)
 
 commit : fclean 
 	@echo "Use make commit MSG=\"your commit message\""
-	git	add	.
+	@git	add	.
+	git	status
 	git	commit	-m	"$(MSG)"
 
 banner:
