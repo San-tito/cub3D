@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/06/25 15:30:48 by santito          ###   ########.fr       */
+/*   Updated: 2024/06/25 22:19:53 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef enum e_orient
 	SOUTH = 'S',
 	WEST = 'W'
 }					t_orient;
+
+typedef struct s_vec
+{
+	int x;
+	int y;
+}			t_vec;
 
 typedef enum e_zone
 {
@@ -54,7 +60,7 @@ typedef struct s_assets
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
-	mlx_texture_t	*wolf;
+	mlx_texture_t	*prueba;
 }					t_assets;
 
 typedef struct s_scene

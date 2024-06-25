@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:30:31 by santito          ###   ########.fr       */
+/*   Updated: 2024/06/26 00:51:05 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_core
 }				t_core;
 
 /*WINDOW*/
-# define PT_WOLF "./assets/wolf.png"
+# define PT_PRUEBA "./assets/circle.png"
 # define WIDTH 1280
 # define HEIGHT 720
 
@@ -64,5 +64,7 @@ typedef struct s_core
 # define PI 3.141592657
 
 void			rendering_setup(t_core core);
+void			draw_minimap(t_core core);
+void			ft_hook(void *param);
 
 #endif /* CUB3D_H */
