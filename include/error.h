@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:31:49 by santito          ###   ########.fr       */
+/*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
+/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-void	terminate(t_core core)
-{
-	mlx_terminate(core.mlx);
-}
+void	fatal_error(const char *format, ...);
+void	sys_error(const char *format, ...);
+void	libx_error(const char *format, ...);
 
-int	main(int argc, char **argv)
-{
-	t_core	core;
-
-	core.scene = create_scene(argc, argv);
-	rendering_setup(core);
-	terminate(core);
-	return (EXIT_SUCCESS);
-}
+#endif /* ERROR_H */

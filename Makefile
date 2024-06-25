@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/18 12:49:49 by sguzman          ###   ########.fr        #
+#    Updated: 2024/06/25 03:21:27 by droied           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME        = cub3D
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DFLAGS      = -MMD -MF $(@:.o=.d)
 AUTHORS		= Droied4 && San-tito
 UNAME 		= $(shell uname)
@@ -24,7 +24,7 @@ UNAME 		= $(shell uname)
 ifeq ($(UNAME), Darwin)
     MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(UNAME), Linux)
-    MLXFLAGS = -ldl -lglfw -pthread -lm
+    MLXFLAGS = -ldl -lglfw -lm
 else
     $(error Unsupported platform: $(UNAME))
 endif
@@ -42,8 +42,10 @@ OBJS_PATH    = ./build
 INCLUDE_PATH = ./include
 MLX_PATH     = ./libs/MLX42
 MLX          = $(MLX_PATH)/libmlx42.a
+LIBFTPRINTF_PATH = ./libs/libftprintf
+LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = # Add source files
+SRCS         = error.c graphics.c map.c player.c
 MAIN         = cub3D.c
 
 ################################################################################
@@ -70,7 +72,7 @@ RESET  = \033[m
 
 define compile
     printf "%b%-46b" "$(BLUE)compiling " "$(CYAN)$(@F)$(RESET)"; \
-    $(1) > /dev/null 2>&1; \
+    $(1) > /dev/null; \
     RESULT=$$?; \
     if [ $$RESULT -ne 0 ]; then \
         printf "%b\n" "$(RED)[✗]$(RESET)"; \
@@ -84,7 +86,7 @@ endef
 #                                 Makefile rules                               #
 ################################################################################
 
-all: banner $(NAME)
+all: banner $(NAME) 
 
 banner:
 	@printf "%b" "$(GREEN)\n"
@@ -122,21 +124,27 @@ $(MLX_PATH)/Makefile:
 $(MLX): $(MLX_PATH)/Makefile
 	@$(call compile,make -C $(MLX_PATH))
 
-$(NAME): $(OBJS) $(OBJS_MAIN) $(MLX) 
-	@$(call compile,$(CC) $(CFLAGS) $(MLXFLAGS) -I $(INCLUDE_PATH) -o $@ $^)
+$(LIBFTPRINTF):
+	@$(call compile,make -C $(LIBFTPRINTF_PATH))
+
+$(NAME): $(OBJS) $(OBJS_MAIN) $(MLX) $(LIBFTPRINTF)
+	@$(call compile,$(CC) $(CFLAGS) $^ $(MLXFLAGS) -o $@)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@mkdir -p $(dir $@)
-	@$(call compile,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH) -I $(MLX_PATH)/include)
+	@$(call compile,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH) -I $(MLX_PATH)/include -I $(LIBFTPRINTF_PATH)/include)
 
 clean: banner
+	@make $@ -C $(LIBFTPRINTF_PATH) > /dev/null
+	@make $@ -C $(MLX_PATH) > /dev/null
 	@rm -rf $(OBJS_PATH)
 	@printf "%-53b%b" "$(CYAN)$(@):" "$(GREEN)[✓]$(RESET)\n"
 
 fclean: banner clean
+	@make $@ -C $(LIBFTPRINTF_PATH) > /dev/null
 	@rm -rf $(NAME)
 	@printf "%-53b%b" "$(CYAN)$(@):" "$(GREEN)[✓]$(RESET)\n"
 
 re: fclean all
 
-.PHONY: all clean fclean re header
+.PHONY: all clean fclean re header commit
