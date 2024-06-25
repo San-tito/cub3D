@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/20 01:10:04 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/25 14:20:18 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 # include "MLX42/MLX42.h"
 # include "color.h"
 # include "error.h"
+# include "scene.h"
 # include "ft_printf.h"
-# include "map.h"
-# include "player.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -42,6 +41,8 @@ typedef struct s_scene
 	t_map		map;
 	/* textures[4] textures for the four walls (N, S, E, W) */
 	mlx_texture_t	*tex;
+	int		floorColor[3];
+	int		ceilingColor[3];
 	/* Floor color */
 	/* Ceiling color */
 }				t_scene;
