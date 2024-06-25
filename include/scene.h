@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/06/25 14:20:46 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:01:40 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef enum e_zone
 	DOOR = 'D'
 }				t_zone;
 
-
 typedef struct s_player
 {
 	void *pos; /* Player's position */
@@ -38,6 +37,7 @@ typedef struct s_player
 /* ****************** */
 /*       PLAYER       */
 /* ****************** */
+
 # define PLAYERSPEED 3000
 # define RUNSPEED 6000
 

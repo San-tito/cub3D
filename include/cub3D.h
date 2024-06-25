@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 14:20:18 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:12:16 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "MLX42/MLX42.h"
 # include "color.h"
 # include "error.h"
-# include "scene.h"
 # include "ft_printf.h"
+# include "scene.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -33,26 +33,37 @@
 # include <stdlib.h>
 # include <string.h>
 
-/*____________________________*/
+typedef enum e_rgb
+{
+	RED = 0,
+	GREEN = 0,
+	BLUE = 0
+}					t_rgb;
+
+typedef struct s_texture
+{
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*east;
+	mlx_texture_t	*west;
+	mlx_texture_t	*wolf;
+}					t_texture;
 
 typedef struct s_scene
 {
-	t_player	player;
-	t_map		map;
-	/* textures[4] textures for the four walls (N, S, E, W) */
-	mlx_texture_t	*tex;
-	int		floorColor[3];
-	int		ceilingColor[3];
-	/* Floor color */
-	/* Ceiling color */
-}				t_scene;
+	t_player		player;
+	t_map			map;
+	t_texture		tex;
+	t_rgb			floor_color;
+	t_rgb			roof_color;
+}					t_scene;
 
 typedef struct s_core
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_scene			scene;
-}				t_core;
+}					t_core;
 
 /*WINDOW*/
 # define PT_WOLF "./assets/wolf.png"
@@ -77,6 +88,6 @@ typedef struct s_core
 
 # define PI 3.141592657
 
-void			rendering_setup(t_core core);
+void				rendering_setup(t_core core);
 
 #endif /* CUB3D_H */

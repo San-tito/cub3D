@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/20 01:14:46 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:13:17 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	rendering_setup(t_core core)
 	core.img = mlx_new_image(core.mlx, WIDTH, HEIGHT);
 	if (core.img == 0 || (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0))
 		libx_error();
-	core.scene.tex = mlx_load_png(PT_WOLF);
-	if (!core.scene.tex)	
+	core.scene.tex.wolf = mlx_load_png(PT_WOLF);
+	if (!core.scene.tex.wolf)	
 		libx_error();
-	core.img = mlx_texture_to_image(core.mlx, core.scene.tex);
+	core.img = mlx_texture_to_image(core.mlx, core.scene.tex.wolf);
 	if (!core.img)
 		libx_error();
 	if (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0)
