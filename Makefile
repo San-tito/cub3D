@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/20 01:47:03 by droied           ###   ########.fr        #
+#    Updated: 2024/06/25 03:21:27 by droied           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,6 @@ endif
 ifneq ($(SANITIZER),)
     CFLAGS += -fsanitize=$(SANITIZER)
 endif
-
-################################################################################
-#                                     GITHUB                                   #
-################################################################################
-
-MSG ?= "fix: bugs"
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -93,14 +87,6 @@ endef
 ################################################################################
 
 all: banner $(NAME) 
-
-commit : fclean 
-	@echo
-	@echo "Use \"make commit MSG=<your commit message>\""
-	@echo
-	@git	add	.
-	@git	status
-	@git	commit	-m	"$(MSG)" > /dev/null
 
 banner:
 	@printf "%b" "$(GREEN)\n"
