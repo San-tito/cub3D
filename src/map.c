@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/06/25 14:52:24 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:29:41 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	check_file_extension(const char *filename, const char *expected)
 		|| ext[ft_strlen(expected)] != 0);
 }
 
-t_map	load_map(int argc, char **argv)
+t_scene	create_scene(int argc, char **argv)
 {
-	t_map	map;
+	t_scene	scene;
 	int		fd;
 
 	if (argc != 2)
@@ -32,6 +32,6 @@ t_map	load_map(int argc, char **argv)
 	fd = open(*(argv + 1), O_RDONLY, 0666);
 	if (fd < 0)
 		sys_error("error opening file %s", *(argv + 1));
-	map = (t_map){};
-	return (map);
+	scene = (t_scene){};
+	return (scene);
 }

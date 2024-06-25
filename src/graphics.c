@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:13:17 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:31:32 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ void	rendering_setup(t_core core)
 	mlx_set_setting(MLX_MAXIMIZED, 1);
 	core.mlx = mlx_init(WIDTH, HEIGHT, PROGRAM, 1);
 	if (core.mlx == 0)
-		libx_error();
+		libx_error("mlx error");
 	core.img = mlx_new_image(core.mlx, WIDTH, HEIGHT);
 	if (core.img == 0 || (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0))
-		libx_error();
-	core.scene.tex.wolf = mlx_load_png(PT_WOLF);
-	if (!core.scene.tex.wolf)	
-		libx_error();
-	core.img = mlx_texture_to_image(core.mlx, core.scene.tex.wolf);
+		libx_error("mlx error");
+	core.scene.assets.wolf = mlx_load_png(PT_WOLF);
+	if (!core.scene.assets.wolf)
+		libx_error("mlx error");
+	core.img = mlx_texture_to_image(core.mlx, core.scene.assets.wolf);
 	if (!core.img)
-		libx_error();
+		libx_error("mlx error");
 	if (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0)
-		libx_error();
+		libx_error("mlx error");
 	mlx_loop_hook(core.mlx, ft_hook, core.mlx);
 	mlx_loop(core.mlx);
 }

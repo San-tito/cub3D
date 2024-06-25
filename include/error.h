@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/20 00:09:59 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 void	fatal_error(const char *format, ...);
 void	sys_error(const char *format, ...);
-void	libx_error(void);
+void	libx_error(const char *format, ...);
 
 #endif /* ERROR_H */
