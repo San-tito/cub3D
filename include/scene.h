@@ -6,12 +6,16 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/06/25 22:19:53 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/26 02:19:23 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
+
+# define MINI_P_SIZE 5
+# define MINI_M_X 130
+# define MINI_M_Y 130
 
 typedef enum e_orient
 {
@@ -21,10 +25,19 @@ typedef enum e_orient
 	WEST = 'W'
 }					t_orient;
 
+typedef struct s_vec3
+{
+	float x;
+	float y;
+	float dx;
+	float dy;
+	float a;
+}			t_vec3;
+
 typedef struct s_vec
 {
-	int x;
-	int y;
+	float x;
+	float y;
 }			t_vec;
 
 typedef enum e_zone
@@ -54,6 +67,12 @@ typedef struct s_map
 	int				width;
 }					t_map;
 
+typedef struct s_minimap
+{
+	t_vec	m;
+	t_vec3	p;
+}				t_minimap;
+
 typedef struct s_assets
 {
 	mlx_texture_t	*north;
@@ -65,8 +84,9 @@ typedef struct s_assets
 
 typedef struct s_scene
 {
-	t_player		player;
 	t_map			map;
+	t_player		player;
+	t_minimap		minimap;
 	t_assets		assets;
 	int				floor_color;
 	int				roof_color;

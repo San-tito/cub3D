@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/26 00:51:05 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/26 02:21:00 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ typedef struct s_core
 void			rendering_setup(t_core core);
 void			draw_minimap(t_core core);
 void			ft_hook(void *param);
+void			draw_character(t_core core, t_vec3 c, int base);
 
 #endif /* CUB3D_H */

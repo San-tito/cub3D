@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/26 00:47:30 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/26 01:40:57 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	rendering_setup(t_core core)
 	if (core.img == 0)
 		libx_error("mlx error");
 	draw_minimap(core);
-	mlx_loop_hook(core.mlx, ft_hook, core.mlx);
+	mlx_loop_hook(core.mlx, ft_hook, &core);
 	mlx_loop(core.mlx);
 }
