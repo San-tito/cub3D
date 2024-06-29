@@ -6,14 +6,14 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/06/26 02:19:23 by droied           ###   ########.fr       */
+/*   Updated: 2024/06/29 11:41:16 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
-
 # define MINI_P_SIZE 5
+# define MINI_M_SIZE 100
 # define MINI_M_X 130
 # define MINI_M_Y 130
 
@@ -92,6 +92,6 @@ typedef struct s_scene
 	int				roof_color;
 }					t_scene;
 
-t_scene				create_scene(int argc, char **argv);
+t_scene			create_scene(int argc, char **argv);
 
 #endif /* SCENE_H */
