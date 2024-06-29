@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/06/29 17:31:37 by deordone         ###   ########.fr       */
+/*   Updated: 2024/06/30 00:00:48 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,33 +103,31 @@ void	draw_circle(mlx_image_t *img, t_vec c, int radius)
 
 void	dda_line(t_core core, t_vec p1, t_vec p2)
 {
-	t_vec map;
-	t_vec draw;
-	map.x = MINI_M_X;
-	map.y = MINI_M_Y;
-	double x, y, dx, dy, p, xi, yi, k;
-	dx = fabs(p2.x - p1.x);
-	dy = fabs(p2.y - p1.y);
-	if (dx > dy)
-		p = dx;
+	t_vec	draw;
+	t_vec	steps;
+	t_vec	delta;
+	delta.x = fabs(p2.x - p1.x);
+	delta.y = fabs(p2.y - p1.y);
+	draw.x = p1.x;
+	draw.y = p1.y;
+
+	if (delta.x > delta.y)
+		steps.x = delta.x;
 	else
-		p = dy;
-	xi = dx / p;
-	yi = dy / p;
+		steps.x = delta.y;
+	delta.x = delta.x / steps.x;
+	delta.y = delta.y / steps.x;
 	if (p1.x > p2.x)
-		xi *= (-1);
+		delta.x *= (-1);
 	if (p1.y > p2.y)
-		yi *= (-1);
-	x = p1.x;
-	y = p1.y;
-	for (k = 1; k <= p; k++)
+		delta.y *= (-1);
+	steps.y = -1;
+	while (++steps.y <= steps.x)
 	{
-		x += xi;
-		y += yi;
-		draw.x = x;
-		draw.y = y;
-		if (in_bounds(map, draw, MINI_M_SIZE))
-			mlx_put_pixel(core.img, x, y, 0x008A2BE2);
+		if (in_bounds(p1, draw, MINI_M_SIZE))
+			mlx_put_pixel(core.img, draw.x, draw.y, 0x008A2BE2);
+		draw.x += delta.x;
+		draw.y += delta.y;
 	}
 }
 
@@ -138,6 +136,7 @@ void	draw_character(t_core core, t_vec3 c, int base)
 	t_vec init;
 	t_vec final;
 	(void)base;	
+
 	c.dx = cos(c.a) * 5;
 	c.dy = sin(c.a) * 5;
 	init.x = c.x;
