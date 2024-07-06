@@ -6,16 +6,12 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 03:16:28 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 04:24:34 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
-# define MINI_P_SIZE 5
-# define MINI_M_SIZE 100
-# define MINI_M_X 130
-# define MINI_M_Y 130
 
 typedef enum e_orient
 {

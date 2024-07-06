@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 03:12:23 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 04:26:08 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,18 +125,17 @@ void	dda_line(t_core core, t_vec p1, t_vec p2)
 	steps.y = -1;
 	while (++steps.y <= steps.x)
 	{
-		if (in_bounds(p1, draw, MINI_M_SIZE))
+		if (in_bounds(p1, draw, core.scene.minimap.size))
 			mlx_put_pixel(core.img, draw.x, draw.y, 0x008A2BE2);
 		draw.x += delta.x;
 		draw.y += delta.y;
 	}
 }
 
-void	draw_character(t_core core, t_vec3 c, int base)
+void	draw_character(t_core core, t_vec3 c)
 {
 	t_vec init;
 	t_vec final;
-	(void)base;	
 
 	c.dx = cos(c.a) * 5;
 	c.dy = sin(c.a) * 5;
@@ -156,7 +155,7 @@ void	draw_minimap(t_core core)
 		libx_error("mlx error");
 	minimap = core.scene.minimap;
 	draw_circle(core.img, minimap.m, core.scene.minimap.size);
-	draw_character(core, minimap.p, MINI_P_SIZE);
+	draw_character(core, minimap.p);
 	if (core.img == 0 || (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0))
 		libx_error("mlx error");
 }
