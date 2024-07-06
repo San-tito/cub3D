@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 10:51:10 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:18:52 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,16 @@ void	draw_circle(mlx_image_t *img, t_vec c, int radius)
 	}
 }
 
-
 void	dda_line(t_core core, t_vec p1, t_vec p2)
 {
 	t_vec	draw;
 	t_vec	steps;
 	t_vec	delta;
+
 	delta.x = fabs(p2.x - p1.x);
 	delta.y = fabs(p2.y - p1.y);
 	draw.x = p1.x;
 	draw.y = p1.y;
-
 	if (delta.x > delta.y)
 		steps.x = delta.x;
 	else
@@ -125,7 +124,14 @@ void	dda_line(t_core core, t_vec p1, t_vec p2)
 	while (++steps.y <= steps.x)
 	{
 		if (in_bounds(p1, draw, core.scene.minimap.size))
+		{
+			mlx_put_pixel(core.img, draw.x - 2, draw.y, 0x008A2BE2);
+			mlx_put_pixel(core.img, draw.x - 1, draw.y, 0x008A2BE2);
 			mlx_put_pixel(core.img, draw.x, draw.y, 0x008A2BE2);
+			mlx_put_pixel(core.img, draw.x + 1, draw.y, 0x008A2BE2);
+			mlx_put_pixel(core.img, draw.x + 2, draw.y, 0x008A2BE2);
+			mlx_put_pixel(core.img, draw.x + 3, draw.y, 0x008A2BE2);
+		}
 		draw.x += delta.x;
 		draw.y += delta.y;
 	}
@@ -133,15 +139,15 @@ void	dda_line(t_core core, t_vec p1, t_vec p2)
 
 void	draw_character(t_core core, t_vec3 c)
 {
-	t_vec init;
-	t_vec final;
+	t_vec	init;
+	t_vec	final;
 
 	c.dx = cos(c.a) * 5;
 	c.dy = sin(c.a) * 5;
 	init.x = c.x;
 	init.y = c.y;
-	final.x = c.dx + c.x;
-	final.y = c.dy + c.y;
+	final.x = c.x + (c.dx * 3);
+	final.y = c.y + (c.dy * 3);
 	dda_line(core, init, final);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 10:45:37 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:19:30 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_core *init_minimap(t_core *core)
 	min_map.p.dy = sin(deg2rad(min_map.p.a)) * 5;
 	min_map.size = div2(ft_div(core->scene.width, 8));
 	core->scene.minimap = min_map;
+	draw_minimap(core);
 	return (core);
 }
 
@@ -35,13 +36,7 @@ void	rendering_setup(t_core core)
 		libx_error("mlx error");
 	mlx_get_monitor_size(0, &core.scene.width, &core.scene.height);
 	mlx_set_window_size(core.mlx, core.scene.width, core.scene.height);
-	//dprintf(2, "width %d\n", core.scene.width);
-	//dprintf(2, "height %d\n", core.scene.height);
-	/*core.img = mlx_new_image(core.mlx, core.scene.width, core.scene.height);
-	if (core.img == 0)
-		libx_error("mlx error");*/
 	init_minimap(&core);
-	draw_minimap(&core);
 	mlx_loop_hook(core.mlx, ft_hook, &core);
 	mlx_loop(core.mlx);
 }
