@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 11:18:52 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:21:02 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,6 @@ void	draw_minimap(t_core *core)
 {
 	t_minimap	minimap;
 
-	core->img = mlx_new_image(core->mlx, core->scene.width, core->scene.height);
-	if (core->img == 0)
-		libx_error("mlx error");
 	minimap = core->scene.minimap;
 	draw_circle(core->img, minimap.m, core->scene.minimap.size);
 	draw_character(*(core), minimap.p);

@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 10:47:46 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:57:48 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ typedef struct s_scene
 	t_player		player;
 	t_minimap		minimap;
 	t_assets		assets;
-	int32_t			width;
-	int32_t			height;
 	int				floor_color;
 	int				roof_color;
 }					t_scene;

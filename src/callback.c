@@ -6,19 +6,19 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 10:51:30 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:03:25 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	ft_hook(void *param)
+void	keyhook(void *param)
 {
 	t_core *core;
 
 	core = (t_core *)param;
 	if (mlx_is_key_down(core->mlx, MLX_KEY_ESCAPE))
-		terminate(*core);
+		exit(2);
 	else if (mlx_is_key_down(core->mlx, MLX_KEY_UP))
 		printf("UP\n");
 	else if (mlx_is_key_down(core->mlx, MLX_KEY_DOWN))

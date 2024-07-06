@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 10:45:22 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:57:09 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ typedef struct s_core
 
 void			rendering_setup(t_core core);
 void			draw_minimap(t_core *core);
-void			ft_hook(void *param);
+void			keyhook(void *param);
 void			draw_character(t_core core, t_vec3 c);
-int			div2(const int dividend);
-int			ft_div(const int dividend, const int divider);
+int				div2(const int dividend);
+int				ft_div(const int dividend, const int divider);
 float			deg2rad(int degrees);
-int			in_bounds(t_vec c, t_vec n, int r);
+int				in_bounds(t_vec c, t_vec n, int r);
 void			terminate(t_core core);
 
 #endif /* CUB3D_H */
