@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 15:24:16 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 19:05:46 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 19:45:13 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,23 @@ static void	plot(mlx_image_t *img, int x, int y, int color, float br)
 
 void	draw_line(mlx_image_t *img, t_vec2 v0, t_vec2 v1, int color)
 {
+	double	gradient;
 	double	dx;
 	double	dy;
-	double	gradient;
 	double	xend;
 	double	yend;
 	double	xgap;
+	double	ygap;
+	double	intery;
+	double	interx;
 	int		xpxl1;
 	int		ypxl1;
-	double	intery;
 	int		xpxl2;
 	int		ypxl2;
-	double	ygap;
-	double	interx;
 	t_vec2	temp;
 
 	dx = (double)v1.x - (double)v0.x;
-	dy = (double)v1.y - (double)v1.y;
+	dy = (double)v1.y - (double)v0.y;
 	if (fabs(dx) > fabs(dy))
 	{
 		if (v1.x < v0.x)
