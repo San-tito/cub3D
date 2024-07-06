@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/06/29 17:32:30 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 10:51:30 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_hook(void *param)
 		core->scene.minimap.p.a -= 0.1;
 		if (core->scene.minimap.p.a < 0)
 			core->scene.minimap.p.a += 2 * PI;
-		draw_minimap(*core);
+		draw_minimap(core);
 	}
 	else if (mlx_is_key_down(core->mlx, MLX_KEY_RIGHT))
 	{
@@ -37,6 +37,6 @@ void	ft_hook(void *param)
 		core->scene.minimap.p.a += 0.1;
 		if (core->scene.minimap.p.a > 2 * PI)
 			core->scene.minimap.p.a -= 2 * PI;
-		draw_minimap(*core);
+		draw_minimap(core);
 	}
 }

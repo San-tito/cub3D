@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 04:26:24 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 10:45:22 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_core
 # define PI 3.141592657
 
 void			rendering_setup(t_core core);
-void			draw_minimap(t_core core);
+void			draw_minimap(t_core *core);
 void			ft_hook(void *param);
 void			draw_character(t_core core, t_vec3 c);
 int			div2(const int dividend);

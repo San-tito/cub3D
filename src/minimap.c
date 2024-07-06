@@ -6,12 +6,11 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 04:26:08 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 10:51:10 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 /************IMPORTANT FUNCTIONS***************/
 
@@ -146,16 +145,16 @@ void	draw_character(t_core core, t_vec3 c)
 	dda_line(core, init, final);
 }
 
-void	draw_minimap(t_core core)
+void	draw_minimap(t_core *core)
 {
 	t_minimap	minimap;
 
-	core.img = mlx_new_image(core.mlx, core.scene.width, core.scene.height);
-	if (core.img == 0)
+	core->img = mlx_new_image(core->mlx, core->scene.width, core->scene.height);
+	if (core->img == 0)
 		libx_error("mlx error");
-	minimap = core.scene.minimap;
-	draw_circle(core.img, minimap.m, core.scene.minimap.size);
-	draw_character(core, minimap.p);
-	if (core.img == 0 || (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0))
+	minimap = core->scene.minimap;
+	draw_circle(core->img, minimap.m, core->scene.minimap.size);
+	draw_character(*(core), minimap.p);
+	if (core->img == 0 || (mlx_image_to_window(core->mlx, core->img, 0, 0) < 0))
 		libx_error("mlx error");
 }

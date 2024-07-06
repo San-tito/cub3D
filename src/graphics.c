@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 04:18:00 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 10:45:37 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	rendering_setup(t_core core)
 		libx_error("mlx error");
 	mlx_get_monitor_size(0, &core.scene.width, &core.scene.height);
 	mlx_set_window_size(core.mlx, core.scene.width, core.scene.height);
-	dprintf(2, "width %d\n", core.scene.width);
-	dprintf(2, "height %d\n", core.scene.height);
-	core.img = mlx_new_image(core.mlx, core.scene.width, core.scene.height);
+	//dprintf(2, "width %d\n", core.scene.width);
+	//dprintf(2, "height %d\n", core.scene.height);
+	/*core.img = mlx_new_image(core.mlx, core.scene.width, core.scene.height);
 	if (core.img == 0)
-		libx_error("mlx error");
+		libx_error("mlx error");*/
 	init_minimap(&core);
-	draw_minimap(core);
+	draw_minimap(&core);
 	mlx_loop_hook(core.mlx, ft_hook, &core);
 	mlx_loop(core.mlx);
 }
