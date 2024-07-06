@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 19:55:42 by droied            #+#    #+#             */
-/*   Updated: 2024/06/25 15:11:20 by droied           ###   ########.fr       */
+/*   Created: 2024/07/06 18:30:16 by droied            #+#    #+#             */
+/*   Updated: 2024/07/06 18:34:14 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef RENDER_H
+# define RENDER_H
 
-# define RESET "\e[m"
+void    start_renderer(t_core core);
 
-# define MBLACK "\e[30m"
-# define MRED "\e[31m"
-# define MGREEN "\e[32m"
-# define MYELLOW "\e[33m"
-# define MBLUE "\e[34m"
-# define MMAGENTA "\e[35m"
-# define MCYAN "\e[36m"
-# define MWHITE "\e[37m"
-
-#endif /* COLOR_H */
+#endif /* RENDER_H */

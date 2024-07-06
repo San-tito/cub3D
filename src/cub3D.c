@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 17:30:19 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:18:05 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	begin_window(t_core *core)
 		libx_error("mlx error");
 	mlx_get_monitor_size(0, &mlx->width, &mlx->height);
 	mlx_set_window_size(mlx, mlx->width, mlx->height);
-	mlx_set_window_pos(mlx, mlx->width, mlx->height);
+	mlx_set_window_pos(mlx, 0, 0);
 	image = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (image == 0)
 		libx_error("mlx error");

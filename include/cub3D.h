@@ -6,32 +6,17 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 16:57:09 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:36:08 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-/************PROGRAM***********/
-
 # define PROGRAM "cub3D"
 
-/*____________________________*/
-
-/***********INCLUDES***********/
-
 # include "MLX42/MLX42.h"
-# include "color.h"
-# include "error.h"
-# include "ft_printf.h"
 # include "scene.h"
-# include <errno.h>
-# include <fcntl.h>
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 
 typedef struct s_core
 {
@@ -40,10 +25,16 @@ typedef struct s_core
 	t_scene		scene;
 }				t_core;
 
-/*WINDOW*/
-# define PT_PRUEBA "./assets/circle.png"
-# define WIDTH 1280
-# define HEIGHT 720
+# include "callback.h"
+# include "error.h"
+# include "ft_printf.h"
+# include "render.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
 
 /*ANGLES*/
 
@@ -58,19 +49,6 @@ typedef struct s_core
 # define VANG180 180
 # define VANG270 270
 # define VANG360 360
-
-/*____________________________*/
-
 # define PI 3.141592657
-
-void			start_renderer(t_core core);
-void			draw_minimap(t_core *core);
-void			keyhook(void *param);
-void			draw_character(t_core core, t_vec3 c);
-int				div2(const int dividend);
-int				ft_div(const int dividend, const int divider);
-float			deg2rad(int degrees);
-int				in_bounds(t_vec c, t_vec n, int r);
-void			terminate(t_core core);
 
 #endif /* CUB3D_H */
