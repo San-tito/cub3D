@@ -6,14 +6,14 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 16:21:02 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:55:06 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 /************IMPORTANT FUNCTIONS***************/
-
+/*
 int	div2(const int dividend)
 {
 	return (dividend >> 1);
@@ -58,21 +58,15 @@ int	in_bounds(t_vec c, t_vec n, int r)
 	return (square_distance <= pow(r, 2));
 }
 
-/***********************************************/
 
-/****************TEST_FUNCTIONS*****************/
 static void	draw_circle_aux(mlx_image_t *img, int xc, int yc, int x, int y)
 {
-	/*top*/
 	mlx_put_pixel(img, xc + x, yc + y, 0xFFFFFF);
 	mlx_put_pixel(img, xc - x, yc + y, 0xFFFFFF);
-	/*bot*/
 	mlx_put_pixel(img, xc + x, yc - y, 0xFFFFFF);
 	mlx_put_pixel(img, xc - x, yc - y, 0xFFFFFF);
-	/*right*/
 	mlx_put_pixel(img, xc + y, yc + x, 0xFFFFFF);
 	mlx_put_pixel(img, xc + y, yc - x, 0xFFFFFF);
-	/*left*/
 	mlx_put_pixel(img, xc - y, yc + x, 0xFFFFFF);
 	mlx_put_pixel(img, xc - y, yc - x, 0xFFFFFF);
 }
@@ -160,4 +154,4 @@ void	draw_minimap(t_core *core)
 	draw_character(*(core), minimap.p);
 	if (core->img == 0 || (mlx_image_to_window(core->mlx, core->img, 0, 0) < 0))
 		libx_error("mlx error");
-}
+}*/

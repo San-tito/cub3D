@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 18:18:05 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:44:58 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	begin_window(t_core *core)
 	mlx_set_window_size(mlx, mlx->width, mlx->height);
 	mlx_set_window_pos(mlx, 0, 0);
 	image = mlx_new_image(mlx, mlx->width, mlx->height);
-	if (image == 0)
+	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)
 		libx_error("mlx error");
 	core->mlx = mlx;
 	core->img = image;

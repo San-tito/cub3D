@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 18:20:03 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 19:00:26 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ t_core	*init_minimap(t_core *core)
 	(void)core;
 	return (core);
 }
+void	rasterise(mlx_image_t *image, t_scene scene)
+{
+	t_vec2 v0;
+	t_vec2 v1;
+	(void)scene;
+
+	v0.x = image->width/2;
+	v0.y = image->height/2;
+	v1.x = image->width;
+	v1.y = image->height;
+	draw_line(image, v0, v1);
+	mlx_put_pixel(image, image->width/2, image->height/2, 0xFFFFFF);	
+}
 
 void	game_loop(void *param)
 {
@@ -37,7 +50,7 @@ void	game_loop(void *param)
 	event_listener(core->mlx, core->scene);
 	if (core->scene.refresh)
 	{
-		// rasterise(core->image, core->scene);
+		rasterise(core->img, core->scene);
 		core->scene.refresh = 0;
 	}
 }

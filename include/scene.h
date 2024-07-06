@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 16:57:48 by droied           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:52:37 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ typedef struct s_vec3
 	float			a;
 }					t_vec3;
 
-typedef struct s_vec
+typedef struct s_vec2
 {
-	float			x;
-	float			y;
-}					t_vec;
+	int32_t			x;
+	int32_t			y;
+}					t_vec2;
 
 typedef enum e_zone
 {
@@ -66,8 +66,8 @@ typedef struct s_map
 typedef struct s_minimap
 {
 	uint32_t		size;
-	t_vec			m;
-	t_vec3			p;
+	t_vec2			map;
+	t_vec3			player;
 }					t_minimap;
 
 typedef struct s_assets
