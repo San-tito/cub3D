@@ -30,16 +30,16 @@ t_core	*init_minimap(t_core *core)
 }
 void	rasterise(mlx_image_t *image, t_scene scene)
 {
-	t_vec2 v0;
-	t_vec2 v1;
-	(void)scene;
+	t_vec2	v0;
+	t_vec2	v1;
 
-	v0.x = image->width/2;
-	v0.y = image->height/2;
+	(void)scene;
+	v0.x = image->width / 2;
+	v0.y = image->height / 2;
 	v1.x = image->width;
 	v1.y = image->height;
-	draw_line(image, v0, v1);
-	mlx_put_pixel(image, image->width/2, image->height/2, 0xFFFFFF);	
+	draw_line(image, v0, v1, 0xFFFFFF);
+	// mlx_put_pixel(image, image->width / 2, image->height / 2, );
 }
 
 void	game_loop(void *param)
