@@ -63,7 +63,7 @@ typedef struct s_core
 
 # define PI 3.141592657
 
-void			rendering_setup(t_core core);
+void			start_renderer(t_core core);
 void			draw_minimap(t_core *core);
 void			keyhook(void *param);
 void			draw_character(t_core core, t_vec3 c);

@@ -33,5 +33,6 @@ t_scene	create_scene(int argc, char **argv)
 	if (fd < 0)
 		sys_error("error opening file %s", *(argv + 1));
 	scene = (t_scene){};
+	scene.refresh = 1;
 	return (scene);
 }

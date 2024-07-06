@@ -23,18 +23,18 @@ typedef enum e_orient
 
 typedef struct s_vec3
 {
-	float x;
-	float y;
-	float dx;
-	float dy;
-	float a;
-}			t_vec3;
+	float			x;
+	float			y;
+	float			dx;
+	float			dy;
+	float			a;
+}					t_vec3;
 
 typedef struct s_vec
 {
-	float x;
-	float y;
-}			t_vec;
+	float			x;
+	float			y;
+}					t_vec;
 
 typedef enum e_zone
 {
@@ -65,10 +65,10 @@ typedef struct s_map
 
 typedef struct s_minimap
 {
-	uint32_t	size;
-	t_vec		m;
-	t_vec3		p;
-}				t_minimap;
+	uint32_t		size;
+	t_vec			m;
+	t_vec3			p;
+}					t_minimap;
 
 typedef struct s_assets
 {
@@ -85,10 +85,11 @@ typedef struct s_scene
 	t_player		player;
 	t_minimap		minimap;
 	t_assets		assets;
+	int				refresh;
 	int				floor_color;
 	int				roof_color;
 }					t_scene;
 
-t_scene			create_scene(int argc, char **argv);
+t_scene				create_scene(int argc, char **argv);
 
 #endif /* SCENE_H */
