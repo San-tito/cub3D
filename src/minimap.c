@@ -6,11 +6,12 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/06/30 00:00:48 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 03:12:23 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
 
 /************IMPORTANT FUNCTIONS***************/
 
@@ -150,11 +151,11 @@ void	draw_minimap(t_core core)
 {
 	t_minimap	minimap;
 
-	core.img = mlx_new_image(core.mlx, WIDTH, HEIGHT);
+	core.img = mlx_new_image(core.mlx, core.scene.width, core.scene.height);
 	if (core.img == 0)
 		libx_error("mlx error");
 	minimap = core.scene.minimap;
-	draw_circle(core.img, minimap.m, MINI_M_SIZE);
+	draw_circle(core.img, minimap.m, core.scene.minimap.size);
 	draw_character(core, minimap.p, MINI_P_SIZE);
 	if (core.img == 0 || (mlx_image_to_window(core.mlx, core.img, 0, 0) < 0))
 		libx_error("mlx error");

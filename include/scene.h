@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/06/29 11:41:16 by deordone         ###   ########.fr       */
+/*   Updated: 2024/07/06 03:16:28 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ typedef struct s_map
 
 typedef struct s_minimap
 {
-	t_vec	m;
-	t_vec3	p;
+	uint32_t	size;
+	t_vec		m;
+	t_vec3		p;
 }				t_minimap;
 
 typedef struct s_assets
@@ -88,6 +89,8 @@ typedef struct s_scene
 	t_player		player;
 	t_minimap		minimap;
 	t_assets		assets;
+	int32_t			width;
+	int32_t			height;
 	int				floor_color;
 	int				roof_color;
 }					t_scene;
