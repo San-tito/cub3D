@@ -29,6 +29,7 @@ typedef struct s_core
 # include "error.h"
 # include "ft_printf.h"
 # include "render.h"
+# include "xmalloc.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>

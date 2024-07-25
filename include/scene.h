@@ -36,12 +36,12 @@ typedef struct s_vec2
 	int32_t			y;
 }					t_vec2;
 
-typedef enum e_zone
+typedef enum e_tile
 {
 	SPACE = '0',
 	WALL = '1',
 	DOOR = 'D'
-}					t_zone;
+}					t_tile;
 
 typedef struct s_player
 {
@@ -58,7 +58,7 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	t_zone			**zone;
+	t_tile			**tiles;
 	int				height;
 	int				width;
 }					t_map;
@@ -70,21 +70,19 @@ typedef struct s_minimap
 	t_vec3			player;
 }					t_minimap;
 
-typedef struct s_assets
+typedef struct s_textures
 {
 	mlx_texture_t	*north;
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
-	mlx_texture_t	*prueba;
-}					t_assets;
+}					t_textures;
 
 typedef struct s_scene
 {
 	t_map			map;
 	t_player		player;
-	t_minimap		minimap;
-	t_assets		assets;
+	t_textures		textures;
 	int				refresh;
 	int				floor_color;
 	int				roof_color;

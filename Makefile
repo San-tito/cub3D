@@ -45,7 +45,7 @@ MLX          = $(MLX_PATH)/libmlx42.a
 LIBFTPRINTF_PATH = ./libs/libftprintf
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = error.c graphics.c map.c player.c minimap.c callback.c line.c
+SRCS         = error.c graphics.c map.c player.c minimap.c callback.c line.c xmalloc.c
 MAIN         = cub3D.c
 
 ################################################################################
@@ -71,11 +71,12 @@ CYAN   = \033[0;36m
 RESET  = \033[m
 
 define compile
-    printf "%b%-46b" "$(BLUE)compiling " "$(CYAN)$(@F)$(RESET)"; \
-    $(1) > /dev/null; \
+    printf "%b%-46b" "$(BLUE)$(2) " "$(CYAN)$(@F)$(RESET)"; \
+    OUTPUT=$$($(1) 2>&1); \
     RESULT=$$?; \
     if [ $$RESULT -ne 0 ]; then \
         printf "%b\n" "$(RED)[✗]$(RESET)"; \
+	printf "%b\n" "$$OUTPUT"; \
     else  \
         printf "%b\n" "$(GREEN)[✓]$(RESET)"; \
     fi; \

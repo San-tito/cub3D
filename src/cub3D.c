@@ -12,18 +12,18 @@
 
 #include "cub3D.h"
 
-void	begin_window(t_core *core)
+void	begin_window(t_core *core, int32_t width, int32_t height)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 
-	mlx = mlx_init(42, 42, PROGRAM, 0);
+	mlx = mlx_init(width, height, PROGRAM, 0);
 	if (mlx == 0)
 		libx_error("mlx error");
-	mlx_get_monitor_size(0, &mlx->width, &mlx->height);
-	mlx_set_window_size(mlx, mlx->width, mlx->height);
+	mlx_get_monitor_size(0, &width, &height);
+	mlx_set_window_size(mlx, width, height);
 	mlx_set_window_pos(mlx, 0, 0);
-	image = mlx_new_image(mlx, mlx->width, mlx->height);
+	image = mlx_new_image(mlx, width, height);
 	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)
 		libx_error("mlx error");
 	core->mlx = mlx;
@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 	/* setup argc and argc to scene */
 	core.scene = create_scene(argc, argv);
 	/* setup MLX; create window; setup width, heitht, image */
-	begin_window(&core);
+	begin_window(&core, 1280, 960);
 	/* rasterize in image */
 	start_renderer(core);
 	// rendering(core.image, core.scene);

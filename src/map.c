@@ -11,6 +11,30 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#define BUFSIZE 4096
+
+char	*read_line(int fd)
+{
+	char	*buffer;
+	char	character;
+	int		bytes;
+	int		index;
+
+	index = 0;
+	bytes = read(fd, &character, 1);
+	buffer = xmalloc(sizeof(char) * BUFSIZE);
+	while (bytes > 0 && index < (BUFSIZE - 1))
+	{
+		buffer[index++] = character;
+		if (character == '\n')
+			break ;
+		bytes = read(fd, &character, 1);
+	}
+	if ((bytes <= 0) && (index == 0))
+		return (xfree(buffer), NULL);
+	buffer[index] = '\0';
+	return (buffer);
+}
 
 int	check_file_extension(const char *filename, const char *expected)
 {
@@ -23,6 +47,7 @@ int	check_file_extension(const char *filename, const char *expected)
 t_scene	create_scene(int argc, char **argv)
 {
 	t_scene	scene;
+	char	*line;
 	int		fd;
 
 	if (argc != 2)
@@ -31,8 +56,14 @@ t_scene	create_scene(int argc, char **argv)
 		fatal_error("file must have a .cub extension: %s", *(argv + 1));
 	fd = open(*(argv + 1), O_RDONLY, 0666);
 	if (fd < 0)
-		sys_error("error opening file %s", *(argv + 1));
-	scene = (t_scene){};
+		sys_error("%s", *(argv + 1));
+	line = read_line(fd);
+	while (line)
+	{
+		ft_printf("line -> %s\n", line);
+		line = read_line(fd);
+	}
+	close(fd);
 	scene.refresh = 1;
 	return (scene);
 }
