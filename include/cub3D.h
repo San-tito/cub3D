@@ -28,6 +28,7 @@ typedef struct s_core
 # include "callback.h"
 # include "error.h"
 # include "ft_printf.h"
+# include "limits.h"
 # include "render.h"
 # include "xmalloc.h"
 # include <errno.h>
@@ -51,5 +52,10 @@ typedef struct s_core
 # define VANG270 270
 # define VANG360 360
 # define PI 3.141592657
+
+/* Stuff that is used by all files. */
+int				ft_isspace(int);
+int				legal_number(const char *, int *);
+char			*read_line(int);
 
 #endif /* CUB3D_H */

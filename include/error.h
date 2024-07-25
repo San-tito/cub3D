@@ -13,8 +13,9 @@
 #ifndef ERROR_H
 # define ERROR_H
 
-void	fatal_error(const char *format, ...);
-void	sys_error(const char *format, ...);
-void	libx_error(const char *format, ...);
+void	fatal_error(const char *, ...);
+void	sys_error(const char *, ...);
+void	libx_error(const char *, ...);
+void	parser_error(int, const char *, ...);
 
 #endif /* ERROR_H */

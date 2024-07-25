@@ -13,6 +13,6 @@
 #ifndef CALLBACK_H
 # define CALLBACK_H
 
-void    event_listener(mlx_t *mlx, t_scene scene);
+void	event_listener(mlx_t *, t_scene);
 
 #endif /* CALLBACK_H */

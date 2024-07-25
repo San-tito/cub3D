@@ -88,6 +88,6 @@ typedef struct s_scene
 	int				roof_color;
 }					t_scene;
 
-t_scene				create_scene(int argc, char **argv);
+t_scene				create_scene(int, char **);
 
 #endif /* SCENE_H */

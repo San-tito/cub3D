@@ -24,6 +24,19 @@ void	fatal_error(const char *format, ...)
 	exit(EXIT_FAILURE);
 }
 
+void	parser_error(int lineno, const char *format, ...)
+{
+	va_list	args;
+
+	ft_dprintf(2, "%s: ", PROGRAM);
+	ft_dprintf(2, "line %d: ", lineno);
+	va_start(args, format);
+	ft_vdprintf(2, format, args);
+	ft_dprintf(2, "\n");
+	va_end(args);
+	exit(EXIT_FAILURE);
+}
+
 void	sys_error(const char *format, ...)
 {
 	int		e;

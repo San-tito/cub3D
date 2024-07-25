@@ -11,30 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#define BUFSIZE 4096
-
-char	*read_line(int fd)
-{
-	char	*buffer;
-	char	character;
-	int		bytes;
-	int		index;
-
-	index = 0;
-	bytes = read(fd, &character, 1);
-	buffer = xmalloc(sizeof(char) * BUFSIZE);
-	while (bytes > 0 && index < (BUFSIZE - 1))
-	{
-		buffer[index++] = character;
-		if (character == '\n')
-			break ;
-		bytes = read(fd, &character, 1);
-	}
-	if ((bytes <= 0) && (index == 0))
-		return (xfree(buffer), NULL);
-	buffer[index] = '\0';
-	return (buffer);
-}
 
 int	check_file_extension(const char *filename, const char *expected)
 {
@@ -60,7 +36,6 @@ t_scene	create_scene(int argc, char **argv)
 	line = read_line(fd);
 	while (line)
 	{
-		ft_printf("line -> %s\n", line);
 		line = read_line(fd);
 	}
 	close(fd);

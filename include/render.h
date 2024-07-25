@@ -13,7 +13,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-void	start_renderer(t_core core);
-void	draw_line(mlx_image_t *image, t_vec2 v0, t_vec2 v1, int color);
+void	start_renderer(t_core);
+void	draw_line(mlx_image_t *, t_vec2, t_vec2, int);
 
 #endif /* RENDER_H */
