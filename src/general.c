@@ -12,14 +12,6 @@
 
 #include "cub3D.h"
 
-static void	whitespace(char **str)
-{
-	if (str == 0 || *str == 0)
-		return ;
-	while (ft_isspace(**str))
-		(*str)++;
-}
-
 static ssize_t	ft_strtoi(const char *nptr, char **endptr)
 {
 	ssize_t		acc;
@@ -52,6 +44,14 @@ static ssize_t	ft_strtoi(const char *nptr, char **endptr)
 int	ft_isspace(int c)
 {
 	return (c == 0x20 || c == 0xD || c == 0xA || c == 0x9);
+}
+
+void	whitespace(char **str)
+{
+	if (str == 0 || *str == 0)
+		return ;
+	while (ft_isspace(**str))
+		(*str)++;
 }
 
 int	legal_number(const char *string, int *result)
@@ -89,9 +89,9 @@ char	*read_line(int fd)
 	buffer = xmalloc(sizeof(char) * 2);
 	while (bytes > 0)
 	{
-		buffer[index++] = character;
 		if (character == '\n')
 			break ;
+		buffer[index++] = character;
 		buffer = xrealloc(buffer, ft_strlen(buffer) + 1, ft_strlen(buffer) + 2);
 		bytes = read(fd, &character, 1);
 	}

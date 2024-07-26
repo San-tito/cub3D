@@ -45,7 +45,7 @@ typedef enum e_tile
 
 typedef struct s_player
 {
-	void *pos; /* Player's position */
+	t_vec2		pos;
 	t_orient	spawn_orient;
 }				t_player;
 
@@ -85,7 +85,7 @@ typedef struct s_scene
 	t_textures	textures;
 	int			refresh;
 	int			floor_color;
-	int			roof_color;
+	int			ceiling_color;
 }				t_scene;
 
 t_scene			create_scene(int, char **);

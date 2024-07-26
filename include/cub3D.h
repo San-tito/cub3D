@@ -29,6 +29,7 @@ typedef struct s_core
 # include "error.h"
 # include "ft_printf.h"
 # include "limits.h"
+# include "parse.h"
 # include "render.h"
 # include "xmalloc.h"
 # include <errno.h>
@@ -38,24 +39,6 @@ typedef struct s_core
 # include <stdlib.h>
 # include <string.h>
 
-/*ANGLES*/
-
-# define ANGLES 360 /* must be divisable by 4*/
-# define ANGLEQUAD 90
-# define FINEANGLES 3600
-# define ANG90 900
-# define ANG180 1800
-# define ANG270 2700
-# define ANG360 3600
-# define VANG90 90
-# define VANG180 180
-# define VANG270 270
-# define VANG360 360
 # define PI 3.141592657
-
-/* Stuff that is used by all files. */
-int				ft_isspace(int);
-int				legal_number(const char *, int *);
-char			*read_line(int);
 
 #endif /* CUB3D_H */
