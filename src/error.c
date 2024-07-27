@@ -24,7 +24,7 @@ void	fatal_error(const char *format, ...)
 	exit(EXIT_FAILURE);
 }
 
-void	parser_error(int lineno, const char *format, ...)
+void	parser_error(int lineno, char *line, const char *format, ...)
 {
 	va_list	args;
 
@@ -34,6 +34,7 @@ void	parser_error(int lineno, const char *format, ...)
 	ft_vdprintf(2, format, args);
 	ft_dprintf(2, "\n");
 	va_end(args);
+	xfree(line);
 	exit(EXIT_FAILURE);
 }
 

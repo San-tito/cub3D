@@ -16,6 +16,6 @@
 void	fatal_error(const char *, ...);
 void	sys_error(const char *, ...);
 void	libx_error(const char *, ...);
-void	parser_error(int, const char *, ...);
+void	parser_error(int, char *, const char *, ...);
 
 #endif /* ERROR_H */
