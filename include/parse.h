@@ -17,6 +17,7 @@ int		ft_isspace(int);
 int		legal_number(const char *, int *);
 void	whitespace(char **str);
 char	*read_line(int);
+int		validate_map(t_scene *);
 void	parse_scene(int, t_scene *);
 void	parse_map(t_scene *, int, char *);
 

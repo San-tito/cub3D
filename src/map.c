@@ -27,23 +27,78 @@ static int	is_valid_cells(char *line)
 	return (1);
 }
 
+static int	flood_fill(t_map *map, int **visited, int x, int y)
+{
+	if ((x >= 0 && x < map->cols && y >= 0 && y < map->rows) == 0
+		|| visited[y][x])
+		return (1);
+	if (map->cells[y][x] == WALL)
+		return (1);
+	if (x == 0 || x == map->cols - 1 || y == 0 || y == map->rows - 1)
+		return (0);
+	visited[y][x] = 1;
+	if (flood_fill(map, visited, x + 1, y) == 0)
+		return (0);
+	if (flood_fill(map, visited, x - 1, y) == 0)
+		return (0);
+	if (flood_fill(map, visited, x, y + 1) == 0)
+		return (0);
+	if (flood_fill(map, visited, x, y - 1) == 0)
+		return (0);
+	return (1);
+}
+
+int	validate_map(t_scene *scene)
+{
+	int	**visited;
+	int	is_closed;
+	int	i;
+	int	j;
+
+	visited = xmalloc(scene->map.rows * sizeof(int *));
+	i = 0;
+	while (i < scene->map.rows)
+	{
+		visited[i] = xmalloc(scene->map.cols * sizeof(int));
+		j = 0;
+		while (j < scene->map.cols)
+			visited[i][j++] = 0;
+		i++;
+	}
+	is_closed = flood_fill(&scene->map, visited, scene->player.pos.x,
+			scene->player.pos.y);
+	i = 0;
+	while (i < scene->map.rows)
+		xfree(visited[i++]);
+	xfree(visited);
+	return (is_closed);
+}
+
 void	resize_map(t_scene *scene, int new_cols)
 {
-    if (new_cols > scene->map.cols) {
-        for (int row = 0; row < scene->map.rows; row++) {
-            // Reallocate memory for the current row
-            scene->map.cells[row] = xrealloc(scene->map.cells[row], scene->map.cols * sizeof(t_cell), new_cols * sizeof(t_cell));
-            // Initialize new columns to SPACE (0)
-            memset(scene->map.cells[row] + scene->map.cols, SPACE, (new_cols - scene->map.cols) * sizeof(t_cell));
-        }
-        scene->map.cols = new_cols;
-    }
+	int	row;
 
-    // Add new row
-    scene->map.cells = xrealloc(scene->map.cells, scene->map.rows * sizeof(t_cell *), (scene->map.rows + 1) * sizeof(t_cell *));
-    scene->map.cells[scene->map.rows] = (t_cell *)xmalloc(new_cols * sizeof(t_cell));
-    memset(scene->map.cells[scene->map.rows], SPACE, new_cols * sizeof(t_cell)); // Initialize new row with SPACE
-    scene->map.rows++;
+	if (new_cols > scene->map.cols)
+	{
+		row = 0;
+		while (row < scene->map.rows)
+		{
+			scene->map.cells[row] = xrealloc(scene->map.cells[row],
+					scene->map.cols * sizeof(t_cell), new_cols
+					* sizeof(t_cell));
+			ft_memset(scene->map.cells[row] + scene->map.cols, SPACE, (new_cols
+					- scene->map.cols) * sizeof(t_cell));
+			row++;
+		}
+		scene->map.cols = new_cols;
+	}
+	scene->map.cells = xrealloc(scene->map.cells, scene->map.rows
+			* sizeof(t_cell *), (scene->map.rows + 1) * sizeof(t_cell *));
+	scene->map.cells[scene->map.rows] = xmalloc(scene->map.cols
+			* sizeof(t_cell));
+	ft_memset(scene->map.cells[scene->map.rows], SPACE, scene->map.cols
+		* sizeof(t_cell));
+	scene->map.rows++;
 }
 
 void	parse_map(t_scene *scene, int lineno, char *line)
@@ -61,13 +116,14 @@ void	parse_map(t_scene *scene, int lineno, char *line)
 		c = line[i];
 		if (c == SPACE || c == WALL)
 			scene->map.cells[scene->map.rows - 1][i] = c;
-		else if (c == ' ')
+		else if (ft_isspace(c))
 			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		else if (c == NORTH || c == SOUTH || c == EAST || c == WEST)
 		{
 			scene->player.pos.x = i;
 			scene->player.pos.y = scene->map.rows - 1;
 			scene->player.spawn_orient = c;
+			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		}
 		i++;
 	}

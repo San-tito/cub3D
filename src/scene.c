@@ -37,6 +37,8 @@ t_scene	create_scene(int argc, char **argv)
 	scene.map.cols = 0;
 	parse_scene(fd, &scene);
 	print_scene(&scene);
+	if (validate_map(&scene) == 0)
+		fatal_error("the map is not closed/surrounded by walls");
 	close(fd);
 	return (scene);
 }
