@@ -12,22 +12,14 @@
 
 #include "cub3D.h"
 
-static int	is_empty_line(const char *line)
+static int	is_valid_identifier(char *str)
 {
-	while (*line)
-	{
-		if (ft_isspace(*line) == 0)
-			return (0);
-		line++;
-	}
-	return (1);
-}
-
-static int	is_valid_identifier(const char *str)
-{
-	return (ft_strnstr(str, "NO ", sizeof("NO ")) || ft_strnstr(str, "SO ",
-			sizeof("SO ")) || ft_strnstr(str, "WE ", sizeof("WE "))
-		|| ft_strnstr(str, "EA ", sizeof("EA ")) || *str == 'F' || *str == 'C');
+	whitespace(&str);
+	return (*str == '\0' || ft_strnstr(str, "NO ", sizeof("NO "))
+		|| ft_strnstr(str, "SO ", sizeof("SO ")) || ft_strnstr(str, "WE ",
+			sizeof("WE ")) || ft_strnstr(str, "EA ", sizeof("EA "))
+		|| ft_strnstr(str, "F ", sizeof("F ")) || ft_strnstr(str, "C ",
+			sizeof("C ")));
 }
 
 static int	parse_color(int lineno, char *value, char *line)
@@ -65,8 +57,8 @@ static void	parse_config(t_scene *scene, int lineno, char *line)
 	key = line;
 	whitespace(&key);
 	value = ft_strchr(key, ' ');
-	if (!value)
-		parser_error(lineno, line, "invalid configuration line: %s", line);
+	if (value == 0)
+		return ;
 	*value++ = '\0';
 	whitespace(&value);
 	if (ft_strncmp(key, "NO", 2) == 0)
@@ -94,16 +86,13 @@ void	parse_scene(int fd, t_scene *scene)
 	line = read_line(fd);
 	while (line)
 	{
-		if (is_empty_line(line) == 0)
+		if (map_started == 0 && is_valid_identifier(line))
+			parse_config(scene, lineno, line);
+		else
 		{
-			if (map_started == 0 && is_valid_identifier(line))
-				parse_config(scene, lineno, line);
-			else
-			{
-				if (map_started == 0)
-					map_started++;
-				// parse_map(scene, line, row++);
-			}
+			if (map_started == 0)
+				map_started++;
+			// parse_map(scene, line, row++);
 		}
 		lineno++;
 		xfree(line);
