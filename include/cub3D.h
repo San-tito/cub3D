@@ -26,10 +26,12 @@ typedef struct s_core
 }				t_core;
 
 # include "callback.h"
+# include "dispose.h"
 # include "error.h"
 # include "ft_printf.h"
 # include "limits.h"
 # include "parse.h"
+# include "print.h"
 # include "render.h"
 # include "xmalloc.h"
 # include <errno.h>

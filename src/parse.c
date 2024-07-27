@@ -92,7 +92,7 @@ void	parse_scene(int fd, t_scene *scene)
 		{
 			if (map_started == 0)
 				map_started++;
-			// parse_map(scene, line, row++);
+			parse_map(scene, lineno, line);
 		}
 		lineno++;
 		xfree(line);

@@ -33,7 +33,10 @@ t_scene	create_scene(int argc, char **argv)
 	if (fd < 0)
 		sys_error("%s", *(argv + 1));
 	scene.refresh = 1;
+	scene.map.rows = 0;
+	scene.map.cols = 0;
 	parse_scene(fd, &scene);
+	print_scene(&scene);
 	close(fd);
 	return (scene);
 }

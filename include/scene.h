@@ -36,12 +36,12 @@ typedef struct s_vec2
 	int32_t		y;
 }				t_vec2;
 
-typedef enum e_tile
+typedef enum e_cell
 {
 	SPACE = '0',
 	WALL = '1',
 	DOOR = 'D'
-}				t_tile;
+}				t_cell;
 
 typedef struct s_player
 {
@@ -49,18 +49,11 @@ typedef struct s_player
 	t_orient	spawn_orient;
 }				t_player;
 
-/* ****************** */
-/*       PLAYER       */
-/* ****************** */
-
-# define PLAYERSPEED 3000
-# define RUNSPEED 6000
-
 typedef struct s_map
 {
-	t_tile		**tiles;
-	int			height;
-	int			width;
+	t_cell		**cells;
+	int32_t		rows;
+	int32_t		cols;
 }				t_map;
 
 typedef struct s_minimap
@@ -83,9 +76,9 @@ typedef struct s_scene
 	t_map		map;
 	t_player	player;
 	t_textures	textures;
-	int			refresh;
-	int			floor_color;
-	int			ceiling_color;
+	int8_t		refresh;
+	int32_t		floor_color;
+	int32_t		ceiling_color;
 }				t_scene;
 
 t_scene			create_scene(int, char **);

@@ -45,7 +45,7 @@ MLX          = $(MLX_PATH)/libmlx42.a
 LIBFTPRINTF_PATH = ./libs/libftprintf
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = callback.c cub3D.c error.c general.c graphics.c line.c minimap.c	parse.c player.c scene.c xmalloc.c
+SRCS         = callback.c cub3D.c error.c general.c graphics.c line.c map.c minimap.c parse.c player.c print.c scene.c xmalloc.c
 MAIN         = cub3D.c
 
 ################################################################################

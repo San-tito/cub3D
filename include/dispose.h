@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   dispose.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 18:52:37 by droied           ###   ########.fr       */
+/*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
+/*   Updated: 2024/05/12 18:03:36 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef DISPOSE_H
+# define DISPOSE_H
 
-int		ft_isspace(int);
-int		legal_number(const char *, int *);
-void	whitespace(char **str);
-char	*read_line(int);
-void	parse_scene(int, t_scene *);
-void	parse_map(t_scene *, int, char *);
+# include "scene.h"
 
-#endif /* PARSE_H */
+void	dispose_map(t_map *map);
+
+#endif /* DISPOSE_H */
