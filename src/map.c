@@ -29,39 +29,21 @@ static int	is_valid_cells(char *line)
 
 void	resize_map(t_scene *scene, int new_cols)
 {
-	int	row;
+    if (new_cols > scene->map.cols) {
+        for (int row = 0; row < scene->map.rows; row++) {
+            // Reallocate memory for the current row
+            scene->map.cells[row] = xrealloc(scene->map.cells[row], scene->map.cols * sizeof(t_cell), new_cols * sizeof(t_cell));
+            // Initialize new columns to SPACE (0)
+            memset(scene->map.cells[row] + scene->map.cols, SPACE, (new_cols - scene->map.cols) * sizeof(t_cell));
+        }
+        scene->map.cols = new_cols;
+    }
 
-	if (new_cols > scene->map.cols)
-	{
-		row = 0;
-		while (row < scene->map.rows)
-		{
-			scene->map.cells[row] = xrealloc(scene->map.cells[row],
-					scene->map.cols * sizeof(t_cell), new_cols
-					* sizeof(t_cell));
-			memset(scene->map.cells[row] + scene->map.cols, SPACE, (new_cols
-					- scene->map.cols) * sizeof(t_cell));
-			row++;
-		}
-		scene->map.cols = new_cols;
-	}
-	if (scene->map.rows == 0)
-	{
-		scene->map.cells = (t_cell **)xmalloc(sizeof(t_cell *));
-		scene->map.cells[0] = (t_cell *)xmalloc(new_cols * sizeof(t_cell));
-		memset(scene->map.cells[0], SPACE, new_cols * sizeof(t_cell));
-		scene->map.rows = 1;
-	}
-	else
-	{
-		scene->map.cells = xrealloc(scene->map.cells, scene->map.rows
-				* sizeof(t_cell *), (scene->map.rows + 1) * sizeof(t_cell *));
-		scene->map.cells[scene->map.rows] = (t_cell *)xmalloc(new_cols
-				* sizeof(t_cell));
-		memset(scene->map.cells[scene->map.rows], SPACE, new_cols
-			* sizeof(t_cell));
-		scene->map.rows++;
-	}
+    // Add new row
+    scene->map.cells = xrealloc(scene->map.cells, scene->map.rows * sizeof(t_cell *), (scene->map.rows + 1) * sizeof(t_cell *));
+    scene->map.cells[scene->map.rows] = (t_cell *)xmalloc(new_cols * sizeof(t_cell));
+    memset(scene->map.cells[scene->map.rows], SPACE, new_cols * sizeof(t_cell)); // Initialize new row with SPACE
+    scene->map.rows++;
 }
 
 void	parse_map(t_scene *scene, int lineno, char *line)

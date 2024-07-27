@@ -27,8 +27,11 @@ void	*xrealloc(void *pointer, size_t old_size, size_t new_size)
 	void	*temp;
 
 	temp = xmalloc(new_size);
-	ft_memcpy(temp, pointer, old_size);
-	xfree(pointer);
+	if (old_size)
+	{
+		ft_memcpy(temp, pointer, old_size);
+		xfree(pointer);
+	}
 	return (temp);
 }
 
