@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 19:00:26 by droied           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:40:26 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,82 @@ t_core	*init_minimap(t_core *core)
 	(void)core;
 	return (core);
 }
+
+static void cast_north( t_scene scene )
+{
+	t_vec2 caster;
+
+	caster.x = scene.player.pos.x;
+	caster.y = scene.player.pos.y - 1;
+	while (caster.y >= 0 && scene.map.cells[caster.y][caster.x] == '0')
+    {
+		caster.y--;
+	}
+	ft_printf("Wall found in coord [%d] [%d] \n", caster.x, caster.y);
+}
+
+
+static void cast_west( t_scene scene )
+{
+	t_vec2 caster;
+
+	caster.x = scene.player.pos.x - 1;
+	caster.y = scene.player.pos.y;
+	while (caster.x >= 0 && scene.map.cells[caster.y][caster.x] == '0')
+    {
+		caster.x--;
+	}
+	ft_printf("Wall found in coord [%d] [%d] \n", caster.x, caster.y);
+}
+
+
+static void cast_east( t_scene scene )
+{
+	t_vec2 caster;
+
+	caster.x = scene.player.pos.x + 1;
+	caster.y = scene.player.pos.y;
+	while (caster.x >= 0 && scene.map.cells[caster.y][caster.x] == '0')
+    {
+		caster.x++;
+	}
+	ft_printf("Wall found in coord [%d] [%d] \n", caster.x, caster.y);
+}
+
+
+static void cast_south( t_scene scene )
+{
+	t_vec2 caster;
+
+	caster.x = scene.player.pos.x;
+	caster.y = scene.player.pos.y + 1;
+	while (caster.y >= 0 && scene.map.cells[caster.y][caster.x] == '0')
+    {
+		caster.y++;
+	}
+	ft_printf("Wall found in coord [%d] [%d] \n", caster.x, caster.y);
+}
+
+static void cast_pos(mlx_image_t *image, t_scene scene)
+{
+	(void)image;
+	t_funori	orientation[] = { &cast_north, &cast_west, &cast_east, &cast_south};
+	t_orient	ori[4] = { NORTH, WEST, EAST, SOUTH};
+	unsigned int i;
+
+	i = 0;
+	while (i < 4 && ori[i] != scene.player.spawn_orient)
+		i++;
+	if (i < 4)
+		(orientation[i])(scene);
+}
+
 void	rasterise(mlx_image_t *image, t_scene scene)
 {
 	(void)image;
 	(void)scene;
+	cast_pos(image, scene);
+//	raycast
 	// draw_line(image, v0, v1, 0xFFFFFF);
 	// mlx_put_pixel(image, image->width / 2, image->height / 2, );
 }

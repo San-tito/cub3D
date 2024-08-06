@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 18:52:37 by droied           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:55:52 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_scene
 	int32_t		floor_color;
 	int32_t		ceiling_color;
 }				t_scene;
+
+typedef void	(*t_funori)(t_scene scene);
 
 t_scene			create_scene(int, char **);
 
