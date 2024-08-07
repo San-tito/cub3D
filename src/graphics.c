@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/06 20:40:26 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:58:36 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_core	*init_minimap(t_core *core)
 	(void)core;
 	return (core);
 }
-
+/*
 static void cast_north( t_scene scene )
 {
 	t_vec2 caster;
@@ -96,14 +96,34 @@ static void cast_pos(mlx_image_t *image, t_scene scene)
 		i++;
 	if (i < 4)
 		(orientation[i])(scene);
+}*/
+
+static void draw_player(mlx_image_t *image, t_scene scene)
+{
+	unsigned int size;
+	unsigned int x;
+	unsigned int y;
+
+	size = 42;
+	y = scene.player.cor.y;
+	x = scene.player.cor.x;
+	ft_printf("y -> %d \n x -> %d \n", y, x);
+	while (y <= (scene.player.cor.y + size))
+	{
+		x = scene.player.cor.x;
+		while (x <= (scene.player.cor.x + size))
+			mlx_put_pixel(image, x++, y, 0xFFFFFFFF);
+		y++;
+	}
 }
 
 void	rasterise(mlx_image_t *image, t_scene scene)
 {
 	(void)image;
-	(void)scene;
-	cast_pos(image, scene);
-//	raycast
+	//(void)scene;
+
+	//cast_pos(image, scene);
+	draw_player(image, scene);
 	// draw_line(image, v0, v1, 0xFFFFFF);
 	// mlx_put_pixel(image, image->width / 2, image->height / 2, );
 }
@@ -113,7 +133,7 @@ void	game_loop(void *param)
 	t_core	*core;
 
 	core = (t_core *)param;
-	event_listener(core->mlx, core->scene);
+	event_listener(core->mlx, &core->scene);
 	if (core->scene.refresh)
 	{
 		rasterise(core->img, core->scene);
@@ -123,6 +143,8 @@ void	game_loop(void *param)
 
 void	start_renderer(t_core core)
 {
+	core.scene.player.cor.x = core.img->width / 2;
+	core.scene.player.cor.y = core.img->height / 2;
 	mlx_loop_hook(core.mlx, game_loop, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);

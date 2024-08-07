@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/08/06 19:55:52 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:43:34 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef enum e_cell
 typedef struct s_player
 {
 	t_vec2		pos;
+	t_vec2		cor;
 	t_orient	spawn_orient;
 }				t_player;
 
