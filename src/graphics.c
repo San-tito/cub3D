@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/07 16:58:36 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:53:34 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,69 @@ static void cast_pos(mlx_image_t *image, t_scene scene)
 		(orientation[i])(scene);
 }*/
 
-static void draw_player(mlx_image_t *image, t_scene scene)
+static void	image_clear(mlx_image_t *image)
 {
-	unsigned int size;
 	unsigned int x;
 	unsigned int y;
 
-	size = 42;
-	y = scene.player.cor.y;
-	x = scene.player.cor.x;
-	ft_printf("y -> %d \n x -> %d \n", y, x);
-	while (y <= (scene.player.cor.y + size))
+	y = 0;
+	x = 0;
+	while (y < image->height)
 	{
-		x = scene.player.cor.x;
-		while (x <= (scene.player.cor.x + size))
-			mlx_put_pixel(image, x++, y, 0xFFFFFFFF);
+		x = 0;
+		while (x < image->width)
+			mlx_put_pixel(image, x++, y, 0x000000FF);
 		y++;
 	}
+}
+
+static void draw_square(mlx_image_t *img, t_vec2 begin, unsigned int size, double color)
+{
+	unsigned int x;
+	unsigned int y;
+
+	x = begin.x;
+	y = begin.y;
+	while (y <= (begin.y + size))
+	{
+		x = begin.x;
+		while (x <= (begin.x + size))
+			mlx_put_pixel(img, x++, y, color);
+		y++;
+	}
+}
+
+static void draw_map2D(mlx_image_t *image, t_scene scene)
+{
+	t_vec2 map_pos;
+	t_vec2 sex;
+
+	sex.y = image->height / 2;
+	sex.x = image->width / 2;
+	map_pos.y = 0;
+	map_pos.x = 0;
+	while(map_pos.y <= 12)
+	{
+		map_pos.x = 0;
+		while (map_pos.x <= 31)
+		{
+			if (scene.map.cells[map_pos.y][map_pos.x] == '1')
+			{
+				draw_square(image, sex, 22,0xFFFFFFFF);
+				sex.x += 2;
+			}
+			map_pos.x++;
+		}
+		map_pos.y++;
+	}
+}
+
+static void draw_player2D(mlx_image_t *image, t_scene scene)
+{
+	unsigned int size;
+
+	size = 25;
+	draw_square(image, scene.player.cor, size, 0xFF00FFFF);
 }
 
 void	rasterise(mlx_image_t *image, t_scene scene)
@@ -123,7 +169,8 @@ void	rasterise(mlx_image_t *image, t_scene scene)
 	//(void)scene;
 
 	//cast_pos(image, scene);
-	draw_player(image, scene);
+	draw_player2D(image, scene);
+	draw_map2D(image, scene);
 	// draw_line(image, v0, v1, 0xFFFFFF);
 	// mlx_put_pixel(image, image->width / 2, image->height / 2, );
 }
@@ -136,6 +183,7 @@ void	game_loop(void *param)
 	event_listener(core->mlx, &core->scene);
 	if (core->scene.refresh)
 	{
+		image_clear(core->img);
 		rasterise(core->img, core->scene);
 		core->scene.refresh = 0;
 	}
