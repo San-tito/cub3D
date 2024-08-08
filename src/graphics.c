@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/08 17:31:12 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:57:02 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,16 +179,66 @@ static void draw_player2D(mlx_image_t *image, t_scene scene)
 	draw_line(image, beg, end, 0xFF00FFFF);
 }
 
+static void raycast(mlx_image_t *image, t_scene scene)
+{
+	unsigned int i = 0;
+	t_vec3 m;
+	t_vec3 r;
+	float atan;
+
+	r.a = scene.player.p.a;
+	while (i < 1)
+	{
+		m.dx = 0;
+		atan = -1 / tan(r.a);
+		if (r.a > PI)
+		{
+			r.y = ((scene.player.p.y>>6)<<6) -0.0001;
+			r.x = (scene.player.p.y - r.y) * atan + scene.player.p.x;
+			r.dy = -64;
+			r.dx = -r.dy * atan;
+		}
+		else if (r.a < PI)
+		{
+			r.y = ((scene.player.p.y>>6)<<6) + 64;
+			r.x = (scene.player.p.y - r.y) * atan + scene.player.p.x;
+			r.dy = 64;
+			r.dx = -r.dy * atan;
+		}
+		else 
+		{
+			r.x = scene.player.p.x;
+			r.y = scene.player.p.y;
+			m.dx = 8;
+		}
+		while (m.dx < 8)
+		{
+			m.x = r.x >> 6;
+			m.y = r.y >> 6;
+			m.dy = m.y * !!!mapx + m.x;
+			if (m.dy < !!!mapx*!!mapy && !!map[m.dy] == 1)
+				m.dx = 8;
+			else 
+			{
+				r.x += r.dx;
+				r.y += r.dy;
+				m.dx += 1;
+			}
+		}
+		i++;
+	}
+	//si esto compila solo haria falta dibujar
+}
+
 void	rasterise(mlx_image_t *image, t_scene scene)
 {
-	(void)image;
+	//(void)image;
 	//(void)scene;
 
 	//cast_pos(image, scene);
 	draw_player2D(image, scene);
 	draw_map2D(image, scene);
-	// draw_line(image, v0, v1, 0xFFFFFF);
-	// mlx_put_pixel(image, image->width / 2, image->height / 2, );
+	raycast(image, scene);
 }
 
 void	game_loop(void *param)
