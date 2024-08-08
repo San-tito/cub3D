@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/07 19:53:34 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:31:12 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static void	image_clear(mlx_image_t *image)
 	}
 }
 
-static void draw_square(mlx_image_t *img, t_vec2 begin, unsigned int size, double color)
+static void draw_square(mlx_image_t *img, t_vec3 begin, unsigned int size, double color)
 {
 	unsigned int x;
 	unsigned int y;
@@ -133,22 +133,24 @@ static void draw_square(mlx_image_t *img, t_vec2 begin, unsigned int size, doubl
 static void draw_map2D(mlx_image_t *image, t_scene scene)
 {
 	t_vec2 map_pos;
-	t_vec2 sex;
+	t_vec3 sex;
 
 	sex.y = image->height / 2;
 	sex.x = image->width / 2;
 	map_pos.y = 0;
 	map_pos.x = 0;
-	while(map_pos.y <= 12)
+	while(map_pos.y <= 13)
 	{
 		map_pos.x = 0;
-		while (map_pos.x <= 31)
+		sex.y += 42;
+	sex.x = image->width / 2;
+		while (map_pos.x <= 32)
 		{
 			if (scene.map.cells[map_pos.y][map_pos.x] == '1')
 			{
-				draw_square(image, sex, 22,0xFFFFFFFF);
-				sex.x += 2;
+				draw_square(image, sex, 42,0xFFFFFFFF);
 			}
+			sex.x += 42;
 			map_pos.x++;
 		}
 		map_pos.y++;
@@ -160,7 +162,21 @@ static void draw_player2D(mlx_image_t *image, t_scene scene)
 	unsigned int size;
 
 	size = 25;
-	draw_square(image, scene.player.cor, size, 0xFF00FFFF);
+	draw_square(image, scene.player.p, size, 0xFF00FFFF);
+	/*if (scene.player.p.a < 0)
+		scene.player.p.a += 2 * PI;
+	else if (scene.player.p.a > 2 * PI)
+		scene.player.p.a -= 2 * PI;*/
+	scene.player.p.dx = cos(scene.player.p.a) * 5; 
+	scene.player.p.dy = sin(scene.player.p.a) * 5;
+	t_vec2 beg;
+	t_vec2 end;
+
+	beg.x = scene.player.p.x + (size / 2); 
+	beg.y = scene.player.p.y + (size / 2);
+	end.x = beg.x + scene.player.p.dx * 5;
+	end.y = beg.y + scene.player.p.dy * 5;
+	draw_line(image, beg, end, 0xFF00FFFF);
 }
 
 void	rasterise(mlx_image_t *image, t_scene scene)
@@ -191,8 +207,6 @@ void	game_loop(void *param)
 
 void	start_renderer(t_core core)
 {
-	core.scene.player.cor.x = core.img->width / 2;
-	core.scene.player.cor.y = core.img->height / 2;
 	mlx_loop_hook(core.mlx, game_loop, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);
