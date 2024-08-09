@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/09 00:57:02 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:19:50 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,28 +132,28 @@ static void draw_square(mlx_image_t *img, t_vec3 begin, unsigned int size, doubl
 
 static void draw_map2D(mlx_image_t *image, t_scene scene)
 {
-	t_vec2 map_pos;
-	t_vec3 sex;
+	t_vec2 map_idx;
+	t_vec3 map_pos;
 
-	sex.y = image->height / 2;
-	sex.x = image->width / 2;
-	map_pos.y = 0;
-	map_pos.x = 0;
-	while(map_pos.y <= 13)
+	map_pos.y = image->height / 4;
+	map_pos.x = image->width / 4;
+	map_idx.y = 0;
+	map_idx.x = 0;
+	while(map_idx.y <= 13)
 	{
-		map_pos.x = 0;
-		sex.y += 42;
-	sex.x = image->width / 2;
-		while (map_pos.x <= 32)
+		map_idx.x = 0;
+		map_pos.y += 42;
+		map_pos.x = image->width / 2;
+		while (map_idx.x <= 32)
 		{
-			if (scene.map.cells[map_pos.y][map_pos.x] == '1')
+			if (scene.map.cells[map_idx.y][map_idx.x] == '1')
 			{
-				draw_square(image, sex, 42,0xFFFFFFFF);
+				draw_square(image, map_pos, 42,0xFFFFFFFF);
 			}
-			sex.x += 42;
-			map_pos.x++;
+			map_pos.x += 42;
+			map_idx.x++;
 		}
-		map_pos.y++;
+		map_idx.y++;
 	}
 }
 
@@ -163,10 +163,6 @@ static void draw_player2D(mlx_image_t *image, t_scene scene)
 
 	size = 25;
 	draw_square(image, scene.player.p, size, 0xFF00FFFF);
-	/*if (scene.player.p.a < 0)
-		scene.player.p.a += 2 * PI;
-	else if (scene.player.p.a > 2 * PI)
-		scene.player.p.a -= 2 * PI;*/
 	scene.player.p.dx = cos(scene.player.p.a) * 5; 
 	scene.player.p.dy = sin(scene.player.p.a) * 5;
 	t_vec2 beg;
@@ -179,28 +175,40 @@ static void draw_player2D(mlx_image_t *image, t_scene scene)
 	draw_line(image, beg, end, 0xFF00FFFF);
 }
 
+static float dist(t_vec3 p, float bx, float by)
+{
+	return (sqrt((bx - p.x) * (bx - p.x) + (by - p.y) * (by - p.y) ));	
+}
+
 static void raycast(mlx_image_t *image, t_scene scene)
 {
-	unsigned int i = 0;
+	float atan;
+	float dis_h;
+	float hx;
+	float hy;
 	t_vec3 m;
 	t_vec3 r;
-	float atan;
 
 	r.a = scene.player.p.a;
-	while (i < 1)
+	m.a = 0;
+	//--check horizontal lines--
+	while (m.a < 1)
 	{
 		m.dx = 0;
+		dis_h = 1000000; 
+		hx = scene.player.p.x; 
+		hy = scene.player.p.y;
 		atan = -1 / tan(r.a);
 		if (r.a > PI)
 		{
-			r.y = ((scene.player.p.y>>6)<<6) -0.0001;
+			r.y = (((int)scene.player.p.y >> 6) << 6) -0.0001;
 			r.x = (scene.player.p.y - r.y) * atan + scene.player.p.x;
 			r.dy = -64;
 			r.dx = -r.dy * atan;
 		}
 		else if (r.a < PI)
 		{
-			r.y = ((scene.player.p.y>>6)<<6) + 64;
+			r.y = (((int)scene.player.p.y >> 6) << 6) + 64;
 			r.x = (scene.player.p.y - r.y) * atan + scene.player.p.x;
 			r.dy = 64;
 			r.dx = -r.dy * atan;
@@ -213,11 +221,16 @@ static void raycast(mlx_image_t *image, t_scene scene)
 		}
 		while (m.dx < 8)
 		{
-			m.x = r.x >> 6;
-			m.y = r.y >> 6;
-			m.dy = m.y * !!!mapx + m.x;
-			if (m.dy < !!!mapx*!!mapy && !!map[m.dy] == 1)
+			m.x = (int)r.x >> 6;
+			m.y = (int)r.y >> 6;
+			m.dy = m.y * (image->width / 4) + m.x;
+			if (m.dy < (image->width / 4) * (image->height / 4) && scene.map.cells[11][26] == '1')
+			{
+				hx = r.x;
+				hy = r.y;
+				dis_h = dist(scene.player.p, hx, hy);
 				m.dx = 8;
+			}	
 			else 
 			{
 				r.x += r.dx;
@@ -225,9 +238,75 @@ static void raycast(mlx_image_t *image, t_scene scene)
 				m.dx += 1;
 			}
 		}
-		i++;
+		m.a++;
 	}
-	//si esto compila solo haria falta dibujar
+	//check vertical lines
+	m.dx = 0;
+	float dis_v; 
+	float vx; 
+	float vy; 
+	float ntan; 
+	dis_v = 1000000; 
+	vx = scene.player.p.x; 
+	vy = scene.player.p.y;
+	ntan = -tan(r.a);
+	if (r.a > PI2 && r.a < PI3)
+	{
+		r.x = (((int)scene.player.p.x >> 6) << 6) -0.0001;
+		r.y = (scene.player.p.x - r.x) * ntan + scene.player.p.y;
+		r.dx = -64;
+		r.dy = -r.dx * ntan;
+	}
+	else if (r.a < PI2 || r.a > PI3)
+	{
+		r.x = (((int)scene.player.p.x >> 6) << 6) + 64;
+		r.y = (scene.player.p.x - r.x) * ntan + scene.player.p.y;
+		r.dx = 64;
+		r.dy = -r.dx * ntan;
+	}
+	else 
+	{
+		r.x = scene.player.p.x;
+		r.y = scene.player.p.y;
+		m.dx = 8;
+	}
+	while (m.dx < 8)
+	{
+		m.x = (int)r.x >> 6;
+		m.y = (int)r.y >> 6;
+		m.dy = m.y * (image->width / 4) + m.x;
+		if (m.dy < (image->width / 4) * (image->height / 4) && scene.map.cells[11][26] == '1')
+		{
+			vx = r.x;
+			vy = r.y;
+			dis_v = dist(scene.player.p, vx, vy);
+			m.dx = 8;
+		}
+		else 
+		{
+			r.x += r.dx;
+			r.y += r.dy;
+			m.dx += 1;
+		}
+	}
+	
+	if (dis_v < dis_h)
+	{
+		r.x = vx;
+		r.y = vy;
+	}
+	if (dis_h < dis_v)
+	{
+		r.x = hx;
+		r.y = hy;
+	}
+	t_vec2 beg;
+	t_vec2 end;
+	beg.x = scene.player.p.x + (25 / 2); 
+	beg.y = scene.player.p.y + (25 / 2);
+	end.x = r.x;
+	end.y = r.y;
+	draw_line(image, beg, end, 0x0000FFFF);
 }
 
 void	rasterise(mlx_image_t *image, t_scene scene)

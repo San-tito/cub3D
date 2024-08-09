@@ -6,12 +6,12 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 15:24:16 by droied            #+#    #+#             */
-/*   Updated: 2024/08/08 15:38:05 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:05:30 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+/*
 static int	_change_brightness(int color, float br)
 {
 	uint8_t	red;
@@ -25,13 +25,15 @@ static int	_change_brightness(int color, float br)
 	blue = (uint8_t)(br * ((color >> 8) & 0xFF));
 	return ((color & 0xFF000000) | ((uint32_t)red << 16) | ((uint32_t)green << 8) | blue);
 }
-
+*/
 static void	plot(mlx_image_t *img, int x, int y, int color, float br)
 {
-	int	new_color;
+	(void)br;
+/*	int	new_color;
 
-	new_color = _change_brightness(color, br);
-	mlx_put_pixel(img, x, y, new_color);
+	new_color = _change_brightness(color, br);*/
+	if ((x > 0 && x < (int)img->width) && (y > 0 && y < (int)img->height))
+		mlx_put_pixel(img, x, y, color);
 }
 
 void	draw_line(mlx_image_t *img, t_vec2 v0, t_vec2 v1, int color)

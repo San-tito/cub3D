@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/07/06 18:36:08 by droied           ###   ########.fr       */
+/*   Updated: 2024/08/09 13:24:07 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ typedef struct s_core
 # include <string.h>
 
 # define PI 3.141592657
+# define PI2 PI/2
+# define PI3 3*PI/2
 
 #endif /* CUB3D_H */

@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/08/08 15:50:10 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:12:05 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void parse_player(t_scene *scene)
 	/* luego hay que setear la posicion del player dependiendo del mapa
 	 scene.player.p.x = core.img->width / 2;
 	scene.player.p.y = core.img->height / 2;*/
-	scene->player.p.x = 1000;
+	scene->player.p.x = 2000;
 	scene->player.p.y = 1000;
 	scene->player.p.dx = cos(scene->player.p.a) * 5;
 	scene->player.p.dy = sin(scene->player.p.a) * 5;
