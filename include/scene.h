@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/08/08 15:18:06 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:31:07 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ typedef struct s_vec3
 	float		a;
 }				t_vec3;
 
+typedef struct s_fvec
+{
+	float x;
+	float y;
+}				t_fvec;
+
+typedef struct s_ivec
+{
+	int32_t		x;
+	int32_t		y;
+}				t_ivec;
+
 typedef struct s_vec2
 {
 	int32_t		x;
@@ -45,7 +57,9 @@ typedef enum e_cell
 
 typedef struct s_player
 {
-	t_vec2		pos;
+	t_fvec		pos;
+	t_fvec		plane;
+	t_fvec		dir;
 	t_vec3		p;
 	t_orient	spawn_orient;
 }				t_player;

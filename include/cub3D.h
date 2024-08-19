@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/09 13:24:07 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:00:23 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_core
 # include "print.h"
 # include "render.h"
 # include "xmalloc.h"
+# include "raycast.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>

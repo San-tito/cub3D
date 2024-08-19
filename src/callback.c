@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/08/08 15:53:33 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:18:36 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void	event_listener(mlx_t *mlx, t_scene *scene)
 		scene->player.p.a -= 0.1;
 		if (scene->player.p.a < 0)
 			scene->player.p.a += 2 * PI;
-	scene->player.p.dx = cos(scene->player.p.a) * 5; 
-	scene->player.p.dy = sin(scene->player.p.a) * 5;
-
+		scene->player.p.dx = cos(scene->player.p.a) * 5; 
+		scene->player.p.dy = sin(scene->player.p.a) * 5;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
