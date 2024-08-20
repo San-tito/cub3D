@@ -6,10 +6,11 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/08/20 13:01:35 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:22:01 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3D.h"
 #include "raycast.h"
 
 static void set_values(t_ray *ray, int x, t_player player, mlx_image_t img)
