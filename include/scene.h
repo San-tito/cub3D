@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/08/19 11:31:07 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:29:35 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ typedef enum e_orient
 	WEST = 'W'
 }				t_orient;
 
-typedef struct s_vec3
-{
-	float		x;
-	float		y;
-	float		dx;
-	float		dy;
-	float		a;
-}				t_vec3;
-
 typedef struct s_fvec
 {
 	float x;
@@ -41,12 +32,6 @@ typedef struct s_ivec
 	int32_t		x;
 	int32_t		y;
 }				t_ivec;
-
-typedef struct s_vec2
-{
-	int32_t		x;
-	int32_t		y;
-}				t_vec2;
 
 typedef enum e_cell
 {
@@ -60,8 +45,9 @@ typedef struct s_player
 	t_fvec		pos;
 	t_fvec		plane;
 	t_fvec		dir;
-	t_vec3		p;
+	t_ivec		move;
 	t_orient	spawn_orient;
+	int32_t		rotate;
 }				t_player;
 
 typedef struct s_map
@@ -70,13 +56,6 @@ typedef struct s_map
 	int32_t		rows;
 	int32_t		cols;
 }				t_map;
-
-typedef struct s_minimap
-{
-	uint32_t	size;
-	t_vec2		map;
-	t_vec3		player;
-}				t_minimap;
 
 typedef struct s_textures
 {
@@ -95,8 +74,6 @@ typedef struct s_scene
 	int32_t		floor_color;
 	int32_t		ceiling_color;
 }				t_scene;
-
-typedef void	(*t_funori)(t_scene scene);
 
 t_scene			create_scene(int, char **);
 

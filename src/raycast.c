@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/08/19 13:06:21 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:19:28 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void set_values(t_ray *ray, int x, t_player player, mlx_image_t img)
 	ray->map.y = (int)player.pos.y;
 	ray->deltadist.x = fabs(1 / ray->dir.x);
 	ray->deltadist.y = fabs(1 / ray->dir.y);
+	ray->sidedist.x = 0;
+	ray->sidedist.y = 0;
 }
 
 static void set_dda(t_ray *ray, t_player player)
@@ -105,6 +107,7 @@ void raycast(mlx_image_t *image, t_scene scene)
 		set_dda(&ray, scene.player);
 		dda(&ray, scene);
 		compute_wall(&ray, scene.player, image);
+		//mlx_put_pixel(image, ray.sidedist.x, ray.sidedist.y, 0x00FFFFFF);
 		x++;
 	}
 }
