@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 13:20:44 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:43:22 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void print_ray(const t_ray *ray)
 void	print_player(const t_player *player)
 {
 	ft_printf("player:\n");
-	ft_printf("position: (%d, %d)\n", player->pos.x, player->pos.y);
+	ft_printf("position: (%d, %d)\n", (int)player->pos.x, (int)player->pos.y);
 	ft_printf("orientation: %c\n", player->spawn_orient);
 }
 

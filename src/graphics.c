@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/19 12:41:53 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:54:57 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,32 @@ static void	image_clear(mlx_image_t *image)
 	}
 }
 
+static void draw_updown(mlx_image_t *image, t_scene scene)
+{
+	t_ivec ceil;
+
+	ceil.x = 0;
+	ceil.y = 0;
+	while(ceil.y <= (int32_t)(image->height / 2))
+	{
+		ceil.x = 0;
+		while (ceil.x <= (int32_t)image->width)
+			mlx_put_pixel(image, ceil.x++, ceil.y, scene.ceiling_color);
+		ceil.y++;
+	}
+	while(ceil.y <= (int32_t)(image->height - 1))
+	{
+		ceil.x = 0;
+		while (ceil.x <= (int32_t)image->width)
+			mlx_put_pixel(image, ceil.x++, ceil.y, scene.floor_color);
+		ceil.y++;
+	}
+}
+
 void	rasterise(mlx_image_t *image, t_scene scene)
 {
-	raycast(image, scene);
+	draw_updown(image, scene);
+	//raycast(image, scene);
 }
 
 void	game_loop(void *param)
