@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:18:44 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 12:50:36 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:22:36 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void west_east( t_player *player, int32_t i)
 	}
 }
 
-void set_player(t_player *player)
+void set_player(mlx_image_t *img, t_player *player)
 {
 	t_funori	orientation[] = { &north_south, &west_east};
 	t_orient	ori[4] = { NORTH, SOUTH, WEST, EAST};
@@ -67,6 +67,6 @@ void set_player(t_player *player)
 	player->rotate = 0;
 	player->move.x = 0;
 	player->move.y = 0;
-	player->pos.x = 1000; //no se donde va aun
-	player->pos.y = 500; //ajustarlo bro
+	player->pos.x = img->width / 2;
+	player->pos.y = img->height / 2;
 }

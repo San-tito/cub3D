@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 14:43:22 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:39:38 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ void	print_map(const t_map *map)
 void print_ray(const t_ray *ray)
 {
 	ft_printf("\n[RAY]\n");
-	ft_printf("position: (%d, %d)\n", ray->pos.x, ray->pos.y);
-	ft_printf("direction: (%d, %d)\n", ray->dir.x, ray->dir.y);
-	ft_printf("sidedist: (%d, %d)\n", ray->sidedist.x, ray->sidedist.y);
-	ft_printf("deltadist: (%d, %d)\n", ray->deltadist.x, ray->deltadist.y);
-	ft_printf("wall: (%d, %d)\n", ray->wall.x, ray->wall.y);
+	ft_printf("position: (%d, %d)\n", (int)ray->pos.x, (int)ray->pos.y);
+	ft_printf("direction: (%d, %d)\n", (int)ray->dir.x, (int)ray->dir.y);
+	ft_printf("sidedist: (%d, %d)\n", (int)ray->sidedist.x, (int)ray->sidedist.y);
+	ft_printf("deltadist: (%d, %d)\n", (int)ray->deltadist.x, (int)ray->deltadist.y);
+	ft_printf("wall: (%d, %d)\n", (int)ray->wall.x, (int)ray->wall.y);
 	ft_printf("step: (%i, %i)\n", ray->step.x, ray->step.y);
 	ft_printf("map: (%i, %i)\n", ray->map.x, ray->map.y);
 
-	ft_printf("wall distance: %d\n", ray->wall_dist);
-	ft_printf("wall start: %d\n", ray->wall_start);
-	ft_printf("wall end: (%d, %d)\n", ray->wall_end);
+	ft_printf("wall distance: %d\n", (int)ray->wall_dist);
+	ft_printf("wall start: %d\n", (int)ray->wall_start);
+	ft_printf("wall end: %d\n", (int)ray->wall_end);
 
-	ft_printf("camera x: %d\n", ray->cam_x);
+	ft_printf("camera x: %d\n", (int)ray->cam_x);
 	ft_printf("side: %i\n", ray->side);
 }
 

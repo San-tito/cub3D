@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/08/20 14:40:57 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:22:39 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_scene	create_scene(int argc, char **argv)
 	print_scene(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error("the map is not closed/surrounded by walls");
-	set_player(&scene.player);
 	close(fd);
 	return (scene);
 }
