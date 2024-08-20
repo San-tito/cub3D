@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/05/12 18:03:36 by droied           ###   ########.fr       */
+/*   Updated: 2024/08/20 13:08:19 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ void	print_map(const t_map *map)
 		ft_printf("\n");
 		i++;
 	}
+}
+
+void print_ray(const t_ray *ray)
+{
+	ft_printf("\n[RAY]\n");
+	ft_printf("position: (%f, %f)\n", ray->pos.x, ray->pos.y);
+	ft_printf("direction: (%f, %f)\n", ray->dir.x, ray->dir.y);
+	ft_printf("sidedist: (%f, %f)\n", ray->sidedist.x, ray->sidedist.y);
+	ft_printf("deltadist: (%f, %f)\n", ray->deltadist.x, ray->deltadist.y);
+	ft_printf("wall: (%f, %f)\n", ray->wall.x, ray->wall.y);
+	ft_printf("step: (%i, %i)\n", ray->step.x, ray->step.y);
+	ft_printf("map: (%i, %i)\n", ray->map.x, ray->map.y);
+
+	ft_printf("wall distance: %f\n", ray->wall_dist);
+	ft_printf("wall start: %f\n", ray->wall_start);
+	ft_printf("wall end: (%f, %f)\n", ray->wall_end);
+
+	ft_printf("camera x: %f\n", ray->cam_x);
+	ft_printf("side: %i\n", ray->side);
 }
 
 void	print_player(const t_player *player)

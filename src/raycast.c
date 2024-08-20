@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/08/20 12:19:28 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:01:35 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void raycast(mlx_image_t *image, t_scene scene)
 		set_dda(&ray, scene.player);
 		dda(&ray, scene);
 		compute_wall(&ray, scene.player, image);
-		//mlx_put_pixel(image, ray.sidedist.x, ray.sidedist.y, 0x00FFFFFF);
+		print_ray(&ray);
+		mlx_put_pixel(image, ray.sidedist.x, ray.sidedist.y, 0x00FFFFFF);
 		x++;
 	}
 }

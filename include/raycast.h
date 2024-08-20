@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:54:55 by deordone          #+#    #+#             */
-/*   Updated: 2024/08/19 13:05:26 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:57:31 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ typedef struct s_ray
 	t_fvec	dir;
 	t_fvec	sidedist;
 	t_fvec	deltadist;
+	t_fvec	wall;
 	t_ivec	step;
 	t_ivec	map;
-	t_fvec	wall;
 
 	float	cam_x;
 	float	wall_dist;
