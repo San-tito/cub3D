@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 15:39:38 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:32:09 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print_map(const t_map *map)
 		ft_printf("\n");
 		i++;
 	}
+	ft_printf("column: %d\n", map->cols);
+	ft_printf("row: %d\n", map->rows);
 }
 
 void print_ray(const t_ray *ray)

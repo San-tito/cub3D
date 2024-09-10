@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/08/20 15:47:48 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:51:36 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ static void	dda(t_ray *ray, t_scene scene)
 	{
 		if (ray->sidedist.x < ray->sidedist.y)
 		{
-			ray->sidedist.x += ray->sidedist.x;
+			ray->sidedist.x += ray->deltadist.x;
 			ray->map.x += ray->step.x;
 			ray->side = 0;
 		}
 		else 
 		{	
-			ray->sidedist.y += ray->sidedist.y;
+			ray->sidedist.y += ray->deltadist.y;
 			ray->map.y += ray->step.y;
 			ray->side = 1;
 		}
@@ -82,6 +82,8 @@ static void compute_wall(t_ray *ray, t_player player, mlx_image_t *img)
 		ray->wall_dist = (ray->sidedist.x - ray->deltadist.x);
 	else
 		ray->wall_dist = (ray->sidedist.y - ray->deltadist.y);
+	if (ray->wall_dist < 0)
+		ray->wall_dist = 0.0001;
 	ray->wall.y = (int)(img->height / ray->wall_dist);
 	ray->wall_start = -(ray->wall.y) / 2 + img->height / 2;
 	if (ray->wall_start < 0)
@@ -108,13 +110,16 @@ void raycast(mlx_image_t *image, t_scene scene)
 		set_dda(&ray, scene.player);
 		dda(&ray, scene);
 		compute_wall(&ray, scene.player, image);
-		print_ray(&ray);
-		float e;
-		e = ray.wall_end;
-		while (e <= ray.wall_start)
+
+		/*Drawing tests*/
+		int32_t y;
+		y = ray.wall_start;
+		if (x == 0)
+			print_ray(&ray);
+		while (y <= ray.wall_end)
 		{
-			mlx_put_pixel(image, x, e++, 0x00FFFFFF);
-			mlx_put_pixel(image, x * -1, e, 0x00FFFFFF);
+			mlx_put_pixel(image, x, y, 0x00FFFFFF);
+			y++;
 		}
 		x++;
 	}

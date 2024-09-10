@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 15:23:48 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:39:21 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	game_loop(void *param)
 	t_core	*core;
 
 	core = (t_core *)param;
-	set_player(core->img, &core->scene.player);
 	event_listener(core->mlx, &core->scene);
 	if (core->scene.refresh)
 	{

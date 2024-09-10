@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/08/20 13:09:26 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:38:52 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_scene
 	t_map		map;
 	t_player	player;
 	t_textures	textures;
+	t_fvec		scale;
 	int8_t		refresh;
 	int32_t		floor_color;
 	int32_t		ceiling_color;

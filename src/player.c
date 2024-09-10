@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:18:44 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 15:22:36 by deordone         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:44:00 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,24 @@ static void west_east( t_player *player, int32_t i)
 	}
 }
 
-void set_player(mlx_image_t *img, t_player *player)
+void set_player(mlx_image_t *img, t_scene *scene)
 {
 	t_funori	orientation[] = { &north_south, &west_east};
 	t_orient	ori[4] = { NORTH, SOUTH, WEST, EAST};
 	int32_t i;
 
 	i = 0;
-	while (i < 4 && ori[i] != player->spawn_orient)
+	scene->scale.x = img->width / scene->map.cols; 
+	scene->scale.y = img->height / scene->map.rows; 
+	while (i < 4 && ori[i] != scene->player.spawn_orient)
 		i++;
 	if (i < 2)
-		(orientation[0])(player, i);
+		(orientation[0])(&scene->player, i);
 	else if (i < 4)
-		(orientation[1])(player, i);
-	player->rotate = 0;
-	player->move.x = 0;
-	player->move.y = 0;
-	player->pos.x = img->width / 2;
-	player->pos.y = img->height / 2;
+		(orientation[1])(&scene->player, i);
+	scene->player.rotate = 0;
+	scene->player.move.x = 0;
+	scene->player.move.y = 0;
+	scene->player.pos.x = (int)scene->player.pos.x * scene->scale.x;
+	scene->player.pos.y = (int)scene->player.pos.y * scene->scale.y;
 }
