@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/21 19:36:30 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:57:16 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 	core.scene = create_scene(argc, argv);
 	/* setup MLX; create window; setup width, heitht, image */
 	begin_window(&core, 1280, 960);
-	set_player(core.img, &core.scene);
+	// set_player(core.img, &core.scene);
 	/* rasterize in image */
 	start_renderer(core);
 	// rendering(core.image, core.scene);

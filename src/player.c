@@ -6,12 +6,13 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:18:44 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/21 19:44:00 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:12:28 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/*
 typedef void	(*t_funori)(t_player *, int32_t);
 
 static void north_south( t_player *player, int32_t i)
@@ -20,14 +21,14 @@ static void north_south( t_player *player, int32_t i)
 	{	
 		player->dir.x = 0;
 		player->dir.y = -1;
-		player->plane.x = 0.66;
+		player->plane.x = dir.y * FOV / 2;
 		player->plane.y = 0;
 	}
 	else if (i == 1)
 	{
 		player->dir.x = 0;
 		player->dir.y = 1;
-		player->plane.x = -0.66;
+		player->plane.x = ((dir.y * FOV / 2) * -1);
 		player->plane.y = 0;
 	}
 }
@@ -60,7 +61,7 @@ void set_player(mlx_image_t *img, t_scene *scene)
 	i = 0;
 	scene->scale.x = img->width / scene->map.cols; 
 	scene->scale.y = img->height / scene->map.rows; 
-	while (i < 4 && ori[i] != scene->player.spawn_orient)
+	while (i < 4 && ori[i] != )
 		i++;
 	if (i < 2)
 		(orientation[0])(&scene->player, i);
@@ -72,3 +73,4 @@ void set_player(mlx_image_t *img, t_scene *scene)
 	scene->player.pos.x = (int)scene->player.pos.x * scene->scale.x;
 	scene->player.pos.y = (int)scene->player.pos.y * scene->scale.y;
 }
+*/

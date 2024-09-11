@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/08/21 19:38:52 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:16:03 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ typedef enum e_cell
 
 typedef struct s_player
 {
-	t_fvec		pos;
+	t_ivec		pos;
 	t_fvec		plane;
-	t_fvec		dir;
-	t_ivec		move;
+	t_ivec		dir;
 	t_orient	spawn_orient;
-	int32_t		rotate;
 }				t_player;
 
 typedef struct s_map
@@ -70,7 +68,6 @@ typedef struct s_scene
 	t_map		map;
 	t_player	player;
 	t_textures	textures;
-	t_fvec		scale;
 	int8_t		refresh;
 	int32_t		floor_color;
 	int32_t		ceiling_color;
