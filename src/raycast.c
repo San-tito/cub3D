@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/08/21 19:51:36 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:04:05 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,31 @@ static void compute_wall(t_ray *ray, t_player player, mlx_image_t *img)
 		ray->wall_dist = (ray->sidedist.x - ray->deltadist.x);
 	else
 		ray->wall_dist = (ray->sidedist.y - ray->deltadist.y);
-	if (ray->wall_dist < 0)
-		ray->wall_dist = 0.0001;
-	ray->wall.y = (int)(img->height / ray->wall_dist);
+	ray->wall.y = (int)((img->height / 2) / ray->wall_dist);
 	ray->wall_start = -(ray->wall.y) / 2 + img->height / 2;
 	if (ray->wall_start < 0)
 		ray->wall_start = 0;
-	ray->wall_end = ray->wall.y / 2 + img->height / 2;
+	ray->wall_end = ray->wall.y / 2 + (img->height / 2) / 2;
 	if (ray->wall_end >= img->height)
-		ray->wall_end = img->height - 1;
+		ray->wall_end = (img->height / 2) - 1;
 	if (ray->side == 0)
 		ray->wall.x = player.pos.y + ray->wall_dist * ray->dir.y;
 	else
 		ray->wall.x = player.pos.x + ray->wall_dist * ray->dir.x;
 	ray->wall.x -= floor(ray->wall.x);
+}
+
+static void my_mlx_put_pixel(mlx_image_t *img, int32_t x, int32_t y, int color) // put the pixel
+{
+	if (x < 0) // check the x position
+		return ;
+	else if (x >= (int32_t)img->width)
+		return ;
+	if (y < 0) // check the y position
+		return ;
+	else if (y >= (int32_t)img->height)
+		return ;
+	mlx_put_pixel(img, x, y, color); // put the pixel
 }
 
 void raycast(mlx_image_t *image, t_scene scene)
@@ -104,22 +115,22 @@ void raycast(mlx_image_t *image, t_scene scene)
 	int32_t		x;
 	
 	x = 0;
-	while (x < (int32_t)image->width)
+	while ((uint32_t)x < image->width)
 	{
 		set_values(&ray, x, scene.player, *image);
 		set_dda(&ray, scene.player);
 		dda(&ray, scene);
 		compute_wall(&ray, scene.player, image);
-
-		/*Drawing tests*/
-		int32_t y;
-		y = ray.wall_start;
 		if (x == 0)
-			print_ray(&ray);
-		while (y <= ray.wall_end)
+			print_ray(&ray); 
+
+		int32_t start;
+		int32_t end;
+		start = (int)ray.wall_start;
+		end = (int)ray.wall_end;
+		while (start <= end)
 		{
-			mlx_put_pixel(image, x, y, 0x00FFFFFF);
-			y++;
+			my_mlx_put_pixel(image, x, start++, 0xFF00FFFF);
 		}
 		x++;
 	}
