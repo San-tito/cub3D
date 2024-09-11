@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/11 18:28:58 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:36:55 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,9 @@
 
 static void	set_values(t_ray *ray, int x, t_player player, mlx_image_t img)
 {
-	ray->cam_x = 2 * x / (double)img.width - 1;
-	ray->dir.x = player.dir.x + player.plane.x * ray->cam_x;
-	ray->dir.y = player.dir.y + player.plane.y * ray->cam_x;
-	ray->map.x = (int)player.pos.x;
-	ray->map.y = (int)player.pos.y;
-	ray->deltadist.x = fabs(1 / ray->dir.x);
-	ray->deltadist.y = fabs(1 / ray->dir.y);
-	if (ray->dir.y == 0)
-		ray->deltadist.x = 1E30;
-	if (ray->dir.x == 0)
-		ray->deltadist.y = 1E30;
+	ray->dir.x = player.dir.x + player.plane.x;
+	ray->dir.y = player.dir.y + player.plane.y;
+	
 }
 
 static void	set_dda(t_ray *ray, t_player player)
