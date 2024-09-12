@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/11 18:28:23 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:23:11 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_core
 # include <string.h>
 
 # define PI 3.141592657
-# define FOV_DEG 66.0
+# define FOV_DEG 88.0
 # define FOV_RAD (FOV_DEG * (PI / 180.0))
 
 #endif /* CUB3D_H */

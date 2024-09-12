@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/08/20 10:27:47 by deordone         ###   ########.fr        #
+#    Updated: 2024/09/11 18:51:41 by deordone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ MLX          = $(MLX_PATH)/libmlx42.a
 LIBFTPRINTF_PATH = ./libs/libftprintf
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = callback.c cub3D.c error.c general.c graphics.c map.c parse.c player.c print.c scene.c xmalloc.c raycast.c
+SRCS         = callback.c cub3D.c error.c general.c graphics.c map.c parse.c print.c scene.c xmalloc.c raycast.c
 MAIN         = cub3D.c
 
 ################################################################################

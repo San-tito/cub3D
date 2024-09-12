@@ -6,16 +6,17 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/11 13:02:44 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:06:01 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/*
 static void	image_clear(mlx_image_t *image)
 {
-	unsigned int x;
-	unsigned int y;
+	unsigned int	x;
+	unsigned int	y;
 
 	y = 0;
 	x = 0;
@@ -27,21 +28,22 @@ static void	image_clear(mlx_image_t *image)
 		y++;
 	}
 }
+*/
 
-static void draw_updown(mlx_image_t *image, t_scene scene)
+static void	draw_updown(mlx_image_t *image, t_scene scene)
 {
-	t_ivec ceil;
+	t_ivec	ceil;
 
 	ceil.x = 0;
 	ceil.y = 0;
-	while(ceil.y <= (int32_t)(image->height / 2))
+	while (ceil.y <= (int32_t)(image->height / 2))
 	{
 		ceil.x = 0;
 		while (ceil.x <= (int32_t)image->width)
 			mlx_put_pixel(image, ceil.x++, ceil.y, scene.ceiling_color);
 		ceil.y++;
 	}
-	while(ceil.y <= (int32_t)(image->height - 1))
+	while (ceil.y <= (int32_t)(image->height - 1))
 	{
 		ceil.x = 0;
 		while (ceil.x <= (int32_t)image->width)
@@ -58,13 +60,16 @@ void	rasterise(mlx_image_t *image, t_scene scene)
 
 void	game_loop(void *param)
 {
-	t_core	*core;
+	t_core		*core;
+	mlx_image_t	*image;
 
 	core = (t_core *)param;
+	image = core->img;
 	event_listener(core->mlx, &core->scene);
 	if (core->scene.refresh)
 	{
-		image_clear(core->img);
+		ft_bzero((*image).pixels, (*image).width * (*image).height
+			* sizeof(int));
 		rasterise(core->img, core->scene);
 		core->scene.refresh = 0;
 	}
