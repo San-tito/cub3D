@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/12 15:47:30 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:36:48 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "print.h"
 #include "raycast.h"
 
+/*
 static void	set_values(t_ray *ray, t_player player)
 {
 	ray->dir.x = player.pos.x  + player.dir.x + player.plane.x;
@@ -63,14 +64,13 @@ static void	dda(t_ray *ray, t_scene scene)
 			ray->side = 1;
 		}
 
-		/* Check if the ray go outside of the boundaries of the map
-		 * if (ray->pos.y < 0 || ray->pos.x < 0
-			|| ray->pos.y > scene.map.cols || ray->pos.x > scene.map.rows)
-			break ;*/
+		
 		if (scene.map.cells[(int32_t)ray->pos.y][(int32_t)ray->pos.x] > SPACE)
 			hit++;
 	}
 }
+
+
 
 static void	compute_wall(t_ray *ray, mlx_image_t *img)
 {
@@ -92,6 +92,7 @@ static void	compute_wall(t_ray *ray, mlx_image_t *img)
 	if (ray->wall_end >= img->height)
 		ray->wall_end = height - 1;
 }
+*/
 
 static void draw_wall(mlx_image_t *image, uint32_t x, int32_t start, int32_t end, int32_t color)
 {
@@ -105,12 +106,12 @@ static void draw_wall(mlx_image_t *image, uint32_t x, int32_t start, int32_t end
 
 void	raycast(mlx_image_t *image, t_scene scene)
 {
-	t_ray	ray;
-	uint32_t	x;
+	uint32_t x;
 
 	x = 0;
 	while (x < image->width)
 	{
+		/*
 		set_values(&ray, scene.player);
 		set_dda(&ray, scene.player);
 		dda(&ray, scene);
@@ -118,6 +119,78 @@ void	raycast(mlx_image_t *image, t_scene scene)
 		draw_wall(image, x, ray.wall_start, ray.wall_end, 0xFF00FFFF);
 		if (x == 0)
 			print_ray(&ray);
+			*/
+	double cameraX = 2 * x / (double)image->width - 1;
+      	double rayDirX = scene.player.dir.x + scene.player.plane.x * cameraX;
+      	double rayDirY = scene.player.dir.y + scene.player.plane.y * cameraX;
+
+     	int mapX = (int)scene.player.pos.x;
+      	int mapY = (int)scene.player.pos.y;
+    	double sideDistX;
+      	double sideDistY;
+
+  	double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+      	double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+
+      	double perpWallDist;
+  	int stepX;
+   	int stepY;
+	int hit = 0;
+	int side;
+
+	  if(rayDirX < 0)
+      {
+        stepX = -1;
+        sideDistX = (scene.player.pos.x - mapX) * deltaDistX;
+      }
+      else
+      {
+        stepX = 1;
+        sideDistX = (mapX + 1.0 - scene.player.pos.x) * deltaDistX;
+      }
+      if(rayDirY < 0)
+      {
+        stepY = -1;
+        sideDistY = (scene.player.pos.y - mapY) * deltaDistY;
+      }
+      else
+      {
+        stepY = 1;
+        sideDistY = (mapY + 1.0 - scene.player.pos.y) * deltaDistY;
+      }
+
+      while(hit == 0)
+      {
+        if(sideDistX < sideDistY)
+        {
+          sideDistX += deltaDistX;
+          mapX += stepX;
+          side = 0;
+        }
+        else
+        {
+          sideDistY += deltaDistY;
+          mapY += stepY;
+          side = 1;
+        }
+        if (scene.map.cells[mapX][mapY] > SPACE) hit = 1;
+      }
+      if(side == 0) perpWallDist = (sideDistX - deltaDistX);
+      else          perpWallDist = (sideDistY - deltaDistY);
+      int lineHeight = (int)(image->height / perpWallDist);
+      int drawStart = -lineHeight / 2 + image->height / 2;
+      if(drawStart < 0) drawStart = 0;
+      int drawEnd = lineHeight / 2 + image->height / 2;
+      if(drawEnd >= (int)image->height) drawEnd = image->height - 1;
+      int color;
+      switch(scene.map.cells[mapX][mapY])
+      {
+        case DOOR:  color = 16711680;    break; 
+        case WALL:  color = 65280;  break; 
+        default: color = 255; break; 
+      }
+      if(side == 1) {color = color / 2;}
+      draw_wall(image, x, drawStart, drawEnd, color);
 		x++;
 	}
 }

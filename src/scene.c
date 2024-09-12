@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/11 18:33:02 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:57:34 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ t_scene	create_scene(int argc, char **argv)
 	print_scene(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error("the map is not closed/surrounded by walls");
-	scene.player.dir.x = (scene.player.spawn_orient == EAST)
-		+ ((scene.player.spawn_orient == WEST) * -1);
-	scene.player.dir.y = (scene.player.spawn_orient == SOUTH)
-		+ ((scene.player.spawn_orient == NORTH) * -1);
-	scene.player.plane.x = scene.player.dir.x * tan(FOV_RAD / 2);
-	scene.player.plane.y = scene.player.dir.y * tan(FOV_RAD / 2);
+	scene.player.dir.x = -1;//(scene.player.spawn_orient == EAST)
+		//+ ((scene.player.spawn_orient == WEST) * -1);
+	scene.player.dir.y = 0;//(scene.player.spawn_orient == SOUTH)
+		//+ ((scene.player.spawn_orient == NORTH) * -1);
+	scene.player.plane.x = 0;//scene.player.dir.x * tan(FOV_RAD / 2);
+	scene.player.plane.y = 0.66;//scene.player.dir.y * tan(FOV_RAD / 2);
 	return (scene);
 }
