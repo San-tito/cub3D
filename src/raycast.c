@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/13 09:21:41 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/13 11:20:56 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,23 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height)
 		wall->color = wall->color / 2;
 }
 
-static void	draw_wall(mlx_image_t *image, uint32_t x, t_wall wall)
+static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 {
-	while (wall.start < wall.end)
+	if (wall.end < wall.start)
 	{
-		mlx_put_pixel(image, x, wall.start++, wall.color);
+		wall.start += wall.end;
+		wall.end = wall.start - wall.end;
+		wall.start -= wall.end;
 	}
+	if (wall.end < 0 || (unsigned)wall.start >= image->height
+		|| x >= image->width)
+		return ;
+	if (wall.start < 0)
+		wall.start = 0;
+	if ((unsigned)wall.end >= image->width)
+		wall.end = image->height - 1;
+	while (wall.start <= wall.end)
+		mlx_put_pixel(image, x, wall.start++, wall.color);
 }
 
 void	raycast(mlx_image_t *image, t_scene scene)
