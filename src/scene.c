@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 15:00:41 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 15:50:29 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ int	check_file_extension(const char *filename, const char *expected)
 
 	return (ext == 0 || ft_strncmp(ext, expected, ft_strlen(ext)) != 0
 		|| ext[ft_strlen(expected)] != 0);
+}
+
+static void	init_player(t_scene *scene)
+{
+	scene->player.dir.x = -1;
+	scene->player.plane.y = tan(FOV_RAD / 2);
+	if (scene->player.spawn_orient == NORTH)
+		rotate(scene, PI / 2);
+	if (scene->player.spawn_orient == SOUTH)
+		rotate(scene, 3 * PI / 2);
+	if (scene->player.spawn_orient == WEST)
+		rotate(scene, PI);
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -39,13 +51,8 @@ t_scene	create_scene(int argc, char **argv)
 	parse_scene(fd, &scene);
 	close(fd);
 	print_scene(&scene);
-	 if (validate_map(&scene) == 0)
-		 fatal_error("the map is not closed/surrounded by walls");
-	scene.player.dir.x = -1;//(scene.player.spawn_orient == EAST)
-		//+ ((scene.player.spawn_orient == WEST) * -1);
-	scene.player.dir.y = 0;//(scene.player.spawn_orient == SOUTH)
-		//+ ((scene.player.spawn_orient == NORTH) * -1);
-	scene.player.plane.x = 0;//scene.player.dir.x * tan(FOV_RAD / 2);
-	scene.player.plane.y = 0.66;//scene.player.dir.y * tan(FOV_RAD / 2);
+	if (validate_map(&scene) == 0)
+		fatal_error("the map is not closed/surrounded by walls");
+	init_player(&scene);
 	return (scene);
 }

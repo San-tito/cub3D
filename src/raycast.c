@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/13 15:05:24 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 15:50:56 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,6 @@ void	raycast(mlx_image_t *image, t_scene scene)
 	while (x < image->width)
 	{
 		init_ray(&ray, scene.player, 2 * x / (float)image->width - 1);
-		if (x == 1)
-	    {
-			printf("delta x %f\n", ray.deltadist.x);
-			printf("delta y %f\n", ray.deltadist.y);
-		}
 		perform_dda(&ray, scene.map.cells);
 		calculate_wall(&wall, &ray, image->height);
 		draw_wall(image, x, wall);
