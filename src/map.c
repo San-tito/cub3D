@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/07/06 18:55:06 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 11:23:16 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	parse_map(t_scene *scene, int lineno, char *line)
 			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		else if (c == NORTH || c == SOUTH || c == EAST || c == WEST)
 		{
-			scene->player.pos.x = i;
-			scene->player.pos.y = scene->map.rows - 1;
+			scene->player.pos.x = i + 0.5;
+			scene->player.pos.y = scene->map.rows - 1 + 0.5;
 			scene->player.spawn_orient = c;
 			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		}
