@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/13 15:56:21 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 17:16:18 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define FOV 60
 # define PROGRAM "cub3D"
+# define SPEED 0.2f
+# define SENSITIVITY 0.0005f
 
 # include "MLX42/MLX42.h"
 # include "scene.h"
