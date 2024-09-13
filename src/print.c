@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/12 15:16:15 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/13 09:14:42 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_map(const t_map *map)
 void print_ray(const t_ray *ray)
 {
 	printf("\n[RAY]\n");
-	printf("pos: (%f, %f)\n", ray->pos.x, ray->pos.y);
+	printf("pos: (%i, %i)\n", ray->pos.x, ray->pos.y);
 	printf("direction: (%f, %f)\n", ray->dir.x, ray->dir.y);
 	printf("sidedist: (%f, %f)\n", ray->sidedist.x, ray->sidedist.y);
 	printf("deltadist: (%f, %f)\n", ray->deltadist.x, ray->deltadist.y);

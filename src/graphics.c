@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/12 20:09:26 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/13 09:23:42 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ void	game_loop(void *param)
 	core = (t_core *)param;
 	image = core->img;
 	event_listener(core->mlx, &core->scene);
-	if (core->scene.refresh)
-	{
+	//if (core->scene.refresh)
+	//{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
 			* sizeof(int));
 		rasterise(core->img, core->scene);
-		core->scene.refresh = 0;
-	}
+		// core->scene.refresh = 0;
+	// }
 }
 
 void	start_renderer(t_core core)
