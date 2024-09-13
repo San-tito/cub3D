@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/13 11:20:56 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/13 15:05:24 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->pos.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (cells[(int)ray->pos.x][(int)ray->pos.y] > SPACE)
+		if (cells[(int)ray->pos.y][(int)ray->pos.x] > SPACE)
 			hit++;
 	}
 }
@@ -102,7 +102,7 @@ static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 	if ((unsigned)wall.end >= image->width)
 		wall.end = image->height - 1;
 	while (wall.start <= wall.end)
-		mlx_put_pixel(image, x, wall.start++, wall.color);
+		put_pixel(image, x, wall.start++, wall.color);
 }
 
 void	raycast(mlx_image_t *image, t_scene scene)
@@ -115,6 +115,11 @@ void	raycast(mlx_image_t *image, t_scene scene)
 	while (x < image->width)
 	{
 		init_ray(&ray, scene.player, 2 * x / (float)image->width - 1);
+		if (x == 1)
+	    {
+			printf("delta x %f\n", ray.deltadist.x);
+			printf("delta y %f\n", ray.deltadist.y);
+		}
 		perform_dda(&ray, scene.map.cells);
 		calculate_wall(&wall, &ray, image->height);
 		draw_wall(image, x, wall);

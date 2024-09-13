@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 09:39:46 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/13 15:03:44 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	move(t_scene *scene, float fx, float fy, double move_speed)
 {
-	// Move along X-axis if no wall is blocking the movement
-	if (scene->map.cells[(int)(scene->player.pos.x + fx
-			* move_speed)][(int)(scene->player.pos.y)] == SPACE)
-		scene->player.pos.x += fx * move_speed;
 	// Move along Y-axis if no wall is blocking the movement
-	if (scene->map.cells[(int)(scene->player.pos.x)][(int)(scene->player.pos.y
-			+ fy * move_speed)] == SPACE)
+	if (scene->map.cells[(int)(scene->player.pos.y + fy
+			* move_speed)][(int)(scene->player.pos.x)] == SPACE)
 		scene->player.pos.y += fy * move_speed;
+	// Move along X-axis if no wall is blocking the movement
+	if (scene->map.cells[(int)(scene->player.pos.y)][(int)(scene->player.pos.x
+			+ fx * move_speed)] == SPACE)
+		scene->player.pos.x += fx * move_speed;
 	scene->refresh = 1;
 }
 
@@ -44,8 +44,8 @@ void	rotate(t_scene *scene, double angle)
 
 void	event_listener(mlx_t *mlx, t_scene *scene)
 {
-	const double	move_speed = 0.2;
-	const double	rot_speed = 0.2;
+	const double	move_speed = 0.1;
+	const double	rot_speed = 0.05;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
