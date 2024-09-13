@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 17:23:14 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 17:50:26 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ void	rotate(t_scene *scene, double angle)
 	scene->refresh = 1;
 }
 
-void	mouse_listener(double xpos, double ypos, void *param)
+void	mouse_listener(mlx_t *mlx, t_scene *scene)
 {
-	t_core			*core;
-	float			delta;
 	static float	last = 0;
+	float			delta;
+	t_ivec			pos;
 
-	(void)ypos;
-	core = (t_core *)param;
-	delta = (xpos - last);
-	last = xpos;
-	rotate(&core->scene, delta * SENSITIVITY);
+	mlx_get_mouse_pos(mlx, &pos.x, &pos.y);
+	delta = (pos.x - last);
+	if (last != 0)
+		rotate(scene, delta * SENSITIVITY);
+	last = pos.x;
 }
 
 void	event_listener(mlx_t *mlx, t_scene *scene)

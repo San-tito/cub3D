@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/13 16:06:25 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 17:38:20 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->pos.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (cells[(int)ray->pos.y][(int)ray->pos.x] > SPACE)
+		if (cells[(int)ray->pos.y][(int)ray->pos.x] > SPACE) // we should handle the state of the door open 
 			hit++;
 	}
 }
