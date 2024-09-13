@@ -1,7 +1,7 @@
-NO textures/stone.xpm
-SO textures/stone.xpm
-WE textures/brick.xpm
-EA textures/wood.xpm
+NO textures/colorstone.png
+SO textures/greystone.png
+WE textures/bluestone.png
+EA textures/purplestone.png
 
 F 220,100,0
 C 225,30,0

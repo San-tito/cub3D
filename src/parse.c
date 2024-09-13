@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 19:30:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/08/20 14:37:50 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:49:12 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ static void	parse_config(t_scene *scene, int lineno, char *line)
 	*value++ = '\0';
 	whitespace(&value);
 	if (ft_strncmp(key, "NO", 2) == 0)
-		scene->textures.north = value;
+		scene->textures.north = mlx_load_png(value);
 	else if (ft_strncmp(key, "SO", 2) == 0)
-		scene->textures.south = value;
+		scene->textures.south = mlx_load_png(value);
 	else if (ft_strncmp(key, "WE", 2) == 0)
-		scene->textures.west = value;
+		scene->textures.west = mlx_load_png(value);
 	else if (ft_strncmp(key, "EA", 2) == 0)
-		scene->textures.east = value;
+		scene->textures.east = mlx_load_png(value);
 	else if (ft_strncmp(key, "F", 1) == 0)
 		scene->floor_color = parse_color(lineno, value, line);
 	else if (ft_strncmp(key, "C", 1) == 0)

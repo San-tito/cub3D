@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/13 09:14:42 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/13 20:10:41 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	print_player(const t_player *player)
 void	print_textures(const t_textures *textures)
 {
 	printf("textures:\n");
-	printf("north: %s\n", textures->north);
-	printf("south: %s\n", textures->south);
-	printf("east: %s\n", textures->east);
-	printf("west: %s\n", textures->west);
+	printf("north: %p\n", textures->north->pixels);
+	printf("south: %p\n", textures->south->pixels);
+	printf("east: %p\n", textures->east->pixels);
+	printf("west: %p\n", textures->west->pixels);
 }
 
 void	print_scene(const t_scene *scene)
