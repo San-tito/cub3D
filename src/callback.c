@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 17:15:48 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/13 17:23:14 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	mouse_listener(double xpos, double ypos, void *param)
 
 void	event_listener(mlx_t *mlx, t_scene *scene)
 {
-	const double	rot_speed = 0.05;
-
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W))
@@ -70,7 +68,7 @@ void	event_listener(mlx_t *mlx, t_scene *scene)
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
 		move(scene, -scene->player.dir.y, scene->player.dir.x, SPEED);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		rotate(scene, -rot_speed);
+		rotate(scene, -SENSITIVITY * 42);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		rotate(scene, rot_speed);
+		rotate(scene, SENSITIVITY * 42);
 }
