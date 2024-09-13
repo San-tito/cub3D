@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   callback.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
+/*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
+/*   Created: 2024/07/06 18:23:37 by droied            #+#    #+#             */
+/*   Updated: 2024/09/13 17:47:49 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef CALLBACK_H
+# define CALLBACK_H
 
-void	fatal_error(const char *, ...);
-void	sys_error(const char *, ...);
-void	libx_error(const char *, ...);
-void	parser_error(int, char *, const char *, ...);
+void	rotate(t_scene *scene, double angle);
+void	mouse_listener(mlx_t *, t_scene *);
+void	event_listener(mlx_t *, t_scene *);
 
-#endif /* ERROR_H */
+#endif /* CALLBACK_H */

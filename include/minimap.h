@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
+/*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
+/*   Created: 2024/09/13 18:52:02 by droied            #+#    #+#             */
+/*   Updated: 2024/09/13 19:06:08 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef MINIMAP_H
+# define MINIMAP_H
 
-void	fatal_error(const char *, ...);
-void	sys_error(const char *, ...);
-void	libx_error(const char *, ...);
-void	parser_error(int, char *, const char *, ...);
+# include "cub3D.h"
 
-#endif /* ERROR_H */
+typedef struct s_minimap
+{
+	t_ivec		pos;
+	uint32_t	radius;
+}				t_minimap;
+
+void	minimap(mlx_image_t *image, t_scene *scene);
+
+#endif /* MINIMAP_H */

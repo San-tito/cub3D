@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   dispose.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
+/*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
+/*   Updated: 2024/05/12 18:03:36 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#include "cub3D.h"
 
-void	fatal_error(const char *, ...);
-void	sys_error(const char *, ...);
-void	libx_error(const char *, ...);
-void	parser_error(int, char *, const char *, ...);
+void	dispose_map(t_map *map)
+{
+	int	i;
 
-#endif /* ERROR_H */
+	if (map)
+	{
+		i = 0;
+		while (i < map->rows)
+		{
+			xfree(map->cells[i]);
+			i++;
+		}
+		xfree(map->cells);
+	}
+}

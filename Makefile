@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/06/25 03:21:27 by droied           ###   ########.fr        #
+#    Updated: 2024/09/13 18:58:04 by droied           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ MLX          = $(MLX_PATH)/libmlx42.a
 LIBFTPRINTF_PATH = ./libs/libftprintf
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = error.c graphics.c map.c player.c
+SRCS         = callback.c cub3D.c error.c general.c graphics.c map.c parse.c print.c scene.c xmalloc.c raycast.c minimap.c
 MAIN         = cub3D.c
 
 ################################################################################
@@ -71,11 +71,12 @@ CYAN   = \033[0;36m
 RESET  = \033[m
 
 define compile
-    printf "%b%-46b" "$(BLUE)compiling " "$(CYAN)$(@F)$(RESET)"; \
-    $(1) > /dev/null; \
+    printf "%b%-46b" "$(BLUE)$(2) " "$(CYAN)$(@F)$(RESET)"; \
+    OUTPUT=$$($(1) 2>&1); \
     RESULT=$$?; \
     if [ $$RESULT -ne 0 ]; then \
         printf "%b\n" "$(RED)[✗]$(RESET)"; \
+	printf "%b\n" "$$OUTPUT"; \
     else  \
         printf "%b\n" "$(GREEN)[✓]$(RESET)"; \
     fi; \

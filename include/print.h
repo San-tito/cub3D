@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   print.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
+/*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
+/*   Updated: 2024/08/20 14:43:39 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef PRINT_H
+# define PRINT_H
 
-void	fatal_error(const char *, ...);
-void	sys_error(const char *, ...);
-void	libx_error(const char *, ...);
-void	parser_error(int, char *, const char *, ...);
+# include "scene.h"
 
-#endif /* ERROR_H */
+void	print_map(const t_map *map);
+void	print_ray(const t_ray *ray);
+void	print_player(const t_player *player);
+void	print_textures(const t_textures *textures);
+void	print_scene(const t_scene *scene);
+
+#endif /* PRINT_H */

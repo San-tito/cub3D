@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   xmalloc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
+/*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 21:45:54 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:18:44 by santito          ###   ########.fr       */
+/*   Created: 2024/06/19 19:55:42 by droied            #+#    #+#             */
+/*   Updated: 2024/06/25 15:11:20 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef XMALLOC_H
+# define XMALLOC_H
 
-void	fatal_error(const char *, ...);
-void	sys_error(const char *, ...);
-void	libx_error(const char *, ...);
-void	parser_error(int, char *, const char *, ...);
+void	*xmalloc(size_t);
+void	*xrealloc(void *, size_t, size_t);
+void	xfree(void *);
 
-#endif /* ERROR_H */
+#endif /* XMALLOC_H */

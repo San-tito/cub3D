@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 19:55:42 by droied            #+#    #+#             */
-/*   Updated: 2024/06/25 15:11:20 by droied           ###   ########.fr       */
+/*   Created: 2024/07/06 18:30:16 by droied            #+#    #+#             */
+/*   Updated: 2024/09/13 14:54:34 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef RENDER_H
+# define RENDER_H
 
-# define RESET "\e[m"
+void	put_pixel(mlx_image_t *, int, int, int);
+void	start_renderer(t_core);
+void	draw_line(mlx_image_t *, t_fvec, t_fvec, int);
 
-# define MBLACK "\e[30m"
-# define MRED "\e[31m"
-# define MGREEN "\e[32m"
-# define MYELLOW "\e[33m"
-# define MBLUE "\e[34m"
-# define MMAGENTA "\e[35m"
-# define MCYAN "\e[36m"
-# define MWHITE "\e[37m"
-
-#endif /* COLOR_H */
+#endif /* RENDER_H */
