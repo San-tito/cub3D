@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 15:03:44 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:17:40 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	event_listener(mlx_t *mlx, t_scene *scene)
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S))
 		move(scene, -scene->player.dir.x, -scene->player.dir.y, move_speed);
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
-		move(scene, -scene->player.dir.y, scene->player.dir.x, move_speed);
-	if (mlx_is_key_down(mlx, MLX_KEY_D))
 		move(scene, scene->player.dir.y, -scene->player.dir.x, move_speed);
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+		move(scene, -scene->player.dir.y, scene->player.dir.x, move_speed);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		rotate(scene, rot_speed);
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		rotate(scene, -rot_speed);
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		rotate(scene, rot_speed);
 }

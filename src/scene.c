@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 15:50:29 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:09:00 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	check_file_extension(const char *filename, const char *expected)
 
 static void	init_player(t_scene *scene)
 {
-	scene->player.dir.x = -1;
+	scene->player.dir.x = 1;
 	scene->player.plane.y = tan(FOV_RAD / 2);
 	if (scene->player.spawn_orient == NORTH)
-		rotate(scene, PI / 2);
-	if (scene->player.spawn_orient == SOUTH)
 		rotate(scene, 3 * PI / 2);
+	if (scene->player.spawn_orient == SOUTH)
+		rotate(scene, PI / 2);
 	if (scene->player.spawn_orient == WEST)
 		rotate(scene, PI);
 }
