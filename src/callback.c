@@ -6,13 +6,13 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 16:17:40 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:51:04 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	move(t_scene *scene, float fx, float fy, double move_speed)
+static void	move(t_scene *scene, float fx, float fy, double move_speed)
 {
 	// Move along Y-axis if no wall is blocking the movement
 	if (scene->map.cells[(int)(scene->player.pos.y + fy
@@ -40,6 +40,22 @@ void	rotate(t_scene *scene, double angle)
 	scene->player.plane.y = plane * sin(angle) + scene->player.plane.y
 		* cos(angle);
 	scene->refresh = 1;
+}
+
+void	mouse_listener(double xpos, double ypos, void *param)
+{
+	t_core *core;
+	core = (t_core *)param;
+	static double last_xpos = 0;
+	const double	rot_speed = 0.05;
+
+	if (xpos == core->img->width -1 || xpos <= 5)
+		mlx_set_mouse_pos(core->mlx, core->img->width / 2, ypos);
+	if (xpos > last_xpos)
+		rotate(&core->scene, rot_speed);
+	if (xpos < last_xpos)
+		rotate(&core->scene, -rot_speed);
+	last_xpos = xpos;
 }
 
 void	event_listener(mlx_t *mlx, t_scene *scene)

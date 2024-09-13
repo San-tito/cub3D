@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/13 14:53:35 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:25:02 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	game_loop(void *param)
 void	start_renderer(t_core core)
 {
 	mlx_loop_hook(core.mlx, game_loop, &core);
+	mlx_cursor_hook(core.mlx, mouse_listener, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);
 }
