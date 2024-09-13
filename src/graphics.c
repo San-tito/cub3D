@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/13 17:50:02 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/13 19:01:29 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	game_loop(void *param)
 				* sizeof(int));
 		draw_updown(image, core->scene);
 		raycast(image, core->scene);
+		minimap(image, &core->scene);
 		core->scene.refresh = 0;
 	}
 }
