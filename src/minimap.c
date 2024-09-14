@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/14 18:18:20 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:35:34 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,46 @@ void	draw_circle(mlx_image_t *img, t_scene scene, t_ivec c, int radius, int colo
 	(void)scene;
 	unsigned short int	i;
 	unsigned short int	j;
-	t_ivec m;
-
-	m = scene.player.pos;
+	t_fvec m;
+	// t_ivec scale;
+	// scale.x = 200 + c.x / scene.map.rows;
+	// scale.y = 200 + c.y / scene.map.cols;
+	m.y = 0;
+	
+	 // printf("m.x -> %f\n m.y -> %f\n", m.x, m.y);
 
 	i = 0;
 		j = 0;
-	while (i < radius * 2 && i + c.y < (int32_t)img->height) {
+	while (i < radius * 2 && i + c.y < (int32_t)img->height) 
+	{
+		m.x = 0;
 		j = 0;
-		while (j < radius * 2 && j + c.x < (int32_t)img->width) {
+		while (j < radius * 2 && j + c.x < (int32_t)img->width) 
+		{
 			if (((j - radius) * (j - radius)) +
 			((i - radius) * (i - radius)) <
 			(radius * radius))
 			{
-				 // if (scene.map.cells[m.y][m.x] == SPACE)	
-				 if (i == 100 && j == 100)
+				 if (scene.map.cells[(int)m.y][(int)m.x] == SPACE)	
 					put_pixel(img, j + c.x, i + c.y, color);
-			/*	else if (scene.map.cells[i][j] == WALL)	
-					put_pixel(img, j + c.x, i + c.y, 0xFF00FFFF);*/
+				 else if (scene.map.cells[(int)m.y][(int)m.x] == WALL)	
+					put_pixel(img, j + c.x, i + c.y, 0xFF00FFFF);
 			}
 			j++;
+			if (j % 10 == 0 && m.x < scene.map.cols - 1)
+			{
+
+				m.x++;
+			 // printf("m.x %i\n", (int)m.x);
+			}
 		}
 		i++;
+		if (i % 10 == 0 && m.y < scene.map.rows - 1)
+		{
+			m.y++;
+			// printf("m.y %i\n", (int)m.y);
+		}
 	}
-	printf("%i\n", i);
-	printf("%i\n", j);
 }
 /*
 static int	in_bounds(t_ivec c, t_ivec n, int r)
