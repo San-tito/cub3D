@@ -6,48 +6,36 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/14 19:42:09 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:53:44 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"
-/*
-static void	draw_circle_aux(mlx_image_t *img, int xc, int yc, int x, int y)
+
+void	draw_circle(mlx_image_t *img, t_ivec c, int radius, int color) 
 {
-	put_pixel(img, xc + x, yc + y, 0xFF00FFFF);
-	put_pixel(img, xc - x, yc + y, 0xFF00FFFF);
-	put_pixel(img, xc + x, yc - y, 0xFF00FFFF);
-	put_pixel(img, xc - x, yc - y, 0xFF00FFFF);
-	put_pixel(img, xc + y, yc + x, 0xFF00FFFF);
-	put_pixel(img, xc + y, yc - x, 0xFF00FFFF);
-	put_pixel(img, xc - y, yc + x, 0xFF00FFFF);
-	put_pixel(img, xc - y, yc - x, 0xFF00FFFF);
+	unsigned short int	i;
+	unsigned short int	j;
+
+	i = 0;
+	while (i < radius * 2 && i + c.y < (int32_t)img->height) 
+	{
+		j = 0;
+		while (j < radius * 2 && j + c.x < (int32_t)img->width) 
+		{
+			if (((j - radius) * (j - radius)) +
+			((i - radius) * (i - radius)) <
+			(radius * radius))
+			{
+				put_pixel(img, j + c.x, i + c.y, color);
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
-static void	draw_circle(mlx_image_t *img, t_ivec c, int radius)
-{
-	int	x;
-	int	y;
-	int	d;
-
-	x = 0;
-	y = radius;
-	d = 3 - 2 * radius;
-	while (x <= y)
-	{
-		draw_circle_aux(img, c.x, c.y, x, y);
-		x++;
-		if (d > 0)
-		{
-			y--;
-			d = d + 4 * (x - y) + 10;
-		}
-		else
-			d = d + 4 * x + 6;
-	}
-}*/
-
-void	draw_circle(mlx_image_t *img, t_scene scene, t_ivec c, int radius, int color) 
+void	draw_circle2(mlx_image_t *img, t_scene scene, t_ivec c, int radius, int color) 
 {
 	(void)scene;
 	unsigned short int	i;
@@ -93,31 +81,6 @@ void	draw_circle(mlx_image_t *img, t_scene scene, t_ivec c, int radius, int colo
 		}
 	}
 }
-/*
-static int	in_bounds(t_ivec c, t_ivec n, int r)
-{
-	int	square_distance;
-
-	square_distance = pow((n.x - c.x), 2) + pow((n.y - c.y), 2);
-	return (square_distance <= pow(r, 2));
-}*/
-/*
-static int fill_circle(mlx_image_t *image, t_scene scene, t_ivec map, t_ivec pixel, uint32_t radius)
-{
-	if (!in_bounds(pixel, map, radius))
-		return (1);
-	(void)scene;
-	put_pixel(image, pixel.x, pixel.y, 0xFF00FFFF);
-	if (++pixel.x && fill_circle(image, scene, map, pixel, radius) == 0)
-		return (0);
-	// if (--pixel.x && fill_circle(image, scene, map, pixel, radius) == 0) 
-		// return (-1);
-	// if (++pixel.y && fill_circle(image, scene, map, pixel, radius) == 0)
-		// return (0);
-	// if (--pixel.y && fill_circle(image, scene, map, pixel, radius) == 0)
-		// return (0);
-	return (1);
-}*/
 
 int	create_rgb(double r, double g, double b, int a)
 {
@@ -131,13 +94,13 @@ void	minimap(mlx_image_t *image, t_scene scene)
 {
 	t_minimap minimap;
 
-	// minimap.pos.x = image->width / 8;
-	// minimap.pos.y = image->height / 6;
 	minimap.pos.x = image->width / 136;
 	minimap.pos.y = image->height / 76;
 	minimap.radius = minimap.pos.x / 2;
 	int color;
 	color = create_rgb(0, 0, 0, 100);
-	draw_circle(image, scene, minimap.pos, minimap.pos.x * 10, color);
-	//fill_circle(image, *scene, minimap.pos, minimap.pos, minimap.radius);
+	draw_circle2(image, scene, minimap.pos, minimap.pos.x * 10, color);
+	minimap.pos.x += 100;
+	minimap.pos.y += 100;
+	draw_circle(image, minimap.pos, 5, 0x0000FFFF);
 }
