@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/14 19:35:34 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:42:09 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	draw_circle(mlx_image_t *img, t_scene scene, t_ivec c, int radius, int colo
 			(radius * radius))
 			{
 				 if (scene.map.cells[(int)m.y][(int)m.x] == SPACE)	
-					put_pixel(img, j + c.x, i + c.y, color);
+					put_pixel(img, j + c.x, i + c.y, 0xFFFFFFFF);
 				 else if (scene.map.cells[(int)m.y][(int)m.x] == WALL)	
-					put_pixel(img, j + c.x, i + c.y, 0xFF00FFFF);
+					put_pixel(img, j + c.x, i + c.y, color);
 			}
 			j++;
 			if (j % 10 == 0 && m.x < scene.map.cols - 1)
@@ -137,7 +137,7 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	minimap.pos.y = image->height / 76;
 	minimap.radius = minimap.pos.x / 2;
 	int color;
-	color = create_rgb(0, 0, 0, 50);
+	color = create_rgb(0, 0, 0, 100);
 	draw_circle(image, scene, minimap.pos, minimap.pos.x * 10, color);
 	//fill_circle(image, *scene, minimap.pos, minimap.pos, minimap.radius);
 }
