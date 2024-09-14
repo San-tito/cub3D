@@ -6,13 +6,11 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 16:09:00 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/14 16:01:39 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "print.h"
-#include <stdio.h>
 
 int	check_file_extension(const char *filename, const char *expected)
 {
@@ -50,7 +48,6 @@ t_scene	create_scene(int argc, char **argv)
 	scene.refresh = 1;
 	parse_scene(fd, &scene);
 	close(fd);
-	print_scene(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error("the map is not closed/surrounded by walls");
 	init_player(&scene);
