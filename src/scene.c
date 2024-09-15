@@ -6,13 +6,13 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/14 16:01:39 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 20:12:35 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_file_extension(const char *filename, const char *expected)
+static int	check_file_extension(const char *filename, const char *expected)
 {
 	const char	*ext = ft_strrchr(filename, '.');
 
@@ -20,16 +20,33 @@ int	check_file_extension(const char *filename, const char *expected)
 		|| ext[ft_strlen(expected)] != 0);
 }
 
+static void	check_missing(t_scene *scene)
+{
+	if (scene->textures.north == 0)
+		fatal_error(scene, "missing north texture");
+	else if (scene->textures.south == 0)
+		fatal_error(scene, "missing south texture");
+	else if (scene->textures.east == 0)
+		fatal_error(scene, "missing east texture");
+	else if (scene->textures.west == 0)
+		fatal_error(scene, "missing west texture");
+	else if (scene->floor_color > 0)
+		fatal_error(scene, "missing floor color");
+	else if (scene->ceiling_color > 0)
+		fatal_error(scene, "missing ceiling color");
+}
+
 static void	init_player(t_scene *scene)
 {
+	scene->refresh = 1;
 	scene->player.dir.x = 1;
 	scene->player.plane.y = tan(FOV_RAD / 2);
-	if (scene->player.spawn_orient == NORTH)
-		rotate(scene, 3 * PI / 2);
-	if (scene->player.spawn_orient == SOUTH)
-		rotate(scene, PI / 2);
 	if (scene->player.spawn_orient == WEST)
 		rotate(scene, PI);
+	if (scene->player.spawn_orient == SOUTH)
+		rotate(scene, PI * 0.5);
+	if (scene->player.spawn_orient == NORTH)
+		rotate(scene, PI * 1.5);
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -39,17 +56,19 @@ t_scene	create_scene(int argc, char **argv)
 
 	scene = (t_scene){};
 	if (argc != 2)
-		fatal_error("usage: %s <map_file>", *argv);
+		fatal_error(&scene, "usage: %s <map_file>", *argv);
 	if (check_file_extension(*(argv + 1), ".cub"))
-		fatal_error("file must have a .cub extension: %s", *(argv + 1));
+		fatal_error(&scene, "file must have a .cub extension: %s", *(argv + 1));
 	fd = open(*(argv + 1), O_RDONLY, 0666);
 	if (fd < 0)
 		sys_error("%s", *(argv + 1));
-	scene.refresh = 1;
+	scene.floor_color = (unsigned)~0 >> 1;
+	scene.ceiling_color = (unsigned)~0 >> 1;
 	parse_scene(fd, &scene);
 	close(fd);
+	check_missing(&scene);
 	if (validate_map(&scene) == 0)
-		fatal_error("the map is not closed/surrounded by walls");
+		fatal_error(&scene, "the map is not closed/surrounded by walls");
 	init_player(&scene);
 	return (scene);
 }

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/13 19:01:29 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/15 20:00:08 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ static void	draw_updown(mlx_image_t *image, t_scene scene)
 	}
 }
 
-void put_pixel(mlx_image_t *image, int x, int y, int color)
+void	put_pixel(mlx_image_t *image, int x, int y, int color)
 {
-    int i;
-    unsigned char *pixel;
+	int				i;
+	unsigned char	*pixel;
 
-    if ((unsigned)x < (*image).width && (unsigned)y < (*image).height)
-    {
-        pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
-        i = sizeof(int) * 6;
-        while (i >= 0)
-        {
-            *pixel++ = (color >> i) & 0xFF;
-            i -= sizeof(int) * 2;
-        }
-    }
+	if ((unsigned)x < (*image).width && (unsigned)y < (*image).height)
+	{
+		pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
+		i = sizeof(int) * 6;
+		while (i >= 0)
+		{
+			*pixel++ = (color >> i) & 0xFF;
+			i -= sizeof(int) * 2;
+		}
+	}
 }
 
 void	game_loop(void *param)
@@ -63,7 +63,7 @@ void	game_loop(void *param)
 	if (core->scene.refresh)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
-				* sizeof(int));
+			* sizeof(int));
 		draw_updown(image, core->scene);
 		raycast(image, core->scene);
 		minimap(image, &core->scene);
@@ -74,7 +74,6 @@ void	game_loop(void *param)
 void	start_renderer(t_core core)
 {
 	mlx_loop_hook(core.mlx, game_loop, &core);
-	// mlx_cursor_hook(core.mlx, mouse_listener, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);
 }

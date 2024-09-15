@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 17:50:26 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/15 19:58:30 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 static void	move(t_scene *scene, float fx, float fy, double move_speed)
 {
-	// Move along Y-axis if no wall is blocking the movement
 	if (scene->map.cells[(int)(scene->player.pos.y + fy
 			* move_speed)][(int)(scene->player.pos.x)] == SPACE)
 		scene->player.pos.y += fy * move_speed;
-	// Move along X-axis if no wall is blocking the movement
 	if (scene->map.cells[(int)(scene->player.pos.y)][(int)(scene->player.pos.x
 			+ fx * move_speed)] == SPACE)
 		scene->player.pos.x += fx * move_speed;
