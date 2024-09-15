@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/09/15 21:42:07 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 21:48:53 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	parse_map(int fd, t_scene *scene, char *line)
 		else if (c == NORTH || c == SOUTH || c == EAST || c == WEST)
 		{
 			if ((int)scene->player.pos.x >= 0)
-				parser_error(fd, scene, "multiple players detected", 0);
+				parser_error(fd, scene, "multiple players detected", line);
 			scene->player.pos.x = i + 0.5;
 			scene->player.pos.y = scene->map.rows - 1 + 0.5;
 			scene->player.spawn_orient = c;
