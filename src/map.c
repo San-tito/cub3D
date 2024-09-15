@@ -6,13 +6,13 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/09/15 19:53:35 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 21:42:07 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	is_valid_cells(char *line)
+int	is_valid_cells(char *line)
 {
 	whitespace(&line);
 	if (*line == 0)
@@ -74,7 +74,7 @@ int	validate_map(t_scene *scene)
 	return (is_closed);
 }
 
-void	resize_map(t_scene *scene, int new_cols)
+static void	resize_map(t_scene *scene, int new_cols)
 {
 	int	row;
 
@@ -107,8 +107,6 @@ void	parse_map(int fd, t_scene *scene, char *line)
 	int			i;
 	const int	len = ft_strlen(line);
 
-	if (is_valid_cells(line) == 0)
-		parser_error(fd, scene, "invalid map format: %s", line);
 	resize_map(scene, len);
 	i = 0;
 	while (i < len)
@@ -120,6 +118,8 @@ void	parse_map(int fd, t_scene *scene, char *line)
 			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		else if (c == NORTH || c == SOUTH || c == EAST || c == WEST)
 		{
+			if ((int)scene->player.pos.x >= 0)
+				parser_error(fd, scene, "multiple players detected", 0);
 			scene->player.pos.x = i + 0.5;
 			scene->player.pos.y = scene->map.rows - 1 + 0.5;
 			scene->player.spawn_orient = c;
