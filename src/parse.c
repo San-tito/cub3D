@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 19:30:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/15 19:52:55 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 21:40:00 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	parse_scene(int fd, t_scene *scene)
 		{
 			if (map_started == 0)
 				map_started++;
+			if (is_valid_cells(line) == 0)
+				parser_error(fd, scene, "invalid map format: %s", line);
 			parse_map(fd, scene, line);
 		}
 		xfree(line);

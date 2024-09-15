@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/15 20:12:35 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 21:28:44 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_file_extension(const char *filename, const char *expected)
 		|| ext[ft_strlen(expected)] != 0);
 }
 
-static void	check_missing(t_scene *scene)
+void	check_missing(t_scene *scene)
 {
 	if (scene->textures.north == 0)
 		fatal_error(scene, "missing north texture");
@@ -30,13 +30,15 @@ static void	check_missing(t_scene *scene)
 		fatal_error(scene, "missing east texture");
 	else if (scene->textures.west == 0)
 		fatal_error(scene, "missing west texture");
-	else if (scene->floor_color > 0)
+	else if (scene->floor_color == 0)
 		fatal_error(scene, "missing floor color");
-	else if (scene->ceiling_color > 0)
+	else if (scene->ceiling_color == 0)
 		fatal_error(scene, "missing ceiling color");
+	else if ((int)scene->player.pos.x < 0)
+		fatal_error(scene, "missing player");
 }
 
-static void	init_player(t_scene *scene)
+static void	init_scene(t_scene *scene)
 {
 	scene->refresh = 1;
 	scene->player.dir.x = 1;
@@ -62,13 +64,12 @@ t_scene	create_scene(int argc, char **argv)
 	fd = open(*(argv + 1), O_RDONLY, 0666);
 	if (fd < 0)
 		sys_error("%s", *(argv + 1));
-	scene.floor_color = (unsigned)~0 >> 1;
-	scene.ceiling_color = (unsigned)~0 >> 1;
+	scene.player.pos.x = (float)(unsigned)~0;
 	parse_scene(fd, &scene);
 	close(fd);
 	check_missing(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error(&scene, "the map is not closed/surrounded by walls");
-	init_player(&scene);
+	init_scene(&scene);
 	return (scene);
 }
