@@ -6,13 +6,13 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:44:18 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/25 15:18:23 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 19:57:00 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	fatal_error(const char *format, ...)
+void	fatal_error(t_scene *scene, const char *format, ...)
 {
 	va_list	args;
 
@@ -21,20 +21,18 @@ void	fatal_error(const char *format, ...)
 	ft_vdprintf(2, format, args);
 	ft_dprintf(2, "\n");
 	va_end(args);
+	dispose_scene(scene);
 	exit(EXIT_FAILURE);
 }
 
-void	parser_error(int lineno, char *line, const char *format, ...)
+void	parser_error(int fd, t_scene *scene, const char *format, char *line)
 {
-	va_list	args;
-
 	ft_dprintf(2, "%s: ", PROGRAM);
-	ft_dprintf(2, "line %d: ", lineno);
-	va_start(args, format);
-	ft_vdprintf(2, format, args);
+	ft_dprintf(2, format, line);
 	ft_dprintf(2, "\n");
-	va_end(args);
 	xfree(line);
+	close(fd);
+	dispose_scene(scene);
 	exit(EXIT_FAILURE);
 }
 

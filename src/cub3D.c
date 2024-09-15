@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/14 16:37:25 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 20:22:26 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int	main(int argc, char **argv)
 {
 	t_core	core;
 
+	core = (t_core){};
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
-	begin_window(&core, 1280, 960);
-	start_renderer(core);
-	dispose_core(&core);
+	// begin_window(&core, 1280, 960);
+	// start_renderer(core);
+	dispose_scene(&core.scene);
+	dispose_mlx(core.mlx);
 	return (EXIT_SUCCESS);
 }

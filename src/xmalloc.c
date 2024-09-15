@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:09:36 by sguzman           #+#    #+#             */
-/*   Updated: 2024/06/22 13:23:45 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/09/15 19:57:22 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*xmalloc(size_t bytes)
 
 	temp = malloc(bytes);
 	if (temp == 0)
-		fatal_error("xmalloc: cannot allocate %lu bytes", (unsigned long)bytes);
+		sys_error("xmalloc: cannot allocate %lu bytes", (unsigned long)bytes);
 	return (temp);
 }
 

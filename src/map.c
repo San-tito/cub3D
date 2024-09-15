@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 11:23:16 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/15 19:53:35 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ void	resize_map(t_scene *scene, int new_cols)
 	scene->map.rows++;
 }
 
-void	parse_map(t_scene *scene, int lineno, char *line)
+void	parse_map(int fd, t_scene *scene, char *line)
 {
 	char		c;
 	int			i;
 	const int	len = ft_strlen(line);
 
 	if (is_valid_cells(line) == 0)
-		parser_error(lineno, line, "invalid map format: %s", line);
+		parser_error(fd, scene, "invalid map format: %s", line);
 	resize_map(scene, len);
 	i = 0;
 	while (i < len)
