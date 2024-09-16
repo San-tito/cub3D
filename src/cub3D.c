@@ -40,8 +40,8 @@ int	main(int argc, char **argv)
 	core = (t_core){};
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
-	// begin_window(&core, 1280, 960);
-	// start_renderer(core);
+	begin_window(&core, 1280, 960);
+	start_renderer(core);
 	dispose_scene(&core.scene);
 	dispose_mlx(core.mlx);
 	return (EXIT_SUCCESS);
