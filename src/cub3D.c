@@ -25,6 +25,8 @@ void	begin_window(t_core *core, int32_t width, int32_t height)
 	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
 	mlx_get_monitor_size(0, &width, &height);
 	mlx_set_window_size(mlx, width, height);
+	mlx_set_mouse_pos(mlx, width / 2, height << 1);
+	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
 	mlx_set_window_pos(mlx, 0, 0);
 	image = mlx_new_image(mlx, width, height);
 	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)

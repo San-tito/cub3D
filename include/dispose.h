@@ -19,4 +19,5 @@ void	dispose_map(t_map *);
 void	dispose_mlx(mlx_t *);
 void	dispose_scene(t_scene *);
 
+
 #endif /* DISPOSE_H */

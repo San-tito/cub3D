@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/13 18:27:00 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/16 11:40:45 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->side = 1;
 		}
 		if (cells[(int)ray->pos.y][(int)ray->pos.x] > SPACE)
-			// we should handle the state of the door open
 			hit++;
 	}
 }
@@ -76,10 +75,10 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height)
 	else
 		wall->dist = (ray->sidedist.y - ray->deltadist.y);
 	wall->height = (int)(height / wall->dist);
-	wall->start = -wall->height / 2 + height / 2;
+	wall->start = (-wall->height >> 1) + (height >> 1);
 	if (wall->start < 0)
 		wall->start = 0;
-	wall->end = wall->height / 2 + height / 2;
+	wall->end = (wall->height >> 1) + (height >> 1);
 	if (wall->end >= height)
 		wall->end = height - 1;
 	if (ray->side == 0)

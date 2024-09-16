@@ -32,7 +32,23 @@ void	print_map(const t_map *map)
 	}
 	printf("column: %d\n", map->cols);
 	printf("row: %d\n", map->rows);
-	printf("└───────────────────────────────────────────────┘\n");
+  printf("└───────────────────────────────────────────────┘\n");
+}
+
+void print_ray(const t_ray *ray)
+{
+	printf("\n[RAY]\n");
+	printf("pos: (%i, %i)\n", ray->pos.x, ray->pos.y);
+	printf("direction: (%f, %f)\n", ray->dir.x, ray->dir.y);
+	printf("sidedist: (%f, %f)\n", ray->sidedist.x, ray->sidedist.y);
+	printf("deltadist: (%f, %f)\n", ray->deltadist.x, ray->deltadist.y);
+	printf("step: (%i, %i)\n", ray->step.x, ray->step.y);
+
+	printf("wall distance: %f\n", ray->wall_dist);
+	printf("wall start: %f\n", ray->wall_start);
+	printf("wall end: %f\n", ray->wall_end);
+
+	printf("side: %i\n", ray->side);
 }
 
 void	print_player(const t_player *player)

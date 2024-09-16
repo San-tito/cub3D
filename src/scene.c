@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include "print.h"
+#include <stdio.h>
 
 static int	check_file_extension(const char *filename, const char *expected)
 {
@@ -49,6 +51,7 @@ static void	init_scene(t_scene *scene)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
+
 }
 
 t_scene	create_scene(int argc, char **argv)

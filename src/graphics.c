@@ -34,6 +34,7 @@ static void	draw_updown(mlx_image_t *image, t_scene scene)
 	}
 }
 
+
 void	put_pixel(mlx_image_t *image, int x, int y, int color)
 {
 	int				i;
@@ -63,10 +64,10 @@ void	game_loop(void *param)
 	if (core->scene.refresh)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
-			* sizeof(int));
+				* sizeof(int));
 		draw_updown(image, core->scene);
 		raycast(image, core->scene);
-		minimap(image, &core->scene);
+		minimap(image, core->scene);
 		core->scene.refresh = 0;
 	}
 }
