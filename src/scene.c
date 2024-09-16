@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/15 21:28:44 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:01:46 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_missing(t_scene *scene)
 		fatal_error(scene, "missing player");
 }
 
-static void	init_scene(t_scene *scene)
+void	init_scene(t_scene *scene, mlx_image_t *image)
 {
 	scene->refresh = 1;
 	scene->player.dir.x = 1;
@@ -51,7 +51,9 @@ static void	init_scene(t_scene *scene)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
-
+	scene->minimap.pos.x = image->width >> 6;
+	scene->minimap.pos.y = image->height >> 6;
+	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) << 1;
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -73,6 +75,5 @@ t_scene	create_scene(int argc, char **argv)
 	check_missing(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error(&scene, "the map is not closed/surrounded by walls");
-	init_scene(&scene);
 	return (scene);
 }

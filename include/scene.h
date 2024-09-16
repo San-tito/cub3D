@@ -6,12 +6,14 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 19:48:32 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:56:45 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
+
+# include "minimap.h"
 
 typedef enum e_orient
 {
@@ -63,16 +65,25 @@ typedef struct s_textures
 	mlx_texture_t	*west;
 }					t_textures;
 
+typedef struct s_minimap
+{
+	t_ivec			pos;
+	uint32_t		radius;
+}					t_minimap;
+
 typedef struct s_scene
 {
 	t_map			map;
 	t_player		player;
 	t_textures		textures;
+	t_minimap		minimap;
 	int8_t			refresh;
 	int32_t			floor_color;
 	int32_t			ceiling_color;
 }					t_scene;
 
 t_scene				create_scene(int, char **);
+void				init_scene(t_scene *, mlx_image_t *);
+void				minimap(mlx_image_t *image, t_scene scene);
 
 #endif /* SCENE_H */
