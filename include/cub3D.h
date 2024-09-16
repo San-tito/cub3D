@@ -15,8 +15,8 @@
 
 # define FOV 60
 # define PROGRAM "cub3D"
-# define SPEED 0.5f
-# define SENSITIVITY 0.0015f
+# define SPEED 0.1f
+# define SENSITIVITY 0.0005f
 
 # include "MLX42/MLX42.h"
 # include "scene.h"

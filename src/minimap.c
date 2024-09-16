@@ -92,4 +92,5 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	minimap.pos.x = (minimap.pos.x >> 1) + (minimap.radius >> 1);
 	minimap.pos.y = (minimap.pos.y >> 1) + (minimap.radius >> 1);
 	draw_player(image, minimap.pos, minimap.radius >> 1, 0x0000FFFF);
+
 }

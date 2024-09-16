@@ -6,13 +6,13 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/09/16 12:01:00 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:43:13 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	is_valid_cells(char *line)
+int	is_valid_cells(char *line)
 {
 	whitespace(&line);
 	if (*line == 0)
@@ -74,7 +74,7 @@ int	validate_map(t_scene *scene)
 	return (is_closed);
 }
 
-void	resize_map(t_scene *scene, int new_cols)
+static void	resize_map(t_scene *scene, int new_cols)
 {
 	int	row;
 
@@ -86,7 +86,7 @@ void	resize_map(t_scene *scene, int new_cols)
 			scene->map.cells[row] = xrealloc(scene->map.cells[row],
 					scene->map.cols * sizeof(t_cell), new_cols
 					* sizeof(t_cell));
-			ft_memset(scene->map.cells[row] + scene->map.cols, SPACE, (new_cols
+			ft_memset(scene->map.cells[row] + scene->map.cols, WALL, (new_cols
 					- scene->map.cols) * sizeof(t_cell));
 			row++;
 		}
@@ -96,19 +96,17 @@ void	resize_map(t_scene *scene, int new_cols)
 			* sizeof(t_cell *), (scene->map.rows + 1) * sizeof(t_cell *));
 	scene->map.cells[scene->map.rows] = xmalloc(scene->map.cols
 			* sizeof(t_cell));
-	ft_memset(scene->map.cells[scene->map.rows], SPACE, scene->map.cols
+	ft_memset(scene->map.cells[scene->map.rows], WALL, scene->map.cols
 		* sizeof(t_cell));
 	scene->map.rows++;
 }
 
-void	parse_map(t_scene *scene, int lineno, char *line)
+void	parse_map(int fd, t_scene *scene, char *line)
 {
 	char		c;
 	int			i;
 	const int	len = ft_strlen(line);
 
-	if (is_valid_cells(line) == 0)
-		parser_error(lineno, line, "invalid map format: %s", line);
 	resize_map(scene, len);
 	i = 0;
 	while (i < len)
@@ -117,9 +115,11 @@ void	parse_map(t_scene *scene, int lineno, char *line)
 		if (c == SPACE || c == WALL)
 			scene->map.cells[scene->map.rows - 1][i] = c;
 		else if (ft_isspace(c))
-			scene->map.cells[scene->map.rows - 1][i] = SPACE;
+			scene->map.cells[scene->map.rows - 1][i] = WALL;
 		else if (c == NORTH || c == SOUTH || c == EAST || c == WEST)
 		{
+			if ((int)scene->player.pos.x >= 0)
+				parser_error(fd, scene, "multiple players detected", line);
 			scene->player.pos.x = i + 0.5;
 			scene->player.pos.y = scene->map.rows - 1 + 0.5;
 			scene->player.spawn_orient = c;
