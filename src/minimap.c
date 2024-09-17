@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/17 10:48:59 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/17 19:33:51 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,39 +65,31 @@ static t_ivec aux_minimap(mlx_image_t *img, t_ivec c, int radius)
 t_ivec	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec c, int radius,
 		int color)
 {
-	t_fvec	m;
 	t_ivec	pos;
+	float x;
+	x = scene.minimap.step.x;
 	// t_ivec  aux;
 
-	m.y = 0;
 	// aux = aux_minimap(img, c, radius);
 	pos.y = scene.player.pos.y;
 	while (pos.y < radius << 1 && pos.y + c.y < (int32_t)img->height)
 	{
-		m.x = 0;
 		pos.x = scene.player.pos.x;
-		//pos.x = scene.player.pos.x;
+		scene.minimap.step.x = x;
 		while (pos.x < radius << 1 && pos.x + c.x < (int32_t)img->width)
 		{
 			if (((pos.x - radius) * (pos.x - radius)) + ((pos.y - radius)
 					* (pos.y - radius)) < (radius * radius))
 			{
-				if (scene.map.cells[(int)m.y][(int)m.x] == SPACE)
-					put_pixel(img, pos.y + c.y, pos.x + c.x, color);
+				if (scene.map.cells[(int)scene.minimap.step.y][(int)scene.minimap.step.x] == SPACE)
+					put_pixel(img, pos.y + scene.minimap.step.y, pos.x + scene.minimap.step.x, color);
 			}
+			scene.minimap.step.x += 0.005;
 			pos.x++;
-		if (pos.x % 10 == 0 && m.x < scene.map.cols - 1)
-			 { 
-				m.x++;
-				// printf("m.x %i\n", (int)m.x);
-			}
 		}
+		 scene.minimap.step.y += 0.005;
 		pos.y++;
-		if (pos.y % 10 == 0 && m.y < scene.map.rows - 1)
-		{
-			m.y++;
-			// printf("m.y %i\n", (int)m.y);
-		}
+	printf("step -> {%f} {%f}\n",scene.minimap.step.x, scene.minimap.step.y);
 	}
 	return (pos);
 }
@@ -123,8 +115,8 @@ void	minimap(mlx_image_t *image, t_scene scene)
 		scene.player.dir.y = 1;
 	if (scene.player.spawn_orient == SOUTH)
 		scene.player.dir.y = 1;
-	scene.minimap.step.x = scene.player.pos.x + (scene.player.dir.x * 5);
-	scene.minimap.step.y = scene.player.pos.y + (scene.player.dir.y * 5);
+	scene.minimap.step.x = scene.player.pos.x + (scene.player.dir.x );
+	scene.minimap.step.y = scene.player.pos.y + (scene.player.dir.y );
 	if (scene.minimap.step.x < 0)
 		scene.minimap.step.x = 0;
 	else if (scene.minimap.step.x > scene.map.rows)
@@ -134,7 +126,9 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	else if (scene.minimap.step.y > scene.map.cols)
 		scene.minimap.step.y = scene.map.cols;
 	// i got the rotation of the minimap and the movement into the cells
-	printf("step -> {%i} {%i}\n",scene.minimap.step.x, scene.minimap.step.y);
+	printf("image -> {%u} {%u}\n", image->width , image->height);
+	// printf("step -> {%f} {%f}\n",scene.minimap.step.x, scene.minimap.step.y);
+	// printf("scale -> {%f} {%f}\n",scene.minimap.scale.x, scene.minimap.scale.y);
 	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius,
 		0xFFFFFFFF);
 	draw_player(image, scene.minimap.pos, scene.minimap.radius >> 4,
