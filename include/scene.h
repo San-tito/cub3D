@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/16 15:56:45 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:00:46 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_textures
 typedef struct s_minimap
 {
 	t_ivec			pos;
+	t_ivec			dir;
+	t_ivec			step;
 	uint32_t		radius;
 }					t_minimap;
 
