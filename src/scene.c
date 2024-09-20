@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/17 18:47:56 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/20 07:57:37 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ void	init_scene(t_scene *scene, mlx_image_t *image)
 		rotate(scene, PI * 1.5);
 	scene->minimap.pos.x = image->width >> 6;
 	scene->minimap.pos.y = image->height >> 6;
-	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) << 1;
+	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) << 2;
+	scene->minimap.player.x = scene->minimap.pos.x + (scene->minimap.radius); 
+	scene->minimap.player.y = scene->minimap.pos.y + (scene->minimap.radius); 
 	scene->minimap.scale.x = ((scene->minimap.radius) / scene->map.rows) / 10;
 	scene->minimap.scale.y = ((scene->minimap.radius) / scene->map.cols) / 10;
 }
