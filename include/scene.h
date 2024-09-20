@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/20 08:09:22 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:04:25 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_player
 	t_fvec			plane;
 	t_fvec			dir;
 	t_orient		spawn_orient;
+	float			a;
 }					t_player;
 
 typedef struct s_map

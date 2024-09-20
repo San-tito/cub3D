@@ -6,13 +6,55 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/20 08:16:19 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:40:30 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"
 
-static void	draw_player(mlx_image_t *img, t_ivec c, int radius)
+// para debugear cuando se me de la gana de arreglar los steps
+//printf("step -> {%f} {%f}\n",scene.minimap.step.x, scene.minimap.step.y);
+
+static void draw_line(mlx_image_t *img, t_ivec beg, t_ivec end) 
+{
+	int32_t err;
+	int32_t e2;
+	t_ivec d;
+	t_ivec s;
+
+	d.x = abs(end.x - beg.x);
+	d.y = abs(end.y - beg.y);
+	s.x = -1;
+	s.y = -1;
+	if (beg.x < end.x)
+		s.x = 1;
+	if (beg.y < end.y)
+		s.y = 1;
+	err = -d.y;
+	if (d.x > d.y)
+		err = d.x;
+	err = err >> 1;
+
+    while (true) 
+	{
+        put_pixel(img, beg.x, beg.y, 0x000000FF);
+        if (beg.x == end.x && beg.y == end.y)
+            break;
+        e2 = err;
+        if (e2 > -d.x) 
+		{
+        	err -= d.y;
+            beg.x += s.x;
+        }
+        if (e2 < d.y) 
+		{
+            err += d.x;
+            beg.y += s.y;
+        }
+    }
+}  
+
+static void draw_circle(mlx_image_t *img,t_ivec c, int radius)
 {
 	unsigned short int	i;
 	unsigned short int	j;
@@ -33,35 +75,25 @@ static void	draw_player(mlx_image_t *img, t_ivec c, int radius)
 		i++;
 	}
 }
-/* se ve bonito pero utiliza numeros magicos
-static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec c, int radius)
-{
-	float x;
-	t_ivec	pos;
-	x = scene.minimap.step.x;
-	pos.y = scene.player.pos.y;
 
-	while (pos.y < radius << 1 && pos.y + c.y < (int32_t)img->height)
-	{
-		pos.x = scene.player.pos.x;
-		scene.minimap.step.x = x;
-		while (pos.x < radius << 1 && pos.x + c.x < (int32_t)img->width)
-		{
-			if (((pos.x - radius) * (pos.x - radius)) + ((pos.y - radius)
-					* (pos.y - radius)) < (radius * radius))
-			{
-				if (scene.minimap.step.y < scene.map.rows && scene.minimap.step.x < scene.map.cols && scene.map.cells[(int)scene.minimap.step.y][(int)scene.minimap.step.x] == SPACE)
-					put_pixel(img, pos.x + scene.minimap.step.x, pos.y + scene.minimap.step.y, 0xFFFFFFFF);
-			}
-			scene.minimap.step.x += 0.01999;
-			pos.x++;
-		}
-		scene.minimap.step.y += 0.01999;
-		pos.y++;
-		printf("step -> {%f} {%f}\n",scene.minimap.step.x, scene.minimap.step.y);
-	}
+static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
+{
+	t_fvec rot;
+	t_ivec beg;
+	t_ivec end;
+
+
+	draw_circle(img, scene.minimap.player, radius);
+	rot.x = cos(scene.player.a) * 5; 
+	rot.y = sin(scene.player.a) * 5;
+
+	printf ("angle -> %f\n", scene.player.a);
+	beg.x = scene.minimap.player.x + (radius); 
+	beg.y = scene.minimap.player.y + (radius);
+	end.x = beg.x + rot.x * 5;
+	end.y = beg.y + rot.y * 5;
+	draw_line(img, beg, end);
 }
-*/
 
 static void draw_minimap(mlx_image_t *img, t_scene scene, t_ivec c, int radius)
 {
@@ -100,5 +132,5 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	scene.minimap.step.x = scene.player.pos.x - 3.2;
 	scene.minimap.step.y = scene.player.pos.y - 2;
 	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
-	draw_player(image, scene.minimap.player, player_size);
+	draw_player(image, scene, player_size);
 }
