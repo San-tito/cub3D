@@ -6,11 +6,11 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/20 16:52:00 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/21 00:33:10 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"
+#include "cub3D.h"
 
 // para debugear cuando se me de la gana de arreglar los steps
 //printf("step -> {%f} {%f}\n",scene.minimap.step.x, scene.minimap.step.y);
@@ -128,8 +128,9 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	int32_t player_size;
 
 	player_size = scene.minimap.radius >> 4;
-	scene.minimap.step.x = scene.player.pos.x - 1.8; // - 3.8; 
-	scene.minimap.step.y = scene.player.pos.y - 1.5; //- 2.5;
+	scene.minimap.step.x = scene.player.pos.x - 2.1; 
+	scene.minimap.step.y = scene.player.pos.y - 1.4;
+	draw_sight(image);
 	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
 	draw_player(image, scene, player_size);
 }

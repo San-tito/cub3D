@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/16 11:32:16 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/20 23:50:31 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_core
 	t_scene		scene;
 }				t_core;
 
-# include "minimap.h"
 # include "callback.h"
 # include "dispose.h"
 # include "error.h"
