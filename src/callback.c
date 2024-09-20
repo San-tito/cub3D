@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/20 12:41:50 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:50:58 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,11 @@ void	rotate(t_scene *scene, double angle)
 		- scene->player.plane.y * sin(angle);
 	scene->player.plane.y = plane * sin(angle) + scene->player.plane.y
 		* cos(angle);
+	scene->player.a += angle;
 	if (angle < 0)
-	{
-		scene->player.a -= SENSITIVITY * 42;
-		if (scene->player.a < 0)
-				scene->player.a += 2 * PI;
-	}
+		scene->player.a -= 2 * PI;
 	else
-	{
-		scene->player.a += SENSITIVITY * 42;
-		if (scene->player.a > 2 * PI)
-			scene->player.a -= 2 * PI;
-	}
+		scene->player.a += 2 * PI;
 	scene->refresh = 1;
 }
 
@@ -61,8 +54,8 @@ void	mouse_listener(mlx_t *mlx, t_scene *scene)
 	(void)scene;
 	mlx_get_mouse_pos(mlx, &pos.x, &pos.y);
 	delta = (pos.x - last);
-	//if (last != 0)
-	//	rotate(scene, delta * SENSITIVITY);
+	if (last != pos.x)
+		rotate(scene, delta * SENSITIVITY);
 	last = pos.x;
 }
 

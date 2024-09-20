@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/20 12:40:30 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:52:00 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	rot.x = cos(scene.player.a) * 5; 
 	rot.y = sin(scene.player.a) * 5;
 
-	printf ("angle -> %f\n", scene.player.a);
 	beg.x = scene.minimap.player.x + (radius); 
 	beg.y = scene.minimap.player.y + (radius);
 	end.x = beg.x + rot.x * 5;
@@ -113,7 +112,7 @@ static void draw_minimap(mlx_image_t *img, t_scene scene, t_ivec c, int radius)
                 if (scene.minimap.step.y < scene.map.rows && scene.minimap.step.x < scene.map.cols 
                     && scene.map.cells[(int)scene.minimap.step.y][(int)scene.minimap.step.x] == SPACE)
                 {
-                    put_pixel(img, pos.x + c.x, pos.y + c.y, 0xFFFFFFFF);
+                    put_pixel(img, pos.x + scene.minimap.step.x, pos.y + scene.minimap.step.y, 0xFFFFFFFF);
                 }
             }
             scene.minimap.step.x += (float)scene.map.cols / img->width;
@@ -129,8 +128,8 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	int32_t player_size;
 
 	player_size = scene.minimap.radius >> 4;
-	scene.minimap.step.x = scene.player.pos.x - 3.2;
-	scene.minimap.step.y = scene.player.pos.y - 2;
+	scene.minimap.step.x = scene.player.pos.x - 1.8; // - 3.8; 
+	scene.minimap.step.y = scene.player.pos.y - 1.5; //- 2.5;
 	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
 	draw_player(image, scene, player_size);
 }
