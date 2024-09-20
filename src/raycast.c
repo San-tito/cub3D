@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/16 11:40:45 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:07:21 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 	}
 }
 
-void	calculate_wall(t_wall *wall, t_ray *ray, int height)
+void	calculate_wall(t_wall *wall, t_ray *ray, int height,
+		t_textures textures)
 {
 	if (ray->side == 0)
 		wall->dist = (ray->sidedist.x - ray->deltadist.x);
@@ -81,14 +82,23 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height)
 	wall->end = (wall->height >> 1) + (height >> 1);
 	if (wall->end >= height)
 		wall->end = height - 1;
+	wall->texture = textures.west;
 	if (ray->side == 0)
-		wall->color = 32640;
+		wall->hit = ray->pos.y + wall->dist * ray->dir.y;
 	else
-		wall->color = 8388480;
+		wall->hit = ray->pos.x + wall->dist * ray->dir.x;
+	wall->hit -= floor((wall->hit));
+	wall->tex.y = (int)(wall->hit * wall->texture->width);
+	if (ray->side == 0 && ray->dir.x > 0)
+		wall->tex.y = wall->texture->width - wall->tex.y - 1;
+	if (ray->side == 1 && ray->dir.y < 0)
+		wall->tex.y = wall->texture->width - wall->tex.y - 1;
 }
 
 static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 {
+	int	color;
+
 	if (wall.end < wall.start)
 	{
 		wall.start += wall.end;
@@ -98,12 +108,17 @@ static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 	if (wall.end < 0 || (unsigned)wall.start >= image->height
 		|| x >= image->width)
 		return ;
-	if (wall.start < 0)
-		wall.start = 0;
-	if ((unsigned)wall.end >= image->width)
-		wall.end = image->height - 1;
+	wall.step = 1.0 * wall.texture->height / wall.height;
+	wall.tex_pos = (wall.start - image->height / 2 + wall.height / 2)
+		* wall.step;
 	while (wall.start <= wall.end)
-		put_pixel(image, x, wall.start++, wall.color);
+	{
+		wall.tex.y = (int)wall.tex_pos & (wall.texture->height - 1);
+		wall.tex_pos += wall.step;
+		color = wall.texture->pixels[wall.texture->height * wall.tex.y
+			+ wall.tex.x];
+		put_pixel(image, x, wall.start++, color);
+	}
 }
 
 void	raycast(mlx_image_t *image, t_scene scene)
@@ -117,7 +132,7 @@ void	raycast(mlx_image_t *image, t_scene scene)
 	{
 		init_ray(&ray, scene.player, 2 * x / (float)image->width - 1);
 		perform_dda(&ray, scene.map.cells);
-		calculate_wall(&wall, &ray, image->height);
+		calculate_wall(&wall, &ray, image->height, scene.textures);
 		draw_wall(image, x, wall);
 		x++;
 	}
