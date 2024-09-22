@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 18:49:46 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:11:29 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct s_scene
 	t_player		player;
 	t_textures		textures;
 	int8_t			refresh;
-	int32_t			floor_color;
-	int32_t			ceiling_color;
+	uint32_t		floor_color;
+	uint32_t		ceiling_color;
 }					t_scene;
 
 t_scene				create_scene(int, char **);

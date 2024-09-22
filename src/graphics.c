@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 19:33:31 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:00:34 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 void	put_pixel(mlx_image_t *image, unsigned int x, unsigned int y,
 		unsigned int color)
 {
+	int				i;
 	unsigned char	*pixel;
 
 	if (x < (*image).width && y < (*image).height)
 	{
 		pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
-		*(pixel++) = (uint8_t)(color >> 24);
-		*(pixel++) = (uint8_t)(color >> 16);
-		*(pixel++) = (uint8_t)(color >> 8);
-		*(pixel++) = (uint8_t)(color & 0xFF);
+		i = sizeof(int) * 6;
+		while (i >= 0)
+		{
+			*pixel++ = (color >> i) & 0xFF;
+			i -= sizeof(int) * 2;
+		}
 	}
 }
 
