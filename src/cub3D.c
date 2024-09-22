@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 19:44:41 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:45:08 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	main(int argc, char **argv)
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
 	begin_window(&core, 1280, 960);
-	start_renderer(core);
+	mlx_loop_hook(core.mlx, game_loop, &core);
+	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
+	mlx_loop(core.mlx);
 	dispose_scene(&core.scene);
 	dispose_mlx(core.mlx);
 	return (EXIT_SUCCESS);
