@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/21 00:33:10 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/22 20:13:31 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,27 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	draw_line(img, beg, end);
 }
 
-static void draw_minimap(mlx_image_t *img, t_scene scene, t_ivec c, int radius)
+static void draw_minimap(mlx_image_t *img, t_scene scene , int radius)
 {
     float x;
     t_ivec pos;
     x = scene.minimap.step.x;
     pos.y = scene.player.pos.y;
 
-    while (pos.y < radius << 1 && pos.y + c.y < (int32_t)img->height)
+    while (pos.y < radius << 1 && pos.y < (int32_t)img->height)
     {
         pos.x = scene.player.pos.x;
         scene.minimap.step.x = x;
-        while (pos.x < radius << 1 && pos.x + c.x < (int32_t)img->width)
+        while (pos.x < radius << 1 && pos.x < (int32_t)img->width)
         {
-            if (((pos.x - radius) * (pos.x - radius)) + ((pos.y - radius) * (pos.y - radius)) < (radius * radius))
-            {
+            // if (((pos.x - radius) * (pos.x - radius)) + ((pos.y - radius) * (pos.y - radius)) < (radius * radius))
+            // {
                 if (scene.minimap.step.y < scene.map.rows && scene.minimap.step.x < scene.map.cols 
                     && scene.map.cells[(int)scene.minimap.step.y][(int)scene.minimap.step.x] == SPACE)
                 {
                     put_pixel(img, pos.x + scene.minimap.step.x, pos.y + scene.minimap.step.y, 0xFFFFFFFF);
                 }
-            }
+            // }
             scene.minimap.step.x += (float)scene.map.cols / img->width;
             pos.x++;
         }
@@ -131,6 +131,6 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	scene.minimap.step.x = scene.player.pos.x - 2.1; 
 	scene.minimap.step.y = scene.player.pos.y - 1.4;
 	draw_sight(image);
-	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
+	draw_minimap(image, scene, scene.minimap.radius);
 	draw_player(image, scene, player_size);
 }
