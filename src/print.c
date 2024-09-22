@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 19:13:15 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 00:02:22 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ void	print_ray(const t_ray *ray)
 	printf("sidedist: (%f, %f)\n", ray->sidedist.x, ray->sidedist.y);
 	printf("deltadist: (%f, %f)\n", ray->deltadist.x, ray->deltadist.y);
 	printf("step: (%i, %i)\n", ray->step.x, ray->step.y);
-	printf("wall distance: %f\n", ray->wall_dist);
-	printf("wall start: %f\n", ray->wall_start);
-	printf("wall end: %f\n", ray->wall_end);
 	printf("side: %i\n", ray->side);
 }
 

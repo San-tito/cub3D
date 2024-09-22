@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 20:51:43 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 23:58:12 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	draw_floor(mlx_image_t *image, int draw_end, uint32_t color, int x)
 
 void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 {
-	int				y;
-	unsigned int	color;
-	double			step;
-	double			tex_pos;
+	int		y;
+	int		color;
+	double	step;
+	double	tex_pos;
 
 	y = wall.start;
 	step = 1.0 * wall.texture->height / wall.height;
@@ -70,7 +70,8 @@ void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 		tex_pos += step;
 		color = *(unsigned *)(wall.texture->pixels + ((wall.tex.x + wall.tex.y
 						* wall.texture->width) * sizeof(int)));
-		put_pixel(image, x, y, color);
+		put_pixel(image, x, y,
+			(color & 0xFF) << 24 | (color >> 8 & 0xFF) << 16 | (color >> 16 & 0xFF) << 8 | 0xFF);
 		y++;
 	}
 }
