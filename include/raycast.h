@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:54:55 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/22 19:16:37 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 00:02:03 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ typedef struct s_ray
 	t_fvec			deltadist;
 	t_ivec			pos;
 	t_ivec			step;
-
-	double			wall_dist;
-	double			wall_start;
-	double			wall_end;
-	double			wall_height;
 	int32_t			side;
 }					t_ray;
 
