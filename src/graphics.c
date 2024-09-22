@@ -6,13 +6,13 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/15 20:00:08 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:32:46 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	draw_updown(mlx_image_t *image, t_scene scene)
+void	draw_updown(mlx_image_t *image, t_scene scene)
 {
 	t_ivec	ceil;
 
@@ -34,21 +34,18 @@ static void	draw_updown(mlx_image_t *image, t_scene scene)
 	}
 }
 
-
-void	put_pixel(mlx_image_t *image, int x, int y, int color)
+void	put_pixel(mlx_image_t *image, unsigned int x, unsigned int y,
+		unsigned int color)
 {
-	int				i;
 	unsigned char	*pixel;
 
-	if ((unsigned)x < (*image).width && (unsigned)y < (*image).height)
+	if (x < (*image).width && y < (*image).height)
 	{
 		pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
-		i = sizeof(int) * 6;
-		while (i >= 0)
-		{
-			*pixel++ = (color >> i) & 0xFF;
-			i -= sizeof(int) * 2;
-		}
+		*(pixel++) = (uint8_t)(color >> 24);
+		*(pixel++) = (uint8_t)(color >> 16);
+		*(pixel++) = (uint8_t)(color >> 8);
+		*(pixel++) = (uint8_t)(color & 0xFF);
 	}
 }
 
@@ -64,7 +61,7 @@ void	game_loop(void *param)
 	if (core->scene.refresh)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
-				* sizeof(int));
+			* sizeof(int));
 		draw_updown(image, core->scene);
 		raycast(image, core->scene);
 		minimap(image, core->scene);

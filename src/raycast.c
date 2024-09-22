@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/20 11:07:21 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:17:21 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,25 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height,
 	wall->end = (wall->height >> 1) + (height >> 1);
 	if (wall->end >= height)
 		wall->end = height - 1;
-	wall->texture = textures.west;
+	// side of wall
+	if (ray->side == 0 && ray->step.x < 0)
+		wall->texture = textures.east;
+	if (ray->side == 0 && ray->step.x > 0)
+		wall->texture = textures.west;
+	if (ray->side == 1 && ray->step.y > 0)
+		wall->texture = textures.south;
+	if (ray->side == 1 && ray->step.y < 0)
+		wall->texture = textures.north;
 	if (ray->side == 0)
 		wall->hit = ray->pos.y + wall->dist * ray->dir.y;
 	else
 		wall->hit = ray->pos.x + wall->dist * ray->dir.x;
 	wall->hit -= floor((wall->hit));
-	wall->tex.y = (int)(wall->hit * wall->texture->width);
+	wall->tex.x = (int)(wall->hit * (double)wall->texture->width);
 	if (ray->side == 0 && ray->dir.x > 0)
-		wall->tex.y = wall->texture->width - wall->tex.y - 1;
+		wall->tex.x = wall->texture->width - wall->tex.x - 1;
 	if (ray->side == 1 && ray->dir.y < 0)
-		wall->tex.y = wall->texture->width - wall->tex.y - 1;
+		wall->tex.x = wall->texture->width - wall->tex.x - 1;
 }
 
 static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
@@ -113,10 +121,12 @@ static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 		* wall.step;
 	while (wall.start <= wall.end)
 	{
-		wall.tex.y = (int)wall.tex_pos & (wall.texture->height - 1);
+		wall.tex.y = (int)wall.tex_pos;
+		if (wall.tex.y >= (int)wall.texture->height)
+			wall.tex.y = wall.texture->height - 1;
 		wall.tex_pos += wall.step;
-		color = wall.texture->pixels[wall.texture->height * wall.tex.y
-			+ wall.tex.x];
+		color = *(wall.texture->pixels + ((wall.tex.x + wall.tex.y
+						* wall.texture->width) * sizeof(int)));
 		put_pixel(image, x, wall.start++, color);
 	}
 }
