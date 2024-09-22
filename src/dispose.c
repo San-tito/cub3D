@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/15 20:21:10 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:13:09 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	dispose_texture(mlx_texture_t *texture)
 		return ;
 	mlx_delete_texture(texture);
 }
+
 void	dispose_mlx(mlx_t *mlx)
 {
 	if (mlx == 0)

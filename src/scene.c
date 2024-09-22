@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/15 21:28:44 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:14:16 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	init_scene(t_scene *scene)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
-
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -67,7 +66,7 @@ t_scene	create_scene(int argc, char **argv)
 	fd = open(*(argv + 1), O_RDONLY, 0666);
 	if (fd < 0)
 		sys_error("%s", *(argv + 1));
-	scene.player.pos.x = (float)(unsigned)~0;
+	scene.player.pos.x = (float)(-1);
 	parse_scene(fd, &scene);
 	close(fd);
 	check_missing(&scene);
