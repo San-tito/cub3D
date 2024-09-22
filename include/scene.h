@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/13 19:48:32 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:49:46 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef enum e_orient
 
 typedef struct s_fvec
 {
-	float			x;
-	float			y;
+	double			x;
+	double			y;
 }					t_fvec;
 
 typedef struct s_ivec
