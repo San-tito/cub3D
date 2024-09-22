@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:54:55 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/22 18:51:43 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:16:37 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ typedef struct s_wall
 	int				end;
 	int				color;
 	double			hit;
-	double			step;
 	t_ivec			tex;
-	double			tex_pos;
 	mlx_texture_t	*texture;
 }					t_wall;
 

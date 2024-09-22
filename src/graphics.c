@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 19:02:44 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:33:31 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,30 @@ void	put_pixel(mlx_image_t *image, unsigned int x, unsigned int y,
 		*(pixel++) = (uint8_t)(color >> 16);
 		*(pixel++) = (uint8_t)(color >> 8);
 		*(pixel++) = (uint8_t)(color & 0xFF);
+	}
+}
+
+void	draw_ceiling(mlx_image_t *image, int draw_start, uint32_t color, int x)
+{
+	unsigned int	y;
+
+	y = 0;
+	while (y <= (unsigned)draw_start && y < image->height)
+	{
+		put_pixel(image, x, y, color);
+		y++;
+	}
+}
+
+void	draw_floor(mlx_image_t *image, int draw_end, uint32_t color, int x)
+{
+	unsigned int	y;
+
+	y = draw_end;
+	while (y < image->height - 1)
+	{
+		put_pixel(image, x, y, color);
+		y++;
 	}
 }
 
