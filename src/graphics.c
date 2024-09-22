@@ -6,33 +6,11 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 18:32:46 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:02:44 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	draw_updown(mlx_image_t *image, t_scene scene)
-{
-	t_ivec	ceil;
-
-	ceil.x = 0;
-	ceil.y = 0;
-	while (ceil.y <= (int32_t)(image->height / 2))
-	{
-		ceil.x = 0;
-		while (ceil.x <= (int32_t)image->width)
-			put_pixel(image, ceil.x++, ceil.y, scene.ceiling_color);
-		ceil.y++;
-	}
-	while (ceil.y <= (int32_t)(image->height - 1))
-	{
-		ceil.x = 0;
-		while (ceil.x <= (int32_t)image->width)
-			put_pixel(image, ceil.x++, ceil.y, scene.floor_color);
-		ceil.y++;
-	}
-}
 
 void	put_pixel(mlx_image_t *image, unsigned int x, unsigned int y,
 		unsigned int color)
@@ -62,7 +40,6 @@ void	game_loop(void *param)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
 			* sizeof(int));
-		draw_updown(image, core->scene);
 		raycast(image, core->scene);
 		minimap(image, core->scene);
 		core->scene.refresh = 0;
