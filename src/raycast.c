@@ -6,13 +6,11 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/22 19:57:24 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:20:28 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "print.h"
-#include "raycast.h"
 
 static void	init_ray(t_ray *ray, t_player player, double camera)
 {
@@ -57,12 +55,12 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->pos.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (cells[(int)ray->pos.y][(int)ray->pos.x] > SPACE)
+		if (cells[ray->pos.y][ray->pos.x] > SPACE)
 			hit++;
 	}
 }
 
-void	calculate_wall(t_wall *wall, t_ray *ray, int height)
+void	calculate_wall(t_wall *wall, t_ray *ray, unsigned int height)
 {
 	double	hit;
 
@@ -75,7 +73,7 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height)
 	if (wall->start < 0)
 		wall->start = 0;
 	wall->end = (wall->height >> 1) + (height >> 1);
-	if (wall->end >= height)
+	if (wall->end >= (int)height)
 		wall->end = height - 1;
 	if (ray->side == 0)
 		hit = ray->pos.y + wall->dist * ray->dir.y;
@@ -91,22 +89,22 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height)
 
 static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 {
+	int				y;
 	unsigned int	color;
 	double			step;
 	double			tex_pos;
 
-	if (wall.end < 0 || (unsigned)wall.start >= image->height
-		|| x >= image->width)
-		return ;
+	y = wall.start;
 	step = 1.0 * wall.texture->height / wall.height;
 	tex_pos = (wall.start - image->height / 2 + wall.height / 2) * step;
-	while (wall.start <= wall.end)
+	while (y <= wall.end)
 	{
 		wall.tex.y = (int)tex_pos & (wall.texture->height - 1);
 		tex_pos += step;
-		color = *(unsigned int *)(wall.texture->pixels + ((wall.tex.x
-						+ wall.tex.y * wall.texture->width) * sizeof(int)));
-		put_pixel(image, x, wall.start++, color);
+		color = *(unsigned *)(wall.texture->pixels + ((wall.tex.x + wall.tex.y
+						* wall.texture->width) * sizeof(int)));
+		put_pixel(image, x, y, color);
+		y++;
 	}
 }
 
