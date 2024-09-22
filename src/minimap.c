@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 20:13:31 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/23 00:01:34 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void draw_line(mlx_image_t *img, t_ivec beg, t_ivec end)
 		err = d.x;
 	err = err >> 1;
 
-    while (true) 
+    while (42) 
 	{
         put_pixel(img, beg.x, beg.y, 0x000000FF);
         if (beg.x == end.x && beg.y == end.y)
@@ -53,26 +53,41 @@ static void draw_line(mlx_image_t *img, t_ivec beg, t_ivec end)
         }
     }
 }  
-
-static void draw_circle(mlx_image_t *img,t_ivec c, int radius)
+/*
+static void draw_square(mlx_image_t *img, t_ivec c, int radius)
 {
-	unsigned short int	i;
-	unsigned short int	j;
+	unsigned short int	y;
+	unsigned short int	x;
 
-	i = 0;
-	while (i < radius << 1 && i + c.y < (int32_t)img->height)
+	y = 0;
+	while (y < radius << 1)
 	{
-		j = 0;
-		while (j < radius << 1 && j + c.x < (int32_t)img->width)
+		x = 0;
+		while (x < radius << 1)
 		{
-			if (((j - radius) * (j - radius)) + ((i - radius) * (i
-						- radius)) < (radius * radius))
-			{
-				put_pixel(img, j + c.x, i + c.y, 0x000000FF);
-			 }
-			j++;
+			put_pixel(img, x + c.x, y + c.y, 0xFFFFFFFF);
+			x++;
 		}
-		i++;
+		y++;
+	}
+}
+*/
+static void draw_circle(mlx_image_t *img, t_ivec c, int radius)
+{
+	unsigned short int	y;
+	unsigned short int	x;
+
+	y = 0;
+	while (y < radius << 1)
+	{
+		x = 0;
+		while (x < radius << 1)
+		{
+			if (pow(x - radius, 2) + pow(y - radius, 2) < pow(radius, 2))
+				put_pixel(img, x + c.x, y + c.y, 0x000000FF);
+			x++;
+		}
+		y++;
 	}
 }
 
@@ -82,7 +97,8 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	t_ivec beg;
 	t_ivec end;
 
-
+	scene.minimap.player.x -= radius;
+	scene.minimap.player.y -= radius;
 	draw_circle(img, scene.minimap.player, radius);
 	rot.x = cos(scene.player.a) * 5; 
 	rot.y = sin(scene.player.a) * 5;
@@ -94,43 +110,41 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	draw_line(img, beg, end);
 }
 
-static void draw_minimap(mlx_image_t *img, t_scene scene , int radius)
+static void draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map, int radius)
 {
-    float x;
+	t_fvec s;
     t_ivec pos;
-    x = scene.minimap.step.x;
-    pos.y = scene.player.pos.y;
+	t_ivec draw;
+	  float scale_x = (float)scene.map.cols / (float)(radius * 2);
+    float scale_y = (float)scene.map.rows / (float)(radius * 2);
 
-    while (pos.y < radius << 1 && pos.y < (int32_t)img->height)
+    pos.y = 0;
+    while (pos.y < radius << 1)
     {
-        pos.x = scene.player.pos.x;
-        scene.minimap.step.x = x;
-        while (pos.x < radius << 1 && pos.x < (int32_t)img->width)
+        pos.x = 0;
+        while (pos.x < radius << 1)
         {
-            // if (((pos.x - radius) * (pos.x - radius)) + ((pos.y - radius) * (pos.y - radius)) < (radius * radius))
-            // {
-                if (scene.minimap.step.y < scene.map.rows && scene.minimap.step.x < scene.map.cols 
+            if (pow(pos.x - radius, 2) + pow(pos.y - radius, 2) < pow(radius, 2))
+        	{
+ 				s.x = (pos.x - radius) * scale_x + scene.minimap.step.x;
+                s.y = (pos.y - radius) * scale_y + scene.minimap.step.y;
+				draw.x = pos.x + map.x;
+				draw.y = pos.y + map.y;
+				  if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols 
                     && scene.map.cells[(int)scene.minimap.step.y][(int)scene.minimap.step.x] == SPACE)
-                {
-                    put_pixel(img, pos.x + scene.minimap.step.x, pos.y + scene.minimap.step.y, 0xFFFFFFFF);
-                }
-            // }
-            scene.minimap.step.x += (float)scene.map.cols / img->width;
+					  put_pixel(img, draw.x, draw.y, 0xFFFFFFFF);
+            }
             pos.x++;
         }
-        scene.minimap.step.y += (float)scene.map.rows / img->height;
         pos.y++;
     }
 }
 
 void	minimap(mlx_image_t *image, t_scene scene)
 {
-	int32_t player_size;
-
-	player_size = scene.minimap.radius >> 4;
-	scene.minimap.step.x = scene.player.pos.x - 2.1; 
-	scene.minimap.step.y = scene.player.pos.y - 1.4;
+	scene.minimap.step.x = scene.player.pos.x; 
+	scene.minimap.step.y = scene.player.pos.y;
 	draw_sight(image);
-	draw_minimap(image, scene, scene.minimap.radius);
-	draw_player(image, scene, player_size);
+	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
+	draw_player(image, scene, scene.minimap.radius >> 4);
 }

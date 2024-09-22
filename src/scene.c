@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 20:03:14 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/22 23:02:58 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,8 @@ void	init_scene(t_scene *scene, mlx_image_t *image)
 	scene->minimap.pos.x = (image->width >> 4);
 	scene->minimap.pos.y = (image->height >> 3);
 	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) >> 1;
-	scene->minimap.player.x = scene->minimap.radius; 
-	scene->minimap.player.y = scene->minimap.radius; 
-	scene->minimap.scale.x = ((scene->minimap.radius) / scene->map.rows);
-	scene->minimap.scale.y = ((scene->minimap.radius) / scene->map.cols);
-	printf("scale \n x: %f\n y: %f\n", scene->minimap.scale.x, scene->minimap.scale.y);
+	scene->minimap.player.x = scene->minimap.pos.x + scene->minimap.radius; 
+	scene->minimap.player.y = scene->minimap.pos.y + scene->minimap.radius; 
 }
 
 t_scene	create_scene(int argc, char **argv)
