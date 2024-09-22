@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/22 19:36:43 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:57:24 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ void	calculate_wall(t_wall *wall, t_ray *ray, int height)
 
 static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 {
-	int		color;
-	double	step;
-	double	tex_pos;
+	unsigned int	color;
+	double			step;
+	double			tex_pos;
 
 	if (wall.end < 0 || (unsigned)wall.start >= image->height
 		|| x >= image->width)
@@ -102,12 +102,10 @@ static void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 	tex_pos = (wall.start - image->height / 2 + wall.height / 2) * step;
 	while (wall.start <= wall.end)
 	{
-		wall.tex.y = (int)tex_pos;
-		if (wall.tex.y >= (int)wall.texture->height)
-			wall.tex.y = wall.texture->height - 1;
+		wall.tex.y = (int)tex_pos & (wall.texture->height - 1);
 		tex_pos += step;
-		color = *(wall.texture->pixels + ((wall.tex.x + wall.tex.y
-						* wall.texture->width) * sizeof(int)));
+		color = *(unsigned int *)(wall.texture->pixels + ((wall.tex.x
+						+ wall.tex.y * wall.texture->width) * sizeof(int)));
 		put_pixel(image, x, wall.start++, color);
 	}
 }
