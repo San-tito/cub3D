@@ -6,18 +6,32 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/23 13:18:22 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/23 14:30:06 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+static void	steps(t_ivec *err, t_ivec *beg, t_ivec s, t_ivec d)
+{
+	err->y = err->x;
+	if (err->y > -d.x)
+	{
+		err->x -= d.y;
+		beg->x += s.x;
+	}
+	if (err->y < d.y)
+	{
+		err->x += d.x;
+		beg->y += s.y;
+	}
+}
+
 static void	draw_line(mlx_image_t *img, t_ivec beg, t_ivec end)
 {
-	int32_t	err;
-	int32_t	e2;
-	t_ivec	d;
 	t_ivec	s;
+	t_ivec	d;
+	t_ivec	err;
 
 	d.x = abs(end.x - beg.x);
 	d.y = abs(end.y - beg.y);
@@ -27,64 +41,40 @@ static void	draw_line(mlx_image_t *img, t_ivec beg, t_ivec end)
 		s.x = 1;
 	if (beg.y < end.y)
 		s.y = 1;
-	err = -d.y;
+	err.x = -d.y;
 	if (d.x > d.y)
-		err = d.x;
-	err = err >> 1;
+		err.x = d.x;
+	err.x = err.x >> 1;
 	while (42)
 	{
 		put_pixel(img, beg.x, beg.y, 0x000000FF);
 		if (beg.x == end.x && beg.y == end.y)
 			break ;
-		e2 = err;
-		if (e2 > -d.x)
-		{
-			err -= d.y;
-			beg.x += s.x;
-		}
-		if (e2 < d.y)
-		{
-			err += d.x;
-			beg.y += s.y;
-		}
-	}
-}
-
-static void	draw_circle(mlx_image_t *img, t_ivec c, int radius)
-{
-	unsigned short int	y;
-	unsigned short int	x;
-
-	y = 0;
-	while (y < radius << 1)
-	{
-		x = 0;
-		while (x < radius << 1)
-		{
-			if (pow(x - radius, 2) + pow(y - radius, 2) < pow(radius, 2))
-				put_pixel(img, x + c.x, y + c.y, 0x000000FF);
-			x++;
-		}
-		y++;
+		steps(&err, &beg, s, d);
 	}
 }
 
 static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 {
-	t_fvec	rot;
-	t_ivec	beg;
-	t_ivec	end;
+	t_ivec	tip;
+	t_ivec	left;
+	t_ivec	right;
+	t_ivec	center;
+	t_fvec	an;
 
-	scene.minimap.player.x -= radius;
-	scene.minimap.player.y -= radius;
-	draw_circle(img, scene.minimap.player, radius);
-	rot.x = cos(scene.player.a) * 5;
-	rot.y = sin(scene.player.a) * 5;
-	beg.x = scene.minimap.player.x + (radius);
-	beg.y = scene.minimap.player.y + (radius);
-	end.x = beg.x + rot.x * 5;
-	end.y = beg.y + rot.y * 5;
-	draw_line(img, beg, end);
+	center.x = scene.minimap.player.x + (radius >> 1);
+	center.y = scene.minimap.player.y + (radius >> 1);
+	tip.x = center.x + cos(scene.player.a) * radius * 3;
+	tip.y = center.y + sin(scene.player.a) * radius * 3;
+	an.x = scene.player.a + M_PI / 2.5;
+	an.y = scene.player.a - M_PI / 2.5;
+	left.x = center.x + cos(an.x) * radius;
+	left.y = center.y + sin(an.x) * radius;
+	right.x = center.x + cos(an.y) * radius;
+	right.y = center.y + sin(an.y) * radius;
+	draw_line(img, left, tip);
+	draw_line(img, tip, right);
+	draw_line(img, right, left);
 }
 
 static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map,
@@ -119,9 +109,9 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map,
 
 void	minimap(mlx_image_t *image, t_scene scene)
 {
+	draw_sight(image);
 	scene.minimap.step.x = scene.player.pos.x;
 	scene.minimap.step.y = scene.player.pos.y;
-	draw_sight(image);
 	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
 	draw_player(image, scene, scene.minimap.radius >> 4);
 }
