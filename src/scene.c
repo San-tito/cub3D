@@ -6,13 +6,11 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 19:14:16 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 10:58:15 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "print.h"
-#include <stdio.h>
 
 static int	check_file_extension(const char *filename, const char *expected)
 {
@@ -51,6 +49,7 @@ static void	init_scene(t_scene *scene)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
+	place_doors(&scene->map);
 }
 
 t_scene	create_scene(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 20:11:29 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 10:34:29 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef enum e_cell
 {
 	SPACE = '0',
 	WALL = '1',
-	DOOR = 'D'
+	DOOR_CLOSED,
+	DOOR_OPENING,
+	DOOR_OPEN,
+	DOOR_CLOSING
 }					t_cell;
 
 typedef struct s_player
