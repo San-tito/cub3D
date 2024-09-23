@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 23:49:28 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 09:22:29 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ void	begin_window(t_core *core, int32_t width, int32_t height)
 		libx_error("mlx error");
 	core->mlx = mlx;
 	core->img = image;
+}
+
+void	game_loop(void *param)
+{
+	t_core		*core;
+	mlx_image_t	*image;
+
+	core = (t_core *)param;
+	image = core->img;
+	event_listener(core->mlx, &core->scene);
+	mouse_listener(core->mlx, &core->scene);
+	if (core->scene.refresh)
+	{
+		ft_bzero((*image).pixels, (*image).width * (*image).height
+			* sizeof(int));
+		raycast(image, core->scene);
+		minimap(image, core->scene);
+		core->scene.refresh = 0;
+	}
 }
 
 int	main(int argc, char **argv)

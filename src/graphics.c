@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 23:58:12 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 09:31:52 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ void	put_pixel(mlx_image_t *image, unsigned int x, unsigned int y,
 			i -= sizeof(int) * 2;
 		}
 	}
+}
+
+int	get_pixel(mlx_texture_t *texture, unsigned int x, unsigned int y)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	color;
+
+	color = *(unsigned *)(texture->pixels + ((x + y * texture->width)
+				* sizeof(int)));
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	return (b << 24 | g << 16 | r << 8 | ((color >> 24) & 0xFF));
 }
 
 void	draw_ceiling(mlx_image_t *image, int draw_start, uint32_t color, int x)
@@ -57,7 +72,6 @@ void	draw_floor(mlx_image_t *image, int draw_end, uint32_t color, int x)
 void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 {
 	int		y;
-	int		color;
 	double	step;
 	double	tex_pos;
 
@@ -68,29 +82,7 @@ void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall)
 	{
 		wall.tex.y = (int)tex_pos & (wall.texture->height - 1);
 		tex_pos += step;
-		color = *(unsigned *)(wall.texture->pixels + ((wall.tex.x + wall.tex.y
-						* wall.texture->width) * sizeof(int)));
-		put_pixel(image, x, y,
-			(color & 0xFF) << 24 | (color >> 8 & 0xFF) << 16 | (color >> 16 & 0xFF) << 8 | 0xFF);
+		put_pixel(image, x, y, get_pixel(wall.texture, wall.tex.x, wall.tex.y));
 		y++;
-	}
-}
-
-void	game_loop(void *param)
-{
-	t_core		*core;
-	mlx_image_t	*image;
-
-	core = (t_core *)param;
-	image = core->img;
-	event_listener(core->mlx, &core->scene);
-	mouse_listener(core->mlx, &core->scene);
-	if (core->scene.refresh)
-	{
-		ft_bzero((*image).pixels, (*image).width * (*image).height
-			* sizeof(int));
-		raycast(image, core->scene);
-		minimap(image, core->scene);
-		core->scene.refresh = 0;
 	}
 }

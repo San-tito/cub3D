@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/23 00:03:02 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/23 09:46:23 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,25 @@ static void	calculate_wall(t_wall *wall, t_ray *ray, unsigned int height)
 		wall->end = height - 1;
 }
 
-static void	calculate_tex(t_wall *wall, t_ray ray, t_textures textures)
+static void	calculate_tex(t_wall *wall, t_fvec pos, t_ray ray,
+		t_textures textures)
 {
-	double	hit;
+	double	x;
 
 	if (ray.side == 0 && ray.step.x < 0)
-		wall->texture = textures.east;
-	if (ray.side == 0 && ray.step.x > 0)
 		wall->texture = textures.west;
-	if (ray.side == 1 && ray.step.y > 0)
+	else if (ray.side == 0 && ray.step.x > 0)
+		wall->texture = textures.east;
+	else if (ray.side == 1 && ray.step.y > 0)
 		wall->texture = textures.south;
-	if (ray.side == 1 && ray.step.y < 0)
+	else if (ray.side == 1 && ray.step.y < 0)
 		wall->texture = textures.north;
 	if (ray.side == 0)
-		hit = ray.pos.y + wall->dist * ray.dir.y;
+		x = pos.y + wall->dist * ray.dir.y;
 	else
-		hit = ray.pos.x + wall->dist * ray.dir.x;
-	hit -= floor((hit));
-	wall->tex.x = (int)(hit * (double)wall->texture->width);
+		x = pos.x + wall->dist * ray.dir.x;
+	x -= floor(x);
+	wall->tex.x = (int)(x * (double)wall->texture->width);
 	if (ray.side == 0 && ray.dir.x > 0)
 		wall->tex.x = wall->texture->width - wall->tex.x - 1;
 	if (ray.side == 1 && ray.dir.y < 0)
@@ -111,7 +112,7 @@ void	raycast(mlx_image_t *image, t_scene scene)
 		init_ray(&ray, scene.player, 2 * x / (double)image->width - 1);
 		perform_dda(&ray, scene.map.cells);
 		calculate_wall(&wall, &ray, image->height);
-		calculate_tex(&wall, ray, scene.textures);
+		calculate_tex(&wall, scene.player.pos, ray, scene.textures);
 		draw_ceiling(image, wall.start, scene.ceiling_color, x);
 		draw_wall(image, x, wall);
 		draw_floor(image, wall.end, scene.floor_color, x);
