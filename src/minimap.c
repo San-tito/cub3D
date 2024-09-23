@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/23 15:34:30 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/23 18:28:12 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	t_ivec	right;
 	t_ivec	center;
 	t_fvec	an;
-
-	center.x = scene.minimap.player.x + (radius >> 1);
-	center.y = scene.minimap.player.y + (radius >> 1);
-	tip.x = center.x + cos(scene.player.a) * radius * 3;
-	tip.y = center.y + sin(scene.player.a) * radius * 3;
-	an.x = scene.player.a + M_PI / 2.5;
-	an.y = scene.player.a - M_PI / 2.5;
+	
+	center.x = scene.minimap.player.x;
+	center.y = scene.minimap.player.y;
+	tip.x = center.x + cos(scene.player.a) * radius;
+	tip.y = center.y + sin(scene.player.a) * radius;
+	an.x = scene.player.a + M_PI / 1.5;
+	an.y = scene.player.a - M_PI / 1.5;
 	left.x = center.x + cos(an.x) * radius;
 	left.y = center.y + sin(an.x) * radius;
 	right.x = center.x + cos(an.y) * radius;
