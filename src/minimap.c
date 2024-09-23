@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/23 14:55:17 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:34:30 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	left.y = center.y + sin(an.x) * radius;
 	right.x = center.x + cos(an.y) * radius;
 	right.y = center.y + sin(an.y) * radius;
-	draw_line(img, center, left);
+	draw_line(img, right, tip);
 	draw_line(img, left, tip);
-	draw_line(img, tip, right);
+	center.x = center.x + (tip.x - center.x) * 0.4;
+	center.y = center.y + (tip.y - center.y) * 0.4;
+	draw_line(img, left, center);
 	draw_line(img, right, center);
 }
 
