@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/20 16:50:58 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:56:16 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ void	rotate(t_scene *scene, double angle)
 		- scene->player.plane.y * sin(angle);
 	scene->player.plane.y = plane * sin(angle) + scene->player.plane.y
 		* cos(angle);
-	scene->player.a += angle;
-	if (angle < 0)
-		scene->player.a -= 2 * PI;
-	else
-		scene->player.a += 2 * PI;
 	scene->refresh = 1;
 }
 

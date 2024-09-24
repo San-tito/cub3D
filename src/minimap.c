@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/23 18:28:12 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/24 15:40:18 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,18 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	t_ivec	left;
 	t_ivec	right;
 	t_ivec	center;
-	t_fvec	an;
 	
 	center.x = scene.minimap.player.x;
 	center.y = scene.minimap.player.y;
-	tip.x = center.x + cos(scene.player.a) * radius;
-	tip.y = center.y + sin(scene.player.a) * radius;
-	an.x = scene.player.a + M_PI / 1.5;
-	an.y = scene.player.a - M_PI / 1.5;
-	left.x = center.x + cos(an.x) * radius;
-	left.y = center.y + sin(an.x) * radius;
-	right.x = center.x + cos(an.y) * radius;
-	right.y = center.y + sin(an.y) * radius;
-	draw_line(img, right, tip);
+	tip.x = center.x + scene.player.dir.x * (radius);
+	tip.y = center.y + scene.player.dir.y * (radius);
+	left.x = center.x - scene.player.plane.x * (radius);
+	left.y = center.y - scene.player.plane.y * (radius);
+	right.x = center.x + scene.player.plane.x * (radius);
+	right.y = center.y + scene.player.plane.y * (radius);
+
 	draw_line(img, left, tip);
+	draw_line(img, right, tip);
 	center.x = center.x + (tip.x - center.x) * 0.4;
 	center.y = center.y + (tip.y - center.y) * 0.4;
 	draw_line(img, left, center);
