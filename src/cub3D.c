@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/23 09:22:29 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/25 09:47:15 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,14 @@ void	game_loop(void *param)
 {
 	t_core		*core;
 	mlx_image_t	*image;
+	static int	frame_count = 0;
 
 	core = (t_core *)param;
 	image = core->img;
+	frame_count++;
 	event_listener(core->mlx, &core->scene);
 	mouse_listener(core->mlx, &core->scene);
+	//update_doors(&core->scene.map, frame_count);
 	if (core->scene.refresh)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height

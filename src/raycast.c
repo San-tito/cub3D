@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/23 09:46:23 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/25 09:45:18 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	init_ray(t_ray *ray, t_player player, double camera)
 
 static void	perform_dda(t_ray *ray, t_cell **cells)
 {
-	int	hit;
+	int		hit;
+	t_cell	current;
 
 	hit = 0;
 	while (hit == 0)
@@ -55,13 +56,16 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->pos.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (cells[ray->pos.y][ray->pos.x] > SPACE)
+		current = cells[ray->pos.y][ray->pos.x];
+		if (current == WALL || current == DOOR_CLOSED)
 			hit++;
 	}
 }
 
-static void	calculate_wall(t_wall *wall, t_ray *ray, unsigned int height)
+static void	calculate_wall(t_wall *wall, t_ray *ray, t_cell **cells,
+		unsigned int height)
 {
+	wall->type = cells[ray->pos.y][ray->pos.x];
 	if (ray->side == 0)
 		wall->dist = (ray->sidedist.x - ray->deltadist.x);
 	else
@@ -111,7 +115,7 @@ void	raycast(mlx_image_t *image, t_scene scene)
 	{
 		init_ray(&ray, scene.player, 2 * x / (double)image->width - 1);
 		perform_dda(&ray, scene.map.cells);
-		calculate_wall(&wall, &ray, image->height);
+		calculate_wall(&wall, &ray, scene.map.cells, image->height);
 		calculate_tex(&wall, scene.player.pos, ray, scene.textures);
 		draw_ceiling(image, wall.start, scene.ceiling_color, x);
 		draw_wall(image, x, wall);
