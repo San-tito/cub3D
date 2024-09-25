@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/25 12:29:14 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:45:54 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	steps(t_ivec *err, t_ivec *beg, t_ivec s, t_ivec d)
 	}
 }
 
-static void	draw_line(mlx_image_t *img, t_ivec beg, t_ivec end)
+static void	draw_line(mlx_image_t *img, t_ivec beg, t_ivec end, int32_t color)
 {
 	t_ivec	s;
 	t_ivec	d;
@@ -47,7 +47,7 @@ static void	draw_line(mlx_image_t *img, t_ivec beg, t_ivec end)
 	err.x = err.x >> 1;
 	while (42)
 	{
-		put_pixel(img, beg.x, beg.y, 0x000000FF);
+		put_pixel(img, beg.x, beg.y, color);
 		if (beg.x == end.x && beg.y == end.y)
 			break ;
 		steps(&err, &beg, s, d);
@@ -69,19 +69,46 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	left.y = center.y - scene.player.plane.y * (radius);
 	right.x = center.x + scene.player.plane.x * (radius);
 	right.y = center.y + scene.player.plane.y * (radius);
-	draw_line(img, left, tip);
-	draw_line(img, right, tip);
+	draw_line(img, left, tip, scene.minimap.color);
+	draw_line(img, right, tip, scene.minimap.color);
 	center.x = center.x + (tip.x - center.x) * 0.4;
 	center.y = center.y + (tip.y - center.y) * 0.4;
-	draw_line(img, left, center);
-	draw_line(img, right, center);
+	draw_line(img, left, center, scene.minimap.color);
+	draw_line(img, right, center, scene.minimap.color);
 }
 
-static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map, int r)
+static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec pos, int r)
 {
+	t_cell	current;
 	t_fvec	s;
-	t_ivec	pos;
+	int32_t	color;
 
+	s.x = scene.minimap.step.x;
+	s.y = scene.minimap.step.y;
+	s.x = (pos.x - r) * scene.minimap.scale.x + s.x;
+	s.y = (pos.y - r) * scene.minimap.scale.y + s.y;
+	current = scene.map.cells[(int)s.y][(int)s.x];
+	if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols
+		&& current > SPACE)
+	{
+		if (current == WALL)
+			color = scene.minimap.color;
+		else
+			color = ((scene.minimap.color >> 1) & 8355711);
+		put_pixel(img, pos.x + scene.minimap.pos.x, pos.y + scene.minimap.pos.y,
+			color);
+	}
+}
+
+void	minimap(mlx_image_t *image, t_scene scene)
+{
+	t_ivec	pos;
+	int32_t	r;
+
+	// draw_sight(image);
+	scene.minimap.step.x = scene.player.pos.x;
+	scene.minimap.step.y = scene.player.pos.y;
+	r = scene.minimap.radius;
 	pos.y = 0;
 	while (pos.y < r << 1)
 	{
@@ -89,27 +116,10 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map, int r)
 		while (pos.x < r << 1)
 		{
 			if (pow(pos.x - r, 2) + pow(pos.y - r, 2) < pow(r, 2))
-			{
-				s.x = (pos.x - r) * scene.minimap.scale.x
-					+ scene.minimap.step.x;
-				s.y = (pos.y - r) * scene.minimap.scale.y
-					+ scene.minimap.step.y;
-				if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0
-					&& s.x < scene.map.cols
-					&& scene.map.cells[(int)s.y][(int)s.x] == SPACE)
-					put_pixel(img, pos.x + map.x, pos.y + map.y, 0xFFFFFFFF);
-			}
+				draw_minimap(image, scene, pos, r);
 			pos.x++;
 		}
 		pos.y++;
 	}
-}
-
-void	minimap(mlx_image_t *image, t_scene scene)
-{
-	draw_sight(image);
-	scene.minimap.step.x = scene.player.pos.x;
-	scene.minimap.step.y = scene.player.pos.y;
-	draw_minimap(image, scene, scene.minimap.pos, scene.minimap.radius);
-	draw_player(image, scene, scene.minimap.radius >> 4);
+	draw_player(image, scene, r >> 4);
 }

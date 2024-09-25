@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/24 13:56:04 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:09:39 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_orient
 
 typedef struct s_fvec
 {
-	float			x;
+	double			x;
 	float			y;
 }					t_fvec;
 
@@ -68,11 +68,11 @@ typedef struct s_textures
 typedef struct s_minimap
 {
 	t_ivec			pos;
-	t_ivec			dir;
 	t_ivec			player;
 	t_fvec			step;
 	t_fvec			scale;
 	uint32_t		radius;
+	int32_t			color;
 }					t_minimap;
 
 typedef struct s_scene
