@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/25 09:45:18 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:22:36 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->side = 1;
 		}
 		current = cells[ray->pos.y][ray->pos.x];
-		if (current == WALL || current == DOOR_CLOSED)
+		if (current < DOOR_OPEN && current > SPACE)
 			hit++;
 	}
 }
