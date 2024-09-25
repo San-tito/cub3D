@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/24 15:40:18 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:29:14 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	t_ivec	left;
 	t_ivec	right;
 	t_ivec	center;
-	
+
 	center.x = scene.minimap.player.x;
 	center.y = scene.minimap.player.y;
 	tip.x = center.x + scene.player.dir.x * (radius);
@@ -69,7 +69,6 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	left.y = center.y - scene.player.plane.y * (radius);
 	right.x = center.x + scene.player.plane.x * (radius);
 	right.y = center.y + scene.player.plane.y * (radius);
-
 	draw_line(img, left, tip);
 	draw_line(img, right, tip);
 	center.x = center.x + (tip.x - center.x) * 0.4;
@@ -78,24 +77,22 @@ static void	draw_player(mlx_image_t *img, t_scene scene, int radius)
 	draw_line(img, right, center);
 }
 
-static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map,
-		int radius)
+static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec map, int r)
 {
 	t_fvec	s;
 	t_ivec	pos;
 
 	pos.y = 0;
-	while (pos.y < radius << 1)
+	while (pos.y < r << 1)
 	{
 		pos.x = 0;
-		while (pos.x < radius << 1)
+		while (pos.x < r << 1)
 		{
-			if (pow(pos.x - radius, 2) + pow(pos.y - radius, 2) < pow(radius,
-					2))
+			if (pow(pos.x - r, 2) + pow(pos.y - r, 2) < pow(r, 2))
 			{
-				s.x = (pos.x - radius) * scene.minimap.scale.x
+				s.x = (pos.x - r) * scene.minimap.scale.x
 					+ scene.minimap.step.x;
-				s.y = (pos.y - radius) * scene.minimap.scale.y
+				s.y = (pos.y - r) * scene.minimap.scale.y
 					+ scene.minimap.step.y;
 				if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0
 					&& s.x < scene.map.cols
