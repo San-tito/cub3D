@@ -13,6 +13,8 @@
 #ifndef SCENE_H
 # define SCENE_H
 
+#include "cub3D.h"
+
 typedef enum e_orient
 {
 	NORTH = 'N',
@@ -63,16 +65,31 @@ typedef struct s_textures
 	mlx_texture_t	*west;
 }					t_textures;
 
+typedef struct s_minimap
+{
+	t_ivec			pos;
+	t_ivec			player;
+	t_fvec			step;
+	t_fvec			scale;
+	uint32_t		radius;
+	int32_t			color;
+}					t_minimap;
+
 typedef struct s_scene
 {
 	t_map			map;
 	t_player		player;
 	t_textures		textures;
+	t_minimap		minimap;
 	int8_t			refresh;
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
 }					t_scene;
 
 t_scene				create_scene(int, char **);
+void				init_scene(t_scene *, mlx_image_t *);
+void				minimap(mlx_image_t *, t_scene);
+void				midpoint(mlx_image_t *, t_ivec, int, int);
+void				draw_sight(mlx_image_t *);
 
 #endif /* SCENE_H */

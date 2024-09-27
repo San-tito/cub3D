@@ -40,8 +40,10 @@ void	check_missing(t_scene *scene)
 		fatal_error(scene, "missing player");
 }
 
-static void	init_scene(t_scene *scene)
+void	init_scene(t_scene *scene, mlx_image_t *image)
 {
+	float	zoom;
+
 	scene->refresh = 1;
 	scene->player.dir.x = 1;
 	scene->player.plane.y = tan(FOV_RAD / 2);
@@ -51,6 +53,17 @@ static void	init_scene(t_scene *scene)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
+	scene->minimap.pos.x = (image->width >> 4);
+	scene->minimap.pos.y = (image->height >> 3);
+	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) / 1.5;
+	scene->minimap.player.x = scene->minimap.pos.x + scene->minimap.radius;
+	scene->minimap.player.y = scene->minimap.pos.y + scene->minimap.radius;
+	zoom = 3.0;
+	scene->minimap.scale.x = (float)(scene->map.cols)
+		/ (scene->minimap.radius << 1) / zoom;
+	scene->minimap.scale.y = (float)(scene->map.rows)
+		/ (scene->minimap.radius << 1) / zoom;
+	scene->minimap.color =  (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -72,6 +85,5 @@ t_scene	create_scene(int argc, char **argv)
 	check_missing(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error(&scene, "the map is not closed/surrounded by walls");
-	init_scene(&scene);
 	return (scene);
 }

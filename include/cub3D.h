@@ -28,7 +28,6 @@ typedef struct s_core
 	t_scene		scene;
 }				t_core;
 
-# include "minimap.h"
 # include "callback.h"
 # include "dispose.h"
 # include "error.h"

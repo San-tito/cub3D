@@ -86,7 +86,7 @@ static void	resize_map(t_scene *scene, int new_cols)
 			scene->map.cells[row] = xrealloc(scene->map.cells[row],
 					scene->map.cols * sizeof(t_cell), new_cols
 					* sizeof(t_cell));
-			ft_memset(scene->map.cells[row] + scene->map.cols, WALL, (new_cols
+			ft_memset(scene->map.cells[row] + scene->map.cols, SPACE, (new_cols
 					- scene->map.cols) * sizeof(t_cell));
 			row++;
 		}
@@ -96,7 +96,7 @@ static void	resize_map(t_scene *scene, int new_cols)
 			* sizeof(t_cell *), (scene->map.rows + 1) * sizeof(t_cell *));
 	scene->map.cells[scene->map.rows] = xmalloc(scene->map.cols
 			* sizeof(t_cell));
-	ft_memset(scene->map.cells[scene->map.rows], WALL, scene->map.cols
+	ft_memset(scene->map.cells[scene->map.rows], SPACE, scene->map.cols
 		* sizeof(t_cell));
 	scene->map.rows++;
 }
@@ -115,7 +115,7 @@ void	parse_map(int fd, t_scene *scene, char *line)
 		if (c == SPACE || c == WALL)
 			scene->map.cells[scene->map.rows - 1][i] = c;
 		else if (ft_isspace(c))
-			scene->map.cells[scene->map.rows - 1][i] = WALL;
+			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		else if (c == NORTH || c == SOUTH || c == EAST || c == WEST)
 		{
 			if ((int)scene->player.pos.x >= 0)
