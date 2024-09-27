@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 19:14:16 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/27 20:38:07 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	init_scene(t_scene *scene, mlx_image_t *image)
 		/ (scene->minimap.radius << 1) / zoom;
 	scene->minimap.scale.y = (float)(scene->map.rows)
 		/ (scene->minimap.radius << 1) / zoom;
-	scene->minimap.color =  (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
+	scene->minimap.color = (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
 }
 
 t_scene	create_scene(int argc, char **argv)
