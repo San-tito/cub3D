@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/24 13:54:55 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/23 09:22:29 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,33 @@ void	begin_window(t_core *core, int32_t width, int32_t height)
 		libx_error("mlx error");
 	mlx_set_mouse_pos(mlx, width >> 1, height >> 1);
 	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
-	// mlx_get_monitor_size(0, &width, &height);
-	// mlx_set_window_size(mlx, width, height);
-	mlx_set_mouse_pos(mlx, width / 2, height << 1);
-	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
+	mlx_get_monitor_size(0, &width, &height);
+	mlx_set_window_size(mlx, width, height);
 	mlx_set_window_pos(mlx, 0, 0);
 	image = mlx_new_image(mlx, width, height);
 	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)
 		libx_error("mlx error");
 	core->mlx = mlx;
 	core->img = image;
+}
+
+void	game_loop(void *param)
+{
+	t_core		*core;
+	mlx_image_t	*image;
+
+	core = (t_core *)param;
+	image = core->img;
+	event_listener(core->mlx, &core->scene);
+	mouse_listener(core->mlx, &core->scene);
+	if (core->scene.refresh)
+	{
+		ft_bzero((*image).pixels, (*image).width * (*image).height
+			* sizeof(int));
+		raycast(image, core->scene);
+		minimap(image, core->scene);
+		core->scene.refresh = 0;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -42,9 +59,10 @@ int	main(int argc, char **argv)
 	core = (t_core){};
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
-	begin_window(&core, 1920, 1080);
-	init_scene(&core.scene, core.img);
-	start_renderer(core);
+	begin_window(&core, 1280, 960);
+	mlx_loop_hook(core.mlx, game_loop, &core);
+	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
+	mlx_loop(core.mlx);
 	dispose_scene(&core.scene);
 	dispose_mlx(core.mlx);
 	return (EXIT_SUCCESS);

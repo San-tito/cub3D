@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/24 13:56:16 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:40:45 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	move(t_scene *scene, float fx, float fy, double move_speed)
 {
-	if (scene->map.cells[(int)(scene->player.pos.y + fy
-			* move_speed)][(int)(scene->player.pos.x)] == SPACE)
+	if (scene->map.cells[(int)(scene->player.pos.y + fy * (move_speed
+				+ 0.01))][(int)(scene->player.pos.x)] == SPACE)
 		scene->player.pos.y += fy * move_speed;
 	if (scene->map.cells[(int)(scene->player.pos.y)][(int)(scene->player.pos.x
-			+ fx * move_speed)] == SPACE)
+			+ fx * (move_speed + 0.01))] == SPACE)
 		scene->player.pos.x += fx * move_speed;
 	scene->refresh = 1;
 }

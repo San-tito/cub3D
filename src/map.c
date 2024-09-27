@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/09/25 16:01:51 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/22 20:13:32 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	parse_map(int fd, t_scene *scene, char *line)
 			if ((int)scene->player.pos.x >= 0)
 				parser_error(fd, scene, "multiple players detected", line);
 			scene->player.pos.x = i + 0.5;
-			scene->player.pos.y = scene->map.rows - 1 + 0.5;
+			scene->player.pos.y = scene->map.rows - 0.5;
 			scene->player.spawn_orient = c;
 			scene->map.cells[scene->map.rows - 1][i] = SPACE;
 		}
