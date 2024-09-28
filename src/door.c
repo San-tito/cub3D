@@ -6,12 +6,11 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/25 09:55:21 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 12:53:57 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#define DOOR_TIMER_MAX 30
 
 void	place_doors(t_map *map)
 {
@@ -43,8 +42,8 @@ void	update_doors(t_map *map, int frame_count)
 	int		row;
 	int		col;
 	t_cell	*cell;
-	int		door_progress;
 
+	(void)frame_count;
 	row = 0;
 	while (row < map->rows)
 	{
@@ -53,28 +52,21 @@ void	update_doors(t_map *map, int frame_count)
 		{
 			cell = &map->cells[row][col];
 			if (*cell == DOOR_OPENING)
-			{
-				door_progress = frame_count % DOOR_TIMER_MAX;
-				if (door_progress >= DOOR_TIMER_MAX - 1)
-					*cell = DOOR_OPEN;
-			}
+				*cell = DOOR_OPEN;
 			else if (*cell == DOOR_CLOSING)
-			{
-				door_progress = frame_count % DOOR_TIMER_MAX;
-				if (door_progress >= DOOR_TIMER_MAX - 1)
-					*cell = DOOR_CLOSED;
-			}
-			col++;
+				*cell = DOOR_CLOSED;
 		}
-		row++;
+		col++;
 	}
+	row++;
 }
 
-void	interact_with_door(t_map *map, t_fvec player_pos)
+void	interact_with_door(t_map *map, t_fvec player_pos, t_fvec player_dir)
 {
 	t_cell	*cell;
 
-	cell = &map->cells[(int)player_pos.y][(int)player_pos.x];
+	cell = &map->cells[(int)(player_pos.y + player_dir.y)][(int)(player_pos.x
+			+ player_dir.x)];
 	if (*cell == DOOR_CLOSED)
 		*cell = DOOR_OPENING;
 	else if (*cell == DOOR_OPEN)

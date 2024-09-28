@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/23 00:21:44 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 12:46:36 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "MLX42/MLX42.h"
 # include "scene.h"
 
+# define DOOR_TIMER 31
+
 typedef struct s_core
 {
 	mlx_t		*mlx;
@@ -28,12 +30,13 @@ typedef struct s_core
 	t_scene		scene;
 }				t_core;
 
-# include "minimap.h"
 # include "callback.h"
 # include "dispose.h"
+# include "door.h"
 # include "error.h"
 # include "ft_printf.h"
 # include "limits.h"
+# include "minimap.h"
 # include "parse.h"
 # include "raycast.h"
 # include "render.h"

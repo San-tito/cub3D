@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 19:40:45 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 11:35:38 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ void	rotate(t_scene *scene, double angle)
 	scene->refresh = 1;
 }
 
+void	interact(t_scene *scene)
+{
+	/* Animate... */
+	interact_with_door(&scene->map, scene->player.pos, scene->player.dir);
+}
+
 void	mouse_listener(mlx_t *mlx, t_scene *scene)
 {
 	static float	last = 0;
@@ -57,6 +63,9 @@ void	event_listener(mlx_t *mlx, t_scene *scene)
 {
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_SPACE) || mlx_is_mouse_down(mlx,
+			MLX_MOUSE_BUTTON_LEFT))
+		interact(scene);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W))
 		move(scene, scene->player.dir.x, scene->player.dir.y, SPEED);
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S))
