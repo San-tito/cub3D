@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:54:55 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/28 18:52:14 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:26:04 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@ typedef struct s_ray
 
 typedef struct s_wall
 {
-	t_cell			type;
 	double			dist;
 	int				height;
 	int				start;
 	int				end;
-	int				color;
-	double			hit;
 	t_ivec			tex;
 	mlx_texture_t	*texture;
 }					t_wall;
