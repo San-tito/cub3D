@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/25 13:19:59 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:48:48 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_textures
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
+	mlx_texture_t	*door;
 }					t_textures;
 
 typedef struct s_scene
@@ -76,6 +77,6 @@ typedef struct s_scene
 	uint32_t		ceiling_color;
 }					t_scene;
 
-t_scene				create_scene(int, char **);
+t_scene				create_scene(int argc, char **argv);
 
 #endif /* SCENE_H */

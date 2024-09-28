@@ -6,24 +6,24 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 15:23:14 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:45:38 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	check_collision(t_cell cell)
-{
-	return (cell == SPACE || cell == DOOR_OPEN);
-}
-
 static void	move(t_scene *scene, float fx, float fy, double move_speed)
 {
-	if (check_collision(scene->map.cells[(int)(scene->player.pos.y + fy
-				* (move_speed + 0.01))][(int)(scene->player.pos.x)]))
+	int	next_y;
+	int	next_x;
+
+	next_y = (int)(scene->player.pos.y + fy * (move_speed + 0.01));
+	next_x = (int)(scene->player.pos.x + fx * (move_speed + 0.01));
+	if (scene->map.cells[next_y][(int)(scene->player.pos.x)] == SPACE
+		|| scene->map.cells[next_y][(int)(scene->player.pos.x)] == DOOR_OPEN)
 		scene->player.pos.y += fy * move_speed;
-	if (check_collision(scene->map.cells[(int)(scene->player.pos.y)][(int)(scene->player.pos.x
-				+ fx * (move_speed + 0.01))]))
+	if (scene->map.cells[(int)(scene->player.pos.y)][next_x] == SPACE
+		|| scene->map.cells[(int)(scene->player.pos.y)][next_x] == DOOR_OPEN)
 		scene->player.pos.x += fx * move_speed;
 	scene->refresh = 1;
 }
@@ -47,7 +47,6 @@ void	rotate(t_scene *scene, double angle)
 
 static void	interact(t_scene *scene)
 {
-	/* Animate... */
 	interact_with_door(&scene->map, scene->player.pos, scene->player.dir);
 }
 

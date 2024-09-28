@@ -6,20 +6,20 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 10:55:35 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:51:07 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-int		ft_isspace(int);
-int		legal_number(const char *, int *);
+int		ft_isspace(int c);
+int		legal_number(const char *string, int *result);
 void	whitespace(char **str);
-char	*read_line(int);
-int		validate_map(t_scene *);
-void	parse_scene(int, t_scene *);
-int		is_valid_cells(char *);
-void	parse_map(int, t_scene *, char *);
+char	*read_line(int fd);
+int		validate_map(t_scene *scene);
+void	parse_scene(int fd, t_scene *scene);
+int		is_valid_cells(char *line);
+void	parse_map(int fd, t_scene *scene, char *line);
 
 #endif /* PARSE_H */

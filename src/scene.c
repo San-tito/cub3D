@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/23 10:58:15 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:55:40 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ static void	init_scene(t_scene *scene)
 {
 	scene->refresh = 1;
 	scene->player.dir.x = 1;
-	scene->player.plane.y = tan(FOV_RAD / 2);
+	scene->player.plane.y = tan((FOV * (PI / 180.0)) / 2);
 	if (scene->player.spawn_orient == WEST)
 		rotate(scene, PI);
 	if (scene->player.spawn_orient == SOUTH)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
+	scene->textures.door = mlx_load_png(DOOR_TEX);
 	place_doors(&scene->map);
 }
 
