@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:33:48 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/22 19:13:09 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:27:30 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	dispose_scene(t_scene *scene)
 	dispose_texture(scene->textures.south);
 	dispose_texture(scene->textures.east);
 	dispose_texture(scene->textures.west);
+	dispose_texture(scene->textures.door);
 	dispose_map(&scene->map);
 }
