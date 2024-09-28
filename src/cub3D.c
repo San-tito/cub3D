@@ -63,6 +63,7 @@ int	main(int argc, char **argv)
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
 	begin_window(&core, 1280, 960);
+	//init_scene(&core.scene, core.img); init_minimap o esa huevada.....
 	mlx_loop_hook(core.mlx, game_loop, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);

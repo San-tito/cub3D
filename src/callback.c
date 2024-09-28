@@ -56,9 +56,10 @@ void	mouse_listener(mlx_t *mlx, t_scene *scene)
 	float			delta;
 	t_ivec			pos;
 
+	(void)scene;
 	mlx_get_mouse_pos(mlx, &pos.x, &pos.y);
 	delta = (pos.x - last);
-	if (last != 0)
+	if (last != pos.x)
 		rotate(scene, delta * SENSITIVITY);
 	last = pos.x;
 }
