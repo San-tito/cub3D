@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 14:15:35 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 16:02:12 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@ void	place_doors(t_map *map)
 	int	col;
 
 	row = 0;
-	while (row < map->rows - 1)
+	while (row < map->rows)
 	{
-		col = 1;
-		while (col < map->cols - 1)
+		col = 0;
+		while (col < map->cols)
 		{
-			if ((map->cells[row][col] == WALL && map->cells[row][col
-					- 1] == SPACE && map->cells[row][col + 1] == SPACE
-					&& map->cells[row + 1][col] == WALL && map->cells[row
-					- 1][col] == WALL))
+			if (map->cells[row][col] == WALL)
 			{
-				map->cells[row][col] = DOOR_CLOSED;
-				break ;
+				if (col > 0 && col < map->cols - 1 && row > 0 && row < map->rows
+					- 1)
+				{
+					if (map->cells[row][col - 1] == SPACE && map->cells[row][col
+						+ 1] == SPACE && map->cells[row - 1][col] == WALL
+						&& map->cells[row + 1][col] == WALL)
+						map->cells[row][col] = DOOR_CLOSED;
+					else if (map->cells[row - 1][col] == SPACE && map->cells[row
+						+ 1][col] == SPACE && map->cells[row][col - 1] == WALL
+						&& map->cells[row][col + 1] == WALL)
+						map->cells[row][col] = DOOR_CLOSED;
+				}
 			}
 			col++;
 		}
@@ -51,18 +58,11 @@ void	update_doors(t_map *map, int frame_count)
 		while (col < map->cols)
 		{
 			cell = &map->cells[row][col];
-			if (*cell == DOOR_OPENING)
-			{
-				progress = frame_count % DOOR_TIMER;
-				if (progress >= DOOR_TIMER - 1)
-					*cell = DOOR_OPEN;
-			}
-			else if (*cell == DOOR_CLOSING)
-			{
-				progress = frame_count % DOOR_TIMER;
-				if (progress >= DOOR_TIMER - 1)
-					*cell = DOOR_CLOSED;
-			}
+			progress = frame_count % DOOR_TIMER;
+			if (*cell == DOOR_OPENING && progress >= DOOR_TIMER - 1)
+				*cell = DOOR_OPEN;
+			else if (*cell == DOOR_CLOSING && progress >= DOOR_TIMER - 1)
+				*cell = DOOR_CLOSED;
 			col++;
 		}
 		row++;

@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:54:55 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/28 12:57:57 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:03:02 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ typedef struct s_wall
 	mlx_texture_t	*texture;
 }					t_wall;
 
-void				raycast(mlx_image_t *, t_scene);
+void				raycast(mlx_image_t *, t_scene, int);
 
 #endif /*  RAYCAST_H */

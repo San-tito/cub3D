@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 14:12:57 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:33:34 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	game_loop(void *param)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
 			* sizeof(int));
-		raycast(image, core->scene);
+		raycast(image, core->scene, frame_count);
 		minimap(image, core->scene);
 		core->scene.refresh = 0;
 	}

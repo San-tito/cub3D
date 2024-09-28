@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/28 14:59:16 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:19:35 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static void	calculate_wall(t_wall *wall, t_ray *ray, t_cell state,
 		wall->start += wall->height >> 2;
 		wall->end -= wall->height >> 2;
 	}
+	if (wall->type == DOOR_OPEN)
+		wall->start += wall->height / 2;
 }
 
 static void	calculate_tex(t_wall *wall, t_fvec pos, t_ray ray,
@@ -110,14 +112,16 @@ static void	calculate_tex(t_wall *wall, t_fvec pos, t_ray ray,
 		wall->tex.x = wall->texture->width - wall->tex.x - 1;
 }
 
-void	raycast(mlx_image_t *image, t_scene scene)
+void	raycast(mlx_image_t *image, t_scene scene, int frame_count)
 {
 	unsigned int	x;
 	t_ray			ray;
 	t_wall			wall;
 	t_cell			state;
+	int				door_offset;
 
 	x = 0;
+	(void)frame_count;
 	while (x < image->width)
 	{
 		init_ray(&ray, scene.player, 2 * x / (double)image->width - 1);
@@ -125,6 +129,18 @@ void	raycast(mlx_image_t *image, t_scene scene)
 		state = scene.map.cells[ray.pos.y][ray.pos.x];
 		calculate_wall(&wall, &ray, state, image->height);
 		calculate_tex(&wall, scene.player.pos, ray, scene.textures);
+		if (state == DOOR_OPENING || state == DOOR_CLOSING)
+		{
+			door_offset = (frame_count % 10) * (wall.height / 10);
+			if (state == DOOR_OPENING)
+			{
+				wall.start += door_offset;
+			}
+			else if (state == DOOR_CLOSING)
+			{
+				wall.start -= door_offset;
+			}
+		}
 		draw_ceiling(image, wall.start, scene.ceiling_color, x);
 		draw_wall(image, x, wall);
 		draw_floor(image, wall.end, scene.floor_color, x);
