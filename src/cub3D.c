@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 18:29:38 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:31:11 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ void	game_loop(void *param)
 	frame_count++;
 }
 
+static void	init_minimap(t_scene *scene, mlx_image_t *image)
+{
+	scene->minimap.pos.x = (image->width >> 4);
+	scene->minimap.pos.y = (image->height >> 3);
+	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) / 1.5;
+	scene->minimap.player.x = scene->minimap.pos.x + scene->minimap.radius;
+	scene->minimap.player.y = scene->minimap.pos.y + scene->minimap.radius;
+	scene->minimap.scale.x = (float)(scene->map.cols)
+		/ (scene->minimap.radius << 1) / 3.0;
+	scene->minimap.scale.y = (float)(scene->map.rows)
+		/ (scene->minimap.radius << 1) / 3.0;
+	scene->minimap.color = (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
+}
 int	main(int argc, char **argv)
 {
 	t_core	core;
@@ -63,7 +76,7 @@ int	main(int argc, char **argv)
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
 	begin_window(&core, 1280, 960);
-	//init_scene(&core.scene, core.img); init_minimap o esa huevada.....
+	init_minimap(&core.scene, core.img);
 	mlx_loop_hook(core.mlx, game_loop, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);

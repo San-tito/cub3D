@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/25 16:45:54 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:29:19 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	t_ivec	pos;
 	int32_t	r;
 
-	// draw_sight(image);
 	scene.minimap.step.x = scene.player.pos.x;
 	scene.minimap.step.y = scene.player.pos.y;
 	r = scene.minimap.radius;
