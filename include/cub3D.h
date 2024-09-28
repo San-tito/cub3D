@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 12:46:36 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 13:18:44 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "MLX42/MLX42.h"
 # include "scene.h"
 
-# define DOOR_TIMER 31
+# define DOOR_TIMER 30
 
 typedef struct s_core
 {

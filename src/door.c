@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 12:53:57 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 14:15:35 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	update_doors(t_map *map, int frame_count)
 	int		row;
 	int		col;
 	t_cell	*cell;
+	int		progress;
 
-	(void)frame_count;
 	row = 0;
 	while (row < map->rows)
 	{
@@ -52,13 +52,21 @@ void	update_doors(t_map *map, int frame_count)
 		{
 			cell = &map->cells[row][col];
 			if (*cell == DOOR_OPENING)
-				*cell = DOOR_OPEN;
+			{
+				progress = frame_count % DOOR_TIMER;
+				if (progress >= DOOR_TIMER - 1)
+					*cell = DOOR_OPEN;
+			}
 			else if (*cell == DOOR_CLOSING)
-				*cell = DOOR_CLOSED;
+			{
+				progress = frame_count % DOOR_TIMER;
+				if (progress >= DOOR_TIMER - 1)
+					*cell = DOOR_CLOSED;
+			}
+			col++;
 		}
-		col++;
+		row++;
 	}
-	row++;
 }
 
 void	interact_with_door(t_map *map, t_fvec player_pos, t_fvec player_dir)

@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/28 12:58:35 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 13:04:19 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->pos.y += ray->step.y;
 			ray->side = 1;
 		}
+		// check hit
 		current = cells[ray->pos.y][ray->pos.x];
-		if (current > SPACE)
+		if (current > SPACE && current < DOOR_OPEN)
 			hit++;
 	}
 }
