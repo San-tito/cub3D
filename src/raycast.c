@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/28 18:38:21 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:24:00 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ void	raycast(mlx_image_t *image, t_scene scene)
 		state = scene.map.cells[ray.pos.y][ray.pos.x];
 		calculate_wall(&wall, &ray, image->height);
 		calculate_tex(&wall, scene.player.pos, ray, scene.textures);
-		if (state > WALL && scene.textures.door)
-			wall.texture = scene.textures.door;
+		// if (state > WALL && scene.textures.door)
+		// 	wall.texture = scene.textures.door;
 		draw_ceiling(image, wall.start, scene.ceiling_color, x);
 		draw_wall(image, x, wall, state);
 		draw_floor(image, wall.end, scene.floor_color, x);

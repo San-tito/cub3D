@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 18:56:12 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:14:03 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 # include "MLX42/MLX42.h"
 # include "callback.h"
 # include "dispose.h"
-# include "door.h"
 # include "error.h"
 # include "ft_printf.h"
 # include "limits.h"
-# include "minimap.h"
 # include "parse.h"
 # include "raycast.h"
 # include "render.h"
@@ -38,7 +36,7 @@
 # define SPEED 0.1f
 # define SENSITIVITY 0.0005f
 
-# define DOOR_TEX "textures/wood.png"
+# define DOOR_TEX "textures/mossy.png"
 # define DOOR_TIMER 30
 
 typedef struct s_core

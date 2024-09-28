@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 18:55:40 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:11:22 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_missing(t_scene *scene)
 		fatal_error(scene, "missing player");
 }
 
-void	init_scene(t_scene *scene, mlx_image_t *image)
+void	init_scene(t_scene *scene)
 {
 	scene->refresh = 1;
 	scene->player.dir.x = 1;
@@ -51,19 +51,20 @@ void	init_scene(t_scene *scene, mlx_image_t *image)
 		rotate(scene, PI * 1.5);
 	scene->textures.door = mlx_load_png(DOOR_TEX);
 	place_doors(&scene->map);
-  /*
-	scene->minimap.pos.x = (image->width >> 4);
-	scene->minimap.pos.y = (image->height >> 3);
-	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) / 1.5;
-	scene->minimap.player.x = scene->minimap.pos.x + scene->minimap.radius;
-	scene->minimap.player.y = scene->minimap.pos.y + scene->minimap.radius;
-	zoom = 3.0;
-	scene->minimap.scale.x = (float)(scene->map.cols)
-		/ (scene->minimap.radius << 1) / zoom;
-	scene->minimap.scale.y = (float)(scene->map.rows)
-		/ (scene->minimap.radius << 1) / zoom;
-	scene->minimap.color = (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
-  */
+	/*
+		scene->minimap.pos.x = (image->width >> 4);
+		scene->minimap.pos.y = (image->height >> 3);
+		scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y)
+			/ 1.5;
+		scene->minimap.player.x = scene->minimap.pos.x + scene->minimap.radius;
+		scene->minimap.player.y = scene->minimap.pos.y + scene->minimap.radius;
+		zoom = 3.0;
+		scene->minimap.scale.x = (float)(scene->map.cols)
+			/ (scene->minimap.radius << 1) / zoom;
+		scene->minimap.scale.y = (float)(scene->map.rows)
+			/ (scene->minimap.radius << 1) / zoom;
+		scene->minimap.color = (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
+	*/
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -85,6 +86,6 @@ t_scene	create_scene(int argc, char **argv)
 	check_missing(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error(&scene, "the map is not closed/surrounded by walls");
-  init_scene(&scene);
+	init_scene(&scene);
 	return (scene);
 }

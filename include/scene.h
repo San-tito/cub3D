@@ -6,14 +6,14 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 18:48:48 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 19:13:19 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 
-#include "cub3D.h"
+# include "cub3D.h"
 
 typedef enum e_orient
 {
@@ -90,8 +90,11 @@ typedef struct s_scene
 	uint32_t		ceiling_color;
 }					t_scene;
 
-t_scene				create_scene(int, char **);
-void				init_scene(t_scene *, mlx_image_t *);
-void				minimap(mlx_image_t *, t_scene);
+t_scene				create_scene(int argc, char **argv);
+void				minimap(mlx_image_t *image, t_scene scene);
+void				place_doors(t_map *map);
+void				interact_with_door(t_map *map, t_fvec player_pos,
+						t_fvec player_dir);
+void				update_doors(t_map *map, int frame_count);
 
 #endif /* SCENE_H */
