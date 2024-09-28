@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:56:51 by deordone          #+#    #+#             */
-/*   Updated: 2024/09/23 09:46:23 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:38:21 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	init_ray(t_ray *ray, t_player player, double camera)
 
 static void	perform_dda(t_ray *ray, t_cell **cells)
 {
-	int	hit;
+	int		hit;
+	t_cell	current;
 
 	hit = 0;
 	while (hit == 0)
@@ -55,7 +56,8 @@ static void	perform_dda(t_ray *ray, t_cell **cells)
 			ray->pos.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (cells[ray->pos.y][ray->pos.x] > SPACE)
+		current = cells[ray->pos.y][ray->pos.x];
+		if (current > SPACE && current < DOOR_OPEN)
 			hit++;
 	}
 }
@@ -105,16 +107,20 @@ void	raycast(mlx_image_t *image, t_scene scene)
 	unsigned int	x;
 	t_ray			ray;
 	t_wall			wall;
+	t_cell			state;
 
 	x = 0;
 	while (x < image->width)
 	{
 		init_ray(&ray, scene.player, 2 * x / (double)image->width - 1);
 		perform_dda(&ray, scene.map.cells);
+		state = scene.map.cells[ray.pos.y][ray.pos.x];
 		calculate_wall(&wall, &ray, image->height);
 		calculate_tex(&wall, scene.player.pos, ray, scene.textures);
+		if (state > WALL && scene.textures.door)
+			wall.texture = scene.textures.door;
 		draw_ceiling(image, wall.start, scene.ceiling_color, x);
-		draw_wall(image, x, wall);
+		draw_wall(image, x, wall, state);
 		draw_floor(image, wall.end, scene.floor_color, x);
 		x++;
 	}

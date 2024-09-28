@@ -6,13 +6,11 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/27 20:38:07 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:55:40 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "print.h"
-#include <stdio.h>
 
 static int	check_file_extension(const char *filename, const char *expected)
 {
@@ -42,17 +40,18 @@ void	check_missing(t_scene *scene)
 
 void	init_scene(t_scene *scene, mlx_image_t *image)
 {
-	float	zoom;
-
 	scene->refresh = 1;
 	scene->player.dir.x = 1;
-	scene->player.plane.y = tan(FOV_RAD / 2);
+	scene->player.plane.y = tan((FOV * (PI / 180.0)) / 2);
 	if (scene->player.spawn_orient == WEST)
 		rotate(scene, PI);
 	if (scene->player.spawn_orient == SOUTH)
 		rotate(scene, PI * 0.5);
 	if (scene->player.spawn_orient == NORTH)
 		rotate(scene, PI * 1.5);
+	scene->textures.door = mlx_load_png(DOOR_TEX);
+	place_doors(&scene->map);
+  /*
 	scene->minimap.pos.x = (image->width >> 4);
 	scene->minimap.pos.y = (image->height >> 3);
 	scene->minimap.radius = (scene->minimap.pos.x + scene->minimap.pos.y) / 1.5;
@@ -64,6 +63,7 @@ void	init_scene(t_scene *scene, mlx_image_t *image)
 	scene->minimap.scale.y = (float)(scene->map.rows)
 		/ (scene->minimap.radius << 1) / zoom;
 	scene->minimap.color = (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
+  */
 }
 
 t_scene	create_scene(int argc, char **argv)
@@ -85,5 +85,6 @@ t_scene	create_scene(int argc, char **argv)
 	check_missing(&scene);
 	if (validate_map(&scene) == 0)
 		fatal_error(&scene, "the map is not closed/surrounded by walls");
+  init_scene(&scene);
 	return (scene);
 }

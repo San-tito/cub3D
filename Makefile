@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/09/20 23:49:30 by droied           ###   ########.fr        #
+#    Updated: 2024/09/23 10:56:31 by santito          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ MLX          = $(MLX_PATH)/libmlx42.a
 LIBFTPRINTF_PATH = ./libs/libftprintf
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-SRCS         = callback.c cub3D.c dispose.c error.c general.c graphics.c map.c parse.c print.c scene.c xmalloc.c raycast.c minimap.c sight.c
+SRCS         = callback.c cub3D.c dispose.c door.c error.c general.c graphics.c map.c parse.c print.c scene.c xmalloc.c raycast.c minimap.c
 MAIN         = cub3D.c
 
 ################################################################################
@@ -133,4 +133,4 @@ fclean: banner clean
 
 re: fclean all
 
-.PHONY: all clean fclean re header commit
+.PHONY: all banner clean fclean re

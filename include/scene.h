@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 20:11:29 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:48:48 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ typedef struct s_ivec
 typedef enum e_cell
 {
 	SPACE = '0',
-	WALL = '1',
-	DOOR = 'D'
+	WALL,
+	DOOR_CLOSING,
+	DOOR_CLOSED,
+	DOOR_OPENING,
+	DOOR_OPEN
 }					t_cell;
 
 typedef struct s_player
@@ -63,6 +66,7 @@ typedef struct s_textures
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
+	mlx_texture_t	*door;
 }					t_textures;
 
 typedef struct s_minimap
@@ -89,7 +93,5 @@ typedef struct s_scene
 t_scene				create_scene(int, char **);
 void				init_scene(t_scene *, mlx_image_t *);
 void				minimap(mlx_image_t *, t_scene);
-void				midpoint(mlx_image_t *, t_ivec, int, int);
-void				draw_sight(mlx_image_t *);
 
 #endif /* SCENE_H */

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/27 19:08:15 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:29:38 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void	game_loop(void *param)
 {
 	t_core		*core;
 	mlx_image_t	*image;
+	static int	frame_count = 0;
 
 	core = (t_core *)param;
 	image = core->img;
 	event_listener(core->mlx, &core->scene);
 	mouse_listener(core->mlx, &core->scene);
+	update_doors(&core->scene.map, frame_count);
 	if (core->scene.refresh)
 	{
 		ft_bzero((*image).pixels, (*image).width * (*image).height
@@ -50,6 +52,7 @@ void	game_loop(void *param)
 		minimap(image, core->scene);
 		core->scene.refresh = 0;
 	}
+	frame_count++;
 }
 
 int	main(int argc, char **argv)
@@ -60,7 +63,7 @@ int	main(int argc, char **argv)
 	core.scene = create_scene(argc, argv);
 	print_scene(&core.scene);
 	begin_window(&core, 1280, 960);
-	init_scene(&core.scene, core.img);
+	//init_scene(&core.scene, core.img); init_minimap o esa huevada.....
 	mlx_loop_hook(core.mlx, game_loop, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);

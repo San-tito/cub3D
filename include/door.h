@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   callback.h                                         :+:      :+:    :+:   */
+/*   door.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 18:23:37 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 18:53:54 by santito          ###   ########.fr       */
+/*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
+/*   Updated: 2024/09/28 18:47:57 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CALLBACK_H
-# define CALLBACK_H
+#ifndef DOOR_H
+# define DOOR_H
 
-# include "scene.h"
+# include "cub3D.h"
 
-void	rotate(t_scene *scene, double angle);
-void	mouse_listener(mlx_t *mlx, t_scene *scene);
-void	event_listener(mlx_t *mlx, t_scene *scene);
+void	place_doors(t_map *map);
+void	interact_with_door(t_map *map, t_fvec player_pos, t_fvec player_dir);
+void	update_doors(t_map *map, int frame_count);
 
-#endif /* CALLBACK_H */
+#endif /* DOOR_H */
