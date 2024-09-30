@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/09/22 20:13:32 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:36:46 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,26 @@ static int	flood_fill(t_map *map, int **visited, int x, int y)
 	return (1);
 }
 
-int	validate_map(t_scene *scene)
+int	validate_map(t_map *map, int x, int y)
 {
 	int	**visited;
 	int	is_closed;
 	int	i;
 	int	j;
 
-	visited = xmalloc(scene->map.rows * sizeof(int *));
+	visited = xmalloc(map->rows * sizeof(int *));
 	i = 0;
-	while (i < scene->map.rows)
+	while (i < map->rows)
 	{
-		visited[i] = xmalloc(scene->map.cols * sizeof(int));
+		visited[i] = xmalloc(map->cols * sizeof(int));
 		j = 0;
-		while (j < scene->map.cols)
+		while (j < map->cols)
 			visited[i][j++] = 0;
 		i++;
 	}
-	is_closed = flood_fill(&scene->map, visited, scene->player.pos.x,
-			scene->player.pos.y);
+	is_closed = flood_fill(map, visited, x, y);
 	i = 0;
-	while (i < scene->map.rows)
+	while (i < map->rows)
 		xfree(visited[i++]);
 	xfree(visited);
 	return (is_closed);

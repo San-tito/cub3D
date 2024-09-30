@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/09/30 09:12:58 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:37:14 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_scene	create_scene(int argc, char **argv)
 	parse_scene(fd, &scene);
 	close(fd);
 	check_missing(&scene);
-	if (validate_map(&scene) == 0)
+	if (validate_map(&scene.map, scene.player.pos.x, scene.player.pos.y) == 0)
 		fatal_error(&scene, "the map is not closed/surrounded by walls");
 	init_scene(&scene);
 	return (scene);

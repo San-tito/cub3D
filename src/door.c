@@ -6,16 +6,25 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 09:14:00 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:09:44 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+static int	is_valid_door_position(t_cell **cells, int row, int col)
+{
+	return ((cells[row][col + 1] == SPACE && cells[row][col - 1] == SPACE
+			&& cells[row + 1][col] == WALL && cells[row - 1][col] == WALL)
+		|| (cells[row][col + 1] == WALL && cells[row][col - 1] == WALL
+			&& cells[row + 1][col] == SPACE && cells[row - 1][col] == SPACE));
+}
+
 void	place_doors(t_map *map)
 {
 	int	row;
 	int	col;
+	int	valid;
 
 	row = 1;
 	while (row < map->rows - 1)
@@ -25,13 +34,10 @@ void	place_doors(t_map *map)
 		{
 			if (map->cells[row][col] == WALL)
 			{
-				if (map->cells[row][col - 1] == SPACE && map->cells[row][col
-					+ 1] == SPACE && map->cells[row - 1][col] == WALL
-					&& map->cells[row + 1][col] == WALL)
-					map->cells[row][col] = DOOR_CLOSED;
-				else if (map->cells[row - 1][col] == SPACE && map->cells[row
-					+ 1][col] == SPACE && map->cells[row][col - 1] == WALL
-					&& map->cells[row][col + 1] == WALL)
+				map->cells[row][col] = DOOR_CLOSED;
+				valid = validate_map(map, col, row);
+				map->cells[row][col] = WALL;
+				if (valid && is_valid_door_position(map->cells, row, col))
 					map->cells[row][col] = DOOR_CLOSED;
 			}
 			col++;
@@ -47,11 +53,11 @@ void	update_doors(t_map *map, int frame_count)
 	t_cell	*cell;
 	int		progress;
 
-	row = 0;
-	while (row < map->rows)
+	row = 1;
+	while (row < map->rows - 1)
 	{
-		col = 0;
-		while (col < map->cols)
+		col = 1;
+		while (col < map->cols - 1)
 		{
 			cell = &map->cells[row][col];
 			progress = frame_count % DOOR_TIMER;
