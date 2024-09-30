@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 18:39:55 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:59:51 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	draw_wall(mlx_image_t *image, unsigned int x, t_wall wall, t_cell state)
 		tex_pos += step;
 		pixel = get_pixel(wall.texture, wall.tex.x, wall.tex.y);
 		if (state == DOOR_CLOSING || DOOR_OPENING == state)
-			pixel = (pixel >> 1) & 8355711;
+			pixel = (pixel >> 1) & get_color(0x64, 0x64, 0x64, 0xFF);
 		put_pixel(image, x, y, pixel);
 		y++;
 	}
