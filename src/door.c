@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 18:09:44 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/30 18:49:16 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 static int	is_valid_door_position(t_cell **cells, int row, int col)
 {
-	return ((cells[row][col + 1] == SPACE && cells[row][col - 1] == SPACE
-			&& cells[row + 1][col] == WALL && cells[row - 1][col] == WALL)
-		|| (cells[row][col + 1] == WALL && cells[row][col - 1] == WALL
-			&& cells[row + 1][col] == SPACE && cells[row - 1][col] == SPACE));
+	int	is_corner_door;
+	int	is_horizontal_door;
+	int	is_vertical_door;
+
+	is_corner_door = (cells[row - 1][col - 1] == DOOR_CLOSED || cells[row
+			- 1][col + 1] == DOOR_CLOSED || cells[row + 1][col
+			- 1] == DOOR_CLOSED || cells[row + 1][col + 1] == DOOR_CLOSED);
+	is_horizontal_door = (cells[row][col + 1] == SPACE && cells[row][col
+			- 1] == SPACE && cells[row + 1][col] == WALL && cells[row
+			- 1][col] == WALL);
+	is_vertical_door = (cells[row][col + 1] == WALL && cells[row][col
+			- 1] == WALL && cells[row + 1][col] == SPACE && cells[row
+			- 1][col] == SPACE);
+	return ((is_horizontal_door || is_vertical_door) && is_corner_door == 0);
 }
 
 void	place_doors(t_map *map)
