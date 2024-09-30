@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 19:29:19 by droied           ###   ########.fr       */
+/*   Updated: 2024/09/30 09:32:48 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,16 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec pos, int r)
 	s.y = scene.minimap.step.y;
 	s.x = (pos.x - r) * scene.minimap.scale.x + s.x;
 	s.y = (pos.y - r) * scene.minimap.scale.y + s.y;
-	current = scene.map.cells[(int)s.y][(int)s.x];
-	if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols
-		&& current > SPACE)
+	if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols)
 	{
+		current = scene.map.cells[(int)s.y][(int)s.x];
 		if (current == WALL)
 			color = scene.minimap.color;
-		else
+		else 
 			color = ((scene.minimap.color >> 1) & 8355711);
-		put_pixel(img, pos.x + scene.minimap.pos.x, pos.y + scene.minimap.pos.y,
-			color);
+		if (current > SPACE)
+			put_pixel(img, pos.x + scene.minimap.pos.x, pos.y + scene.minimap.pos.y,
+				color);
 	}
 }
 
