@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/30 09:32:48 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:16:04 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,18 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec pos, int r)
 	t_fvec	s;
 	int32_t	color;
 
-	s.x = scene.minimap.step.x;
-	s.y = scene.minimap.step.y;
-	s.x = (pos.x - r) * scene.minimap.scale.x + s.x;
-	s.y = (pos.y - r) * scene.minimap.scale.y + s.y;
+	s.x = (pos.x - r) * scene.minimap.scale.x + scene.minimap.step.x;
+	s.y = (pos.y - r) * scene.minimap.scale.y + scene.minimap.step.y;
 	if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols)
 	{
 		current = scene.map.cells[(int)s.y][(int)s.x];
 		if (current == WALL)
 			color = scene.minimap.color;
-		else 
-			color = ((scene.minimap.color >> 1) & 8355711);
+		else
+			color = (scene.minimap.color >> 1) & 8355711;
 		if (current > SPACE)
-			put_pixel(img, pos.x + scene.minimap.pos.x, pos.y + scene.minimap.pos.y,
-				color);
+			put_pixel(img, pos.x + scene.minimap.pos.x, pos.y
+				+ scene.minimap.pos.y, color);
 	}
 }
 

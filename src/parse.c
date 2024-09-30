@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 19:30:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/15 21:40:00 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/30 18:29:03 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	parse_color(int fd, t_scene *scene, char *value, char *line)
 			value = comma + 1;
 		i++;
 	}
-	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | 255);
+	return (get_color(color[0], color[1], color[2], 0xFF));
 }
 
 static mlx_texture_t	*parse_texture(int fd, t_scene *scene, char *value,

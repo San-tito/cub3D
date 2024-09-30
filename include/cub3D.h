@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/28 19:14:03 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/30 18:28:06 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "MLX42/MLX42.h"
 # include "callback.h"
+# include "color.h"
 # include "dispose.h"
 # include "error.h"
 # include "ft_printf.h"

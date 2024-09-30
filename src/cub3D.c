@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 09:22:29 by deordone         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:43:30 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	begin_window(t_core *core, int32_t width, int32_t height)
 		libx_error("mlx error");
 	mlx_set_mouse_pos(mlx, width >> 1, height >> 1);
 	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
-	// mlx_get_monitor_size(0, &width, &height);
-	// mlx_set_window_size(mlx, width, height);
+	mlx_get_monitor_size(0, &width, &height);
+	mlx_set_window_size(mlx, width, height);
 	mlx_set_window_pos(mlx, 0, 0);
 	image = mlx_new_image(mlx, width, height);
 	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)
@@ -66,8 +66,11 @@ static void	init_minimap(t_scene *scene, mlx_image_t *image)
 		/ (scene->minimap.radius << 1) / 3.0;
 	scene->minimap.scale.y = (float)(scene->map.rows)
 		/ (scene->minimap.radius << 1) / 3.0;
-	scene->minimap.color = (((-scene->ceiling_color >> 24) & 0xFF) << 24 | ((-scene->ceiling_color >> 16) & 0xFF) << 16 | ((-scene->ceiling_color >> 8) & 0xFF) << 8 | 0xFF);
+	scene->minimap.color = get_color(get_red(-scene->ceiling_color),
+			get_green(-scene->ceiling_color), get_blue(-scene->ceiling_color),
+			0xFF);
 }
+
 int	main(int argc, char **argv)
 {
 	t_core	core;
