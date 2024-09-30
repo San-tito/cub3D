@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 19:59:51 by santito          ###   ########.fr       */
+/*   Updated: 2024/09/30 20:07:33 by santito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,13 @@ void	put_pixel(mlx_image_t *image, unsigned int x, unsigned int y,
 
 int	get_pixel(mlx_texture_t *texture, unsigned int x, unsigned int y)
 {
-	int	r;
-	int	g;
-	int	b;
+	int	a;
 	int	color;
 
 	color = *(unsigned *)(texture->pixels + ((x + y * texture->width)
 				* sizeof(int)));
-	r = get_green(color);
-	g = get_blue(color);
-	b = color & 0xFF;
-	return (get_color(b, g, r, (color >> 24) & 0xFF));
+	a = (color & 0xFF);
+	return (get_color(a, get_blue(color), get_green(color), get_red(color)));
 }
 
 void	draw_ceiling(mlx_image_t *image, int draw_start, uint32_t color, int x)
