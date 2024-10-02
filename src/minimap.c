@@ -6,12 +6,12 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/09/30 19:59:29 by santito          ###   ########.fr       */
+/*   Updated: 2024/10/02 12:09:05 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+#include "print.h"
 static void	steps(t_ivec *err, t_ivec *beg, t_ivec s, t_ivec d)
 {
 	err->y = err->x;
@@ -89,9 +89,9 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec pos, int r)
 	if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols)
 	{
 		current = scene.map.cells[(int)s.y][(int)s.x];
-		if (current != WALL)
+		if (current > WALL)
 			color = (color >> 1) & get_color(0x64, 0x64, 0x64, 0xFF);
-		if (current > SPACE)
+		if (current > SPACE && current < DOOR_OPEN)
 			put_pixel(img, pos.x + scene.minimap.pos.x, pos.y
 				+ scene.minimap.pos.y, color);
 	}
@@ -108,6 +108,8 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	pos.y = 0;
 	while (pos.y < r << 1)
 	{
+		if (pos.y == 1)
+			print_scene(&scene);
 		pos.x = 0;
 		while (pos.x < r << 1)
 		{
