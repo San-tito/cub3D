@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/10/02 12:09:05 by droied           ###   ########.fr       */
+/*   Updated: 2024/10/02 12:22:05 by droied           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec pos, int r)
 		current = scene.map.cells[(int)s.y][(int)s.x];
 		if (current > WALL)
 			color = (color >> 1) & get_color(0x64, 0x64, 0x64, 0xFF);
-		if (current > SPACE && current < DOOR_OPEN)
+		if (current > SPACE && current <= DOOR_OPEN)
 			put_pixel(img, pos.x + scene.minimap.pos.x, pos.y
 				+ scene.minimap.pos.y, color);
 	}
@@ -108,8 +108,7 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	pos.y = 0;
 	while (pos.y < r << 1)
 	{
-		if (pos.y == 1)
-			print_scene(&scene);
+		print_scene(&scene);
 		pos.x = 0;
 		while (pos.x < r << 1)
 		{
