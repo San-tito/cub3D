@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/06 02:18:22 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/06 03:16:02 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,61 @@ int	get_pixel(mlx_texture_t *texture, unsigned int x, unsigned int y)
 void	draw_ceiling(mlx_image_t *image, int draw_start, uint32_t color, int x)
 {
 	unsigned int	y;
+	uint32_t		new_color;
+	t_icolor		c;
+	t_dcolor		s;
+
+	(void)draw_start;
+	c.r = get_red(color);
+	c.g = get_green(color);
+	c.b = get_blue(color);
+	s.r = c.r / (float)(image->height >> 1);
+	s.g = c.g / (float)(image->height >> 1);
+	s.b = c.b / (float)(image->height >> 1);
 
 	y = 0;
-	while (y <= (unsigned)draw_start && y < image->height)
+	while (y < image->height)
 	{
-		put_pixel(image, x, y, color);
+		new_color = ((unsigned char)(c.r - (s.r * y)) << 24) 
+			| ((unsigned char)(c.g - (s.g * y)) << 16) 
+			| ((unsigned char)(c.b - (s.b * y)) << 8) 
+			| (color & 0xFF);
+		put_pixel(image, x, y, new_color);
 		y++;
 	}
 }
 
 void	draw_floor(mlx_image_t *image, int draw_end, uint32_t color, int x)
 {
-	unsigned int	y;
+/*	degradado floor
+ *	unsigned int	y;
+	uint32_t		new_color;
+	t_icolor		c;
+	t_dcolor		s;
+
+	(void)draw_end;
+	c.r = get_red(color);
+	c.g = get_green(color);
+	c.b = get_blue(color);
+	s.r = c.r / (float)(image->height >> 1);
+	s.g = c.g / (float)(image->height >> 1);
+	s.b = c.b / (float)(image->height >> 1);
 
 	y = draw_end;
-	while (y < image->height - 1 && y < image->height)
+	while (y < image->height >> 1)
+	{
+		new_color = ((unsigned char)(c.r - (s.r
+						* y)) << 24) | ((unsigned char)(c.g - (s.g
+						* y)) << 16) | ((unsigned char)(c.b - (s.b
+						* y)) << 8) | (color & 0xFF);
+		put_pixel(image, x, y, new_color);
+		y++;
+	}
+	*/
+
+	unsigned int	y;
+	y = draw_end;
+	while (y < image->height)
 	{
 		put_pixel(image, x, y, color);
 		y++;
