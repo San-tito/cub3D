@@ -6,12 +6,23 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:46:40 by droied            #+#    #+#             */
-/*   Updated: 2024/10/02 12:22:05 by droied           ###   ########.fr       */
+/*   Updated: 2024/10/06 02:28:09 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "print.h"
+
+static int	get_pixel_img(mlx_image_t *img, unsigned int x, unsigned int y)
+{
+	int	a;
+	int	color;
+
+	color = *(unsigned *)(img->pixels + ((x + y * img->width) * sizeof(int)));
+	a = (color & 0xFF);
+	return (get_color(get_blue(color), get_green(color), get_red(color), a));
+}
+
 static void	steps(t_ivec *err, t_ivec *beg, t_ivec s, t_ivec d)
 {
 	err->y = err->x;
@@ -83,12 +94,13 @@ static void	draw_minimap(mlx_image_t *img, t_scene scene, t_ivec pos, int r)
 	t_fvec	s;
 	int32_t	color;
 
-	color = scene.minimap.color;
 	s.x = (pos.x - r) * scene.minimap.scale.x + scene.minimap.step.x;
 	s.y = (pos.y - r) * scene.minimap.scale.y + scene.minimap.step.y;
 	if (s.y >= 0 && s.y < scene.map.rows && s.x >= 0 && s.x < scene.map.cols)
 	{
 		current = scene.map.cells[(int)s.y][(int)s.x];
+		color = get_pixel_img(img, pos.x + scene.minimap.pos.x, pos.y
+				+ scene.minimap.pos.y);
 		if (current > WALL)
 			color = (color >> 1) & get_color(0x64, 0x64, 0x64, 0xFF);
 		if (current > SPACE && current <= DOOR_OPEN)
@@ -108,7 +120,6 @@ void	minimap(mlx_image_t *image, t_scene scene)
 	pos.y = 0;
 	while (pos.y < r << 1)
 	{
-		print_scene(&scene);
 		pos.x = 0;
 		while (pos.x < r << 1)
 		{

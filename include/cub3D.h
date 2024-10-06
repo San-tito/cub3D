@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 18:28:06 by santito          ###   ########.fr       */
+/*   Updated: 2024/10/06 02:12:56 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@
 # define SENSITIVITY 0.0005f
 
 # define DOOR_TEX "textures/mossy.png"
+# define SPRITE_GUN "textures/gun.png"
 # define DOOR_TIMER 30
+# define ANIMATION_TIMER 24
 
 typedef struct s_core
 {

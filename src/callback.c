@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/09/28 18:45:38 by santito          ###   ########.fr       */
+/*   Updated: 2024/10/06 02:17:41 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	rotate(t_scene *scene, double angle)
 static void	interact(t_scene *scene)
 {
 	interact_with_door(&scene->map, scene->player.pos, scene->player.dir);
+	scene->a.motion = 1;
 }
 
 void	mouse_listener(mlx_t *mlx, t_scene *scene)

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 20:07:33 by santito          ###   ########.fr       */
+/*   Updated: 2024/10/06 02:18:22 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	draw_floor(mlx_image_t *image, int draw_end, uint32_t color, int x)
 	unsigned int	y;
 
 	y = draw_end;
-	while (y < image->height - 1)
+	while (y < image->height - 1 && y < image->height)
 	{
 		put_pixel(image, x, y, color);
 		y++;

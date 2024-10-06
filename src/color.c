@@ -6,9 +6,14 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/09/30 18:41:13 by santito          ###   ########.fr       */
+/*   Updated: 2024/10/06 01:43:41 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+int	get_alpha(int color)
+{
+	return (color & 0xFF);
+}
 
 int	get_red(int color)
 {

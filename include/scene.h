@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/10/02 12:10:43 by droied           ###   ########.fr       */
+/*   Updated: 2024/10/06 02:25:41 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ typedef struct s_textures
 	mlx_texture_t	*door;
 }					t_textures;
 
+typedef struct s_animation
+{
+	mlx_texture_t		*tex;
+	t_ivec				pos;
+	t_ivec				max;
+	t_ivec				sprite;
+	t_ivec				slice;
+	t_ivec 				total_frames;
+	t_ivec				current_frame;
+	int8_t				motion;
+}	t_animation;
+
 typedef struct s_minimap
 {
 	t_ivec			pos;
@@ -85,6 +97,7 @@ typedef struct s_scene
 	t_player		player;
 	t_textures		textures;
 	t_minimap		minimap;
+	t_animation		a;
 	int8_t			refresh;
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
@@ -96,5 +109,8 @@ void				place_doors(t_map *map);
 void				interact_with_door(t_map *map, t_fvec player_pos,
 						t_fvec player_dir);
 void				update_doors(t_map *map, int frame_count);
+void 				init_animation(mlx_image_t *img, t_animation *a, char *tex_path);
+void 				animation(mlx_image_t *img, t_animation *a, int8_t *motion);
+void				draw_frame(mlx_image_t *img, t_animation *a, t_ivec s);
 
 #endif /* SCENE_H */
