@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/09 10:24:01 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:33:53 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,12 @@ void	game_loop(void *param)
 	image = core->img;
 	event_listener(core->mlx, &core->scene);
 	mouse_listener(core->mlx, &core->scene);
-	if (core->scene.a.motion)
-	{
-		update_doors(&core->scene.map, frame_count);
-		ft_bzero((*image).pixels, (*image).width * (*image).height
-			* sizeof(int));
-		raycast(image, core->scene);
-		minimap(image, core->scene);
-		animation(image, &core->scene.a);
-		frame_count++;
-	}
+	update_doors(&core->scene.map, frame_count);
+	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
+	raycast(image, core->scene);
+	minimap(image, core->scene);
+	animation(image, &core->scene.a);
+	frame_count++;
 }
 
 static void	init_minimap(t_scene *scene, mlx_image_t *image)

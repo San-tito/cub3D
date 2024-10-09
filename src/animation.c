@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:14:59 by deordone          #+#    #+#             */
-/*   Updated: 2024/10/09 10:23:00 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:36:31 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	init_animation(mlx_image_t *img, t_animation *a, char *tex_path)
 	a->slice.y = a->sprite.y;
 	a->current_frame.x = 0;
 	a->current_frame.y = 0;
-	a->motion = 1;
 }
 
 void	draw_frame(mlx_image_t *img, t_animation *a, t_ivec s)

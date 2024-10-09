@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/10/09 10:29:26 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:37:42 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct s_animation
 	t_ivec			slice;
 	t_ivec			total_frames;
 	t_ivec			current_frame;
-	int8_t			motion;
 }					t_animation;
 
 typedef struct s_minimap
@@ -122,7 +121,6 @@ typedef struct s_scene
 	t_textures		textures;
 	t_minimap		minimap;
 	t_animation		a;
-	int8_t			refresh;
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
 }					t_scene;
