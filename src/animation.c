@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:14:59 by deordone          #+#    #+#             */
-/*   Updated: 2024/10/06 02:25:29 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:23:00 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	init_animation(mlx_image_t *img, t_animation *a, char *tex_path)
 	a->tex = mlx_load_png(tex_path);
 	if (!a->tex)
 		exit(42);
-	a->total_frames.x = 5;
-	a->total_frames.y = 3;
+	a->type = DEFAULT;
+	a->total_frames.x = MAX_FRAMES_X;
+	a->total_frames.y = MAX_FRAMES_Y;
 	a->sprite.x = a->tex->width / a->total_frames.x;
 	a->sprite.y = a->tex->height / a->total_frames.y;
-	a->pos.x = (img->width >> 1);
+	a->pos.x = (img->width) - a->sprite.x;
 	a->pos.y = (img->height) - a->sprite.y;
 	a->slice.x = a->sprite.x;
 	a->slice.y = a->sprite.y;
@@ -44,7 +45,7 @@ void	draw_frame(mlx_image_t *img, t_animation *a, t_ivec s)
 		x = a->slice.x;
 		while (x < (int32_t)(a->sprite.x) + a->slice.x)
 		{
-			color = get_pixel(a->tex, x, y);
+			color = get_pixel(a->tex->pixels, a->tex->width, x, y);
 			if (get_alpha(color) != 0)
 				put_pixel(img, (a->pos.x - a->slice.x) + x, (a->pos.y
 						- a->slice.y) + y, color);
@@ -54,14 +55,26 @@ void	draw_frame(mlx_image_t *img, t_animation *a, t_ivec s)
 	}
 }
 
-void	animation(mlx_image_t *img, t_animation *a, int8_t *motion)
+static void	animator(mlx_image_t *img, t_animation *a, t_ivec frame)
 {
-	if (*motion == a->total_frames.x * a->total_frames.y)
+	if (a->type == DEFAULT)
 	{
-		a->current_frame.x = 0;
-		a->current_frame.y = 0;
-		return ;
+		if (a->current_frame.x == 4 && a->current_frame.y == 0)
+		{
+			a->current_frame.x = 5;
+			a->current_frame.y = 2;
+		}
 	}
+	if (a->type == INTERACT)
+	{
+		if (a->current_frame.x == 2 && a->current_frame.y == 2)
+			a->type = DEFAULT;
+	}
+	draw_frame(img, a, frame);
+}
+
+void	animation(mlx_image_t *img, t_animation *a)
+{
 	if (a->current_frame.x < a->total_frames.x)
 		a->current_frame.x++;
 	if (a->current_frame.y < a->total_frames.y
@@ -71,5 +84,5 @@ void	animation(mlx_image_t *img, t_animation *a, int8_t *motion)
 		a->current_frame.x = 0;
 	if (a->current_frame.y == a->total_frames.y)
 		a->current_frame.y = 0;
-	draw_frame(img, a, a->current_frame);
+	animator(img, a, a->current_frame);
 }

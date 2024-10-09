@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/10/06 03:04:42 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:07:49 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ typedef enum e_orient
 	SOUTH = 'S',
 	WEST = 'W'
 }					t_orient;
+
+typedef enum e_type
+{
+	INTERACT,
+	MOVE,
+	ROTATE_RIGHT,
+	ROTATE_LEFT,
+	DEFAULT
+}					t_type;
 
 typedef struct s_dcolor
 {
@@ -86,6 +95,7 @@ typedef struct s_textures
 typedef struct s_animation
 {
 	mlx_texture_t		*tex;
+	t_type				type;
 	t_ivec				pos;
 	t_ivec				max;
 	t_ivec				sprite;
@@ -124,7 +134,7 @@ void				interact_with_door(t_map *map, t_fvec player_pos,
 						t_fvec player_dir);
 void				update_doors(t_map *map, int frame_count);
 void 				init_animation(mlx_image_t *img, t_animation *a, char *tex_path);
-void 				animation(mlx_image_t *img, t_animation *a, int8_t *motion);
+void 				animation(mlx_image_t *img, t_animation *a);
 void				draw_frame(mlx_image_t *img, t_animation *a, t_ivec s);
 
 #endif /* SCENE_H */
