@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/10/09 10:07:49 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:29:26 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct s_dcolor
 
 typedef struct s_icolor
 {
-	uint32_t			r;
-	uint32_t			g;
-	uint32_t			b;
+	uint32_t		r;
+	uint32_t		g;
+	uint32_t		b;
 }					t_icolor;
 
 typedef struct s_fvec
@@ -94,16 +94,16 @@ typedef struct s_textures
 
 typedef struct s_animation
 {
-	mlx_texture_t		*tex;
-	t_type				type;
-	t_ivec				pos;
-	t_ivec				max;
-	t_ivec				sprite;
-	t_ivec				slice;
-	t_ivec 				total_frames;
-	t_ivec				current_frame;
-	int8_t				motion;
-}	t_animation;
+	mlx_texture_t	*tex;
+	t_type			type;
+	t_ivec			pos;
+	t_ivec			max;
+	t_ivec			sprite;
+	t_ivec			slice;
+	t_ivec			total_frames;
+	t_ivec			current_frame;
+	int8_t			motion;
+}					t_animation;
 
 typedef struct s_minimap
 {
@@ -133,8 +133,9 @@ void				place_doors(t_map *map);
 void				interact_with_door(t_map *map, t_fvec player_pos,
 						t_fvec player_dir);
 void				update_doors(t_map *map, int frame_count);
-void 				init_animation(mlx_image_t *img, t_animation *a, char *tex_path);
-void 				animation(mlx_image_t *img, t_animation *a);
+void				init_animation(mlx_image_t *img, t_animation *a,
+						char *tex_path);
+void				animation(mlx_image_t *img, t_animation *a);
 void				draw_frame(mlx_image_t *img, t_animation *a, t_ivec s);
 
 #endif /* SCENE_H */
