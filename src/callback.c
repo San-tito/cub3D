@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/10/11 12:46:10 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:38:32 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	mouse_listener(mlx_t *mlx, t_scene *scene)
 	float			delta;
 	t_ivec			pos;
 
-	(void)scene;
+	if (last == 0)
+		last = mlx->width >> 1;
 	mlx_get_mouse_pos(mlx, &pos.x, &pos.y);
 	delta = (pos.x - last);
 	if (last != pos.x)

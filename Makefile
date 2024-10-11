@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 15:43:32 by sguzman           #+#    #+#              #
-#    Updated: 2024/10/04 16:18:47 by deordone         ###   ########.fr        #
+#    Updated: 2024/10/11 15:39:11 by deordone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME        = cub3D
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -Wunreachable-code #-Ofast
+CFLAGS      = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DFLAGS      = -MMD -MF $(@:.o=.d)
 AUTHORS		= Droied4 && San-tito
 UNAME 		= $(shell uname)

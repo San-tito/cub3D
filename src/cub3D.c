@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/11 14:51:24 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:44:40 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	begin_window(t_core *core, int32_t width, int32_t height)
 	mlx = mlx_init(width, height, PROGRAM, 0);
 	if (mlx == 0)
 		libx_error("mlx error");
-	mlx_set_mouse_pos(mlx, width >> 1, height >> 1);
 	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
 	image = mlx_new_image(mlx, width, height);
 	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)

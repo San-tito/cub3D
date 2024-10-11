@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:30:43 by droied            #+#    #+#             */
-/*   Updated: 2024/10/09 10:38:03 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:31:46 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	check_missing(t_scene *scene)
 
 void	init_scene(t_scene *scene)
 {
+	scene->refresh = 1;
 	scene->player.dir.x = 1;
 	scene->player.plane.y = tan((FOV * (PI / 180.0)) / 2);
 	if (scene->player.spawn_orient == WEST)
