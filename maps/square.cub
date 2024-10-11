@@ -1,7 +1,7 @@
 NO textures/42N.png
 SO textures/42S.png
-WE textures/42W.png
-EA textures/42E.png
+WE textures/pipewall.png
+EA textures/pipewall.png
 
 F 0,0,0
 C 0,128,255

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:01:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/09 10:21:34 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:24:25 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_ceiling(mlx_image_t *image, int draw_start, uint32_t color, int x)
 {
 	unsigned int	y;
 	uint32_t		new_color;
-	t_icolor		c;
+	t_dcolor		c;
 	t_dcolor		s;
 
 	(void)draw_start;

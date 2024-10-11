@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/09 10:33:53 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:22:02 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 	print_scene(&core.scene);
 	begin_window(&core, 1280, 960);
 	init_minimap(&core.scene, core.img);
-	init_animation(core.img, &core.scene.a, SPRITE_MAGIC);
+	init_animation(core.img, &core.scene.a, SPRITE_TEX);
 	mlx_loop_hook(core.mlx, game_loop, &core);
 	mlx_close_hook(core.mlx, (void (*)(void *))mlx_close_window, core.mlx);
 	mlx_loop(core.mlx);

@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/10/09 10:37:42 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:19:38 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef enum e_type
 {
 	INTERACT,
 	MOVE,
-	ROTATE_RIGHT,
-	ROTATE_LEFT,
 	DEFAULT
 }					t_type;
 
@@ -38,13 +36,6 @@ typedef struct s_dcolor
 	double			g;
 	double			b;
 }					t_dcolor;
-
-typedef struct s_icolor
-{
-	uint32_t		r;
-	uint32_t		g;
-	uint32_t		b;
-}					t_icolor;
 
 typedef struct s_fvec
 {

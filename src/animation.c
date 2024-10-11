@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:14:59 by deordone          #+#    #+#             */
-/*   Updated: 2024/10/09 10:36:31 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:27:39 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	init_animation(mlx_image_t *img, t_animation *a, char *tex_path)
 {
 	a->tex = mlx_load_png(tex_path);
 	if (!a->tex)
-		exit(42);
+		return ;
 	a->type = DEFAULT;
-	a->total_frames.x = MAX_FRAMES_X;
-	a->total_frames.y = MAX_FRAMES_Y;
+	a->total_frames.x = SPRITE_FRAMES_X;
+	a->total_frames.y = SPRITE_FRAMES_Y;
 	a->sprite.x = a->tex->width / a->total_frames.x;
 	a->sprite.y = a->tex->height / a->total_frames.y;
 	a->pos.x = (img->width) - a->sprite.x;
@@ -74,6 +74,8 @@ static void	animator(mlx_image_t *img, t_animation *a, t_ivec frame)
 
 void	animation(mlx_image_t *img, t_animation *a)
 {
+	if (a->tex == 0)
+		return ;
 	if (a->current_frame.x < a->total_frames.x)
 		a->current_frame.x++;
 	if (a->current_frame.y < a->total_frames.y
