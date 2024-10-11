@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:21:05 by droied            #+#    #+#             */
-/*   Updated: 2024/10/02 11:54:35 by droied           ###   ########.fr       */
+/*   Updated: 2024/10/11 16:11:13 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_valid_cells(char *line)
 {
 	whitespace(&line);
 	if (*line == 0)
-		return (0);
+		return (1);
 	while (*line)
 	{
 		if ((*line == '0' || *line == '1' || *line == 'N' || *line == 'S'
