@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:25 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/10 18:29:48 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:27:37 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SPEED 0.1f
 # define SENSITIVITY 0.0005f
 
-# define DOOR_TEX "textures/42D.png"
+# define DOOR_TEX "textures/door.png"
 # define DOOR_TIMER 30
 # define SPRITE_TEX "textures/magic.png"
 # define SPRITE_FRAMES_X 10

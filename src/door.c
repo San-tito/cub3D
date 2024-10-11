@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/06 02:26:11 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:49:30 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	update_doors(t_map *map, int frame_count)
 		while (col < map->cols - 1)
 		{
 			cell = &map->cells[row][col];
-			progress = frame_count % DOOR_TIMER;
-			if (*cell == DOOR_OPENING && progress >= DOOR_TIMER - 1)
+			progress = frame_count & DOOR_TIMER;
+			if (*cell == DOOR_OPENING && progress >= DOOR_TIMER)
 				*cell = DOOR_OPEN;
-			else if (*cell == DOOR_CLOSING && progress >= DOOR_TIMER - 1)
+			else if (*cell == DOOR_CLOSING && progress >= DOOR_TIMER)
 				*cell = DOOR_CLOSED;
 			col++;
 		}

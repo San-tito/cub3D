@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:47:13 by droied            #+#    #+#             */
-/*   Updated: 2024/10/09 10:37:52 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:46:10 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	move(t_scene *scene, float fx, float fy, double move_speed)
 	if (scene->map.cells[(int)(scene->player.pos.y)][next_x] == SPACE
 		|| scene->map.cells[(int)(scene->player.pos.y)][next_x] == DOOR_OPEN)
 		scene->player.pos.x += fx * move_speed;
+	scene->refresh = 1;
 }
 
 void	rotate(t_scene *scene, double angle)
@@ -41,6 +42,7 @@ void	rotate(t_scene *scene, double angle)
 		- scene->player.plane.y * sin(angle);
 	scene->player.plane.y = plane * sin(angle) + scene->player.plane.y
 		* cos(angle);
+	scene->refresh = 1;
 }
 
 static void	interact(t_scene *scene)

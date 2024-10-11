@@ -6,7 +6,7 @@
 /*   By: droied <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:29:18 by droied            #+#    #+#             */
-/*   Updated: 2024/10/10 18:19:38 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:39:55 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_scene
 	t_textures		textures;
 	t_minimap		minimap;
 	t_animation		a;
+	int8_t			refresh;
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
 }					t_scene;

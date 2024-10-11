@@ -6,7 +6,7 @@
 /*   By: deordone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:14:59 by deordone          #+#    #+#             */
-/*   Updated: 2024/10/10 18:27:39 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:35:43 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,13 @@ static void	animator(mlx_image_t *img, t_animation *a, t_ivec frame)
 {
 	if (a->type == DEFAULT)
 	{
-		if (a->current_frame.x == 4 && a->current_frame.y == 0)
-		{
-			a->current_frame.x = 5;
-			a->current_frame.y = 2;
-		}
+		a->current_frame.x = 0;
+		a->current_frame.y = 0;
 	}
 	if (a->type == INTERACT)
 	{
-		if (a->current_frame.x == 2 && a->current_frame.y == 2)
+		if (a->current_frame.x == SPRITE_FRAMES_X - 1
+			&& a->current_frame.y == SPRITE_FRAMES_Y - 1)
 			a->type = DEFAULT;
 	}
 	draw_frame(img, a, frame);

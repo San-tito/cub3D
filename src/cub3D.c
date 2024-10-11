@@ -6,17 +6,12 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:43:11 by sguzman           #+#    #+#             */
-/*   Updated: 2024/10/10 18:22:02 by deordone         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:51:24 by deordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "print.h"
-
-/*
-mlx_get_monitor_size(0, &width, &height);
-mlx_set_window_size(mlx, width, height);
-*/
 
 void	begin_window(t_core *core, int32_t width, int32_t height)
 {
@@ -28,7 +23,6 @@ void	begin_window(t_core *core, int32_t width, int32_t height)
 		libx_error("mlx error");
 	mlx_set_mouse_pos(mlx, width >> 1, height >> 1);
 	mlx_set_cursor_mode(mlx, MLX_MOUSE_DISABLED);
-	mlx_set_window_pos(mlx, 0, 0);
 	image = mlx_new_image(mlx, width, height);
 	if (image == 0 || (mlx_image_to_window(mlx, image, 0, 0)) < 0)
 		libx_error("mlx error");
@@ -47,10 +41,15 @@ void	game_loop(void *param)
 	event_listener(core->mlx, &core->scene);
 	mouse_listener(core->mlx, &core->scene);
 	update_doors(&core->scene.map, frame_count);
-	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
-	raycast(image, core->scene);
-	minimap(image, core->scene);
-	animation(image, &core->scene.a);
+	if (core->scene.refresh || core->scene.a.type == INTERACT)
+	{
+		ft_bzero((*image).pixels, (*image).width * (*image).height
+			* sizeof(int));
+		raycast(image, core->scene);
+		minimap(image, core->scene);
+		animation(image, &core->scene.a);
+		core->scene.refresh = 0;
+	}
 	frame_count++;
 }
 

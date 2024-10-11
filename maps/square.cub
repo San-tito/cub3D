@@ -1,7 +1,7 @@
-NO textures/42N.png
-SO textures/42S.png
-WE textures/pipewall.png
-EA textures/pipewall.png
+NO textures/brick_purple.png
+SO textures/brick_grey.png
+WE textures/brick_yellow.png
+EA textures/brick_blue.png
 
 F 0,0,0
 C 0,128,255
