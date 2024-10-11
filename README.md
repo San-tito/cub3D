@@ -36,6 +36,8 @@
 
 The `cub3D` project is about creating a simple shell.
 
+https://github.com/user-attachments/assets/e61c0e43-10b6-48c9-ab58-cae092ab5096
+
 ---
 
 ## 📦 Features
